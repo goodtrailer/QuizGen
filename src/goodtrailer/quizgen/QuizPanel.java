@@ -1,7 +1,6 @@
 package goodtrailer.quizgen;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -23,7 +22,7 @@ public class QuizPanel extends JPanel
     private Box problemsBox = new Box(BoxLayout.Y_AXIS);
     private JButton submitButton = new JButton("Submit");
     private JScrollPane scrollPane = new JScrollPane(problemsBox);
-    private ArrayList<IProblem> problems = new ArrayList<IProblem>();
+    private IProblem[] problems;
 
     public QuizPanel()
     {
@@ -41,12 +40,12 @@ public class QuizPanel extends JPanel
 
     public void Generate(IProblemFactory factory, int count)
     {
-        problems.clear();
+        problems = new IProblem[count];
         problemsBox.removeAll();
-        for (int i = 0; i < count; i++)
+        for (var i = count - 1; i >= 0; i--)
         {
             var p = factory.Generate();
-            problems.add(p);
+            problems[i] = p;
             problemsBox.add(new JSeparator(SwingConstants.HORIZONTAL), 0);
             problemsBox.add(p.GetPanel(), 0);
         }
@@ -54,7 +53,7 @@ public class QuizPanel extends JPanel
 
     public int SubmitAll()
     {
-        int correct = 0;
+        var correct = 0;
         for (var question : problems)
             if (question.Submit())
                 correct++;
@@ -63,6 +62,6 @@ public class QuizPanel extends JPanel
 
     public int GetCount()
     {
-        return problems.size();
+        return problems.length;
     }
 }

@@ -16,8 +16,8 @@ public class Main
     
     private static void run()
     {
-        JFrame frame = new JFrame("QuizGen");
-        QuizPanel quizPanel = new QuizPanel();
+        var frame = new JFrame("QuizGen");
+        var quizPanel = new QuizPanel();
         quizPanel.Generate(new Ch10ProblemFactory(), 30);
         quizPanel.setPreferredSize(new Dimension(600, 400));
         

@@ -20,7 +20,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         yIntersect0 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
         slope1 = (int) (Math.random() * (MAX_SLOPE + 1));
         yIntersect1 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
-        double x = ((double) yIntersect1 - yIntersect0) / (slope0 - slope1);
+        var x = ((double) yIntersect1 - yIntersect0) / (slope0 - slope1);
         intersection = new double[] { x, slope0 * x + yIntersect0 };
         SetPrompt(String.format(
                 "Find the point where the lines { %s } and { %s } intersect. %s and %s are valid.",
