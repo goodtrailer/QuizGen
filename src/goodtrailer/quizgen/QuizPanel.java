@@ -1,6 +1,5 @@
 package goodtrailer.quizgen;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -17,13 +16,10 @@ import goodtrailer.quizgen.problem.IProblemFactory;
 
 public class QuizPanel extends JPanel
 {
+    public static final int SCROLL_INCREMENT = 5;
+
     private static final long serialVersionUID = 4126538549451781876L;
 
-    public static final int DEFAULT_WIDTH = 600;
-    public static final int DEFAULT_HEIGHT = 400;
-    public static final int MAX_WIDTH = (int)(DEFAULT_WIDTH * 2.0);
-    public static final int SCROLL_INCREMENT = 5;
-    
     private Box problemsBox = new Box(BoxLayout.Y_AXIS);
     private JButton submitButton = new JButton("Submit");
     private JScrollPane scrollPane = new JScrollPane(problemsBox);
@@ -31,14 +27,13 @@ public class QuizPanel extends JPanel
 
     public QuizPanel()
     {
-        problemsBox.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
         submitButton.addActionListener((ActionEvent ae) ->
         {
             SubmitAll();
         });
-        
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(scrollPane);
         add(submitButton);
@@ -52,8 +47,8 @@ public class QuizPanel extends JPanel
         {
             var p = factory.Generate();
             problems.add(p);
-            problemsBox.add(p.GetPanel());
-            problemsBox.add(new JSeparator(SwingConstants.HORIZONTAL));
+            problemsBox.add(new JSeparator(SwingConstants.HORIZONTAL), 0);
+            problemsBox.add(p.GetPanel(), 0);
         }
     }
 

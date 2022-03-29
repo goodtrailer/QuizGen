@@ -1,5 +1,7 @@
 package goodtrailer.quizgen;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -16,7 +18,8 @@ public class Main
     {
         JFrame frame = new JFrame("QuizGen");
         QuizPanel quizPanel = new QuizPanel();
-        quizPanel.Generate(new Ch10ProblemFactory(), 10);
+        quizPanel.Generate(new Ch10ProblemFactory(), 30);
+        quizPanel.setPreferredSize(new Dimension(600, 400));
         
         frame.add(quizPanel);
         frame.pack();
