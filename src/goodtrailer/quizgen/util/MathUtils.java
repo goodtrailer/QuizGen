@@ -16,7 +16,7 @@ public abstract class MathUtils
         switch (subs.length)
         {
         case 0:
-            return 0.0;
+            throw new NumberFormatException("empty string");
         case 1:
             return Double.parseDouble(subs[0]);
         case 2:

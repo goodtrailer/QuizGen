@@ -35,16 +35,16 @@ public class LineIntersectionProblem extends AbstractFrqProblem
     {
         input = input.trim();
         
-        if (input.isBlank())
-            return false;
-        
-        if (intersection[0] == Double.NaN)
+        if (slope0 == slope1)
         {
             if (yIntersect0 == yIntersect1)
                 return input.equals(MathConstants.TRUE);
             else
                 return input.equals(MathConstants.DOES_NOT_EXIST);
         }
+        
+        if (input.isBlank())
+            return false;
 
         double[] inPoint;
         try
