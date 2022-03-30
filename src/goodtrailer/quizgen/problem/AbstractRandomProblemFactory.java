@@ -1,22 +1,19 @@
 package goodtrailer.quizgen.problem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class AbstractRandomProblemFactory implements IProblemFactory
 {
-    private ArrayList<IProblemFactory> factories;
+    private IProblemFactory[] factories;
     
     public AbstractRandomProblemFactory()
     {
-        factories = new ArrayList<IProblemFactory>(GetFactories());
+        factories = getFactories().clone();
     }
     
     @Override
-    public final IProblem Generate()
+    public final IProblem get()
     {
-        return factories.get((int)(Math.random() * factories.size())).Generate();
+        return factories[(int)(Math.random() * factories.length)].get();
     }
     
-    protected abstract List<IProblemFactory> GetFactories();
+    protected abstract IProblemFactory[] getFactories();
 }

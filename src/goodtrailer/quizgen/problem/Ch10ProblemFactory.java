@@ -1,16 +1,13 @@
 package goodtrailer.quizgen.problem;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Ch10ProblemFactory extends AbstractWeightedProblemFactory
 {
     @Override
-    protected List<WeightedFactory> GetWeightedFactories()
+    protected WeightedFactory[] getWeightedFactories()
     {
-        return Arrays.asList(new WeightedFactory[] {
+        return new WeightedFactory[] {
                 new WeightedFactory(LineIntersectionProblem::new, 2),
                 new WeightedFactory(LineDistanceProblem::new, 1),
-        });
+        };
     }
 }

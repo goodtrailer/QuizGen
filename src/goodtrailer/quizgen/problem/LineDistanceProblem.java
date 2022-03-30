@@ -11,26 +11,31 @@ public class LineDistanceProblem extends AbstractFrqProblem
     private int yIntersect0;
     private int yIntersect1;
     private double distance;
-
-    public LineDistanceProblem()
+    
+    @Override
+    protected void initialize()
     {
         slope = (int) (Math.random() * (MAX_SLOPE + 1));
         yIntersect0 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
         yIntersect1 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
         distance = Math.abs(yIntersect1 - yIntersect0) / Math.sqrt(slope * slope + 1);
-
-        SetPrompt(String.format("Find the minimum distance between the lines { %s } and { %s }.",
-                MathUtils.LineAsString(slope, yIntersect0),
-                MathUtils.LineAsString(slope, yIntersect1)));
+    }
+    
+    @Override
+    protected String getPrompt()
+    {
+        return String.format("Find the minimum distance between the lines { %s } and { %s }.",
+                MathUtils.lineAsString(slope, yIntersect0),
+                MathUtils.lineAsString(slope, yIntersect1));
     }
 
     @Override
-    protected boolean CheckInput(String input)
+    protected boolean checkInput(String input)
     {
         double inDistance;
         try
         {
-            inDistance = MathUtils.ParseFraction(input);
+            inDistance = MathUtils.parseFraction(input);
         }
         catch (NumberFormatException nfe)
         {
@@ -38,6 +43,6 @@ public class LineDistanceProblem extends AbstractFrqProblem
             return false;
         }
 
-        return MathUtils.AreEqual(inDistance, distance);
+        return MathUtils.areEqual(inDistance, distance);
     }
 }

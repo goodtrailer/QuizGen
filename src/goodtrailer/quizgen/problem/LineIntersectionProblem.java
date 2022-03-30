@@ -14,27 +14,37 @@ public class LineIntersectionProblem extends AbstractFrqProblem
     private int yIntersect1;
     private double[] intersection;
 
-    public LineIntersectionProblem()
+    @Override
+    protected void initialize()
     {
         slope0 = (int) (Math.random() * (MAX_SLOPE + 1));
         yIntersect0 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
         slope1 = (int) (Math.random() * (MAX_SLOPE + 1));
         yIntersect1 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
-        var x = ((double) yIntersect1 - yIntersect0) / (slope0 - slope1);
+
+        double x = ((double) yIntersect1 - yIntersect0) / (slope0 - slope1);
         intersection = new double[] { x, slope0 * x + yIntersect0 };
-        SetPrompt(String.format(
-                "Find the point where the lines { %s } and { %s } intersect. %s and %s are valid.",
-                MathUtils.LineAsString(slope0, yIntersect0),
-                MathUtils.LineAsString(slope1, yIntersect1),
-                MathConstants.DOES_NOT_EXIST,
-                MathConstants.TRUE));
     }
 
     @Override
-    public boolean CheckInput(String input)
+    protected String getPrompt()
+    {
+        return String.format(
+                "Find the point where the lines { %s } and { %s } intersect. %s and %s are valid.",
+                MathUtils.lineAsString(slope0, yIntersect0),
+                MathUtils.lineAsString(slope1, yIntersect1),
+                MathConstants.DOES_NOT_EXIST,
+                MathConstants.TRUE);
+    }
+
+    @Override
+    public boolean checkInput(String input)
     {
         input = input.trim();
-        
+
+        if (input.isBlank())
+            return false;
+
         if (slope0 == slope1)
         {
             if (yIntersect0 == yIntersect1)
@@ -42,14 +52,11 @@ public class LineIntersectionProblem extends AbstractFrqProblem
             else
                 return input.equals(MathConstants.DOES_NOT_EXIST);
         }
-        
-        if (input.isBlank())
-            return false;
 
         double[] inPoint;
         try
         {
-            inPoint = MathUtils.ParsePoint(input);
+            inPoint = MathUtils.parsePoint(input);
         }
         catch (NumberFormatException nfe)
         {
@@ -59,7 +66,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
 
         if (inPoint.length != 2)
             return false;
-        
-        return MathUtils.AreEqual(inPoint, intersection);
+
+        return MathUtils.areEqual(inPoint, intersection);
     }
 }

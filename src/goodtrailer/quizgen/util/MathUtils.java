@@ -2,7 +2,7 @@ package goodtrailer.quizgen.util;
 
 public abstract class MathUtils
 {
-    public static double ParseFraction(String string)
+    public static double parseFraction(String string)
     {
         string = string.trim();
 
@@ -26,7 +26,7 @@ public abstract class MathUtils
         }
     }
 
-    public static double[] ParsePoint(String string)
+    public static double[] parsePoint(String string)
     {
         string = string.trim();
 
@@ -36,39 +36,39 @@ public abstract class MathUtils
         var components = string.substring(1, string.length() - 1).split(",");
         var point = new double[components.length];
         for (var i = 0; i < components.length; i++)
-            point[i] = ParseFraction(components[i]);
+            point[i] = parseFraction(components[i]);
         return point;
     }
 
-    public static boolean AreEqual(double a, double b, int places)
+    public static boolean areEqual(double a, double b, int places)
     {
         var epsilon = Math.pow(10.0, -places) / 2;
         return Math.abs(a - b) <= epsilon;
     }
 
-    public static boolean AreEqual(double a, double b)
+    public static boolean areEqual(double a, double b)
     {
-        return AreEqual(a, b, 3);
+        return areEqual(a, b, 3);
     }
     
-    public static boolean AreEqual(double[] a, double[] b, int places)
+    public static boolean areEqual(double[] a, double[] b, int places)
     {
         if (a.length != b.length)
             return false;
         
         for (int i = 0; i < a.length; i++)
-            if (!AreEqual(a[i], b[i], places))
+            if (!areEqual(a[i], b[i], places))
                 return false;
         
         return true;
     }
     
-    public static boolean AreEqual(double[] a, double[] b)
+    public static boolean areEqual(double[] a, double[] b)
     {
-        return AreEqual(a, b, 3);
+        return areEqual(a, b, 3);
     }
 
-    public static String LineAsString(int slope, int yIntersect)
+    public static String lineAsString(int slope, int yIntersect)
     {
         return String.format("y = %dx + %d", slope, yIntersect);
     }

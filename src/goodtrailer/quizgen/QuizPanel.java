@@ -30,7 +30,7 @@ public class QuizPanel extends JPanel
         scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
         submitButton.addActionListener((ActionEvent ae) ->
         {
-            SubmitAll();
+            submitAll();
         });
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -38,29 +38,29 @@ public class QuizPanel extends JPanel
         add(submitButton);
     }
 
-    public void Generate(IProblemFactory factory, int count)
+    public void generate(IProblemFactory factory, int count)
     {
         problems = new IProblem[count];
         problemsBox.removeAll();
-        for (var i = count - 1; i >= 0; i--)
+        for (int i = count - 1; i >= 0; i--)
         {
-            var p = factory.Generate();
+            var p = factory.get();
             problems[i] = p;
             problemsBox.add(new JSeparator(SwingConstants.HORIZONTAL), 0);
-            problemsBox.add(p.GetPanel(), 0);
+            problemsBox.add(p.getPanel(), 0);
         }
     }
 
-    public int SubmitAll()
+    public int submitAll()
     {
-        var correct = 0;
+        int correct = 0;
         for (var question : problems)
-            if (question.Submit())
+            if (question.submit())
                 correct++;
         return correct;
     }
 
-    public int GetCount()
+    public int count()
     {
         return problems.length;
     }

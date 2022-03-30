@@ -1,47 +1,36 @@
 package goodtrailer.quizgen.problem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 {
-    private ArrayList<WeightedFactory> wFactories;
+    private WeightedFactory[] wFactories;
     private int[] thresholds;
     private int weightSum = 0;
-    
+
     public AbstractWeightedProblemFactory()
     {
-        wFactories = new ArrayList<WeightedFactory>(GetWeightedFactories());
-        thresholds = new int[wFactories.size()];
+        wFactories = getWeightedFactories().clone();
+        thresholds = new int[wFactories.length];
         weightSum = 0;
-        for (var i = 0; i < wFactories.size(); i++)
+        for (int i = 0; i < wFactories.length; i++)
         {
             thresholds[i] = weightSum;
-            weightSum += wFactories.get(i).Weight;
+            weightSum += wFactories[i].weight;
         }
     }
-    
+
     @Override
-    public final IProblem Generate()
+    public final IProblem get()
     {
-        var x = (int)(Math.random() * weightSum);
-        for (var i = thresholds.length - 1; i >= 0; i--)
+        int x = (int) (Math.random() * weightSum);
+        for (int i = thresholds.length - 1; i >= 0; i--)
             if (x >= thresholds[i])
-                return wFactories.get(i).ProblemFactory.Generate();
+                return wFactories[i].problemFactory.get();
         throw new IllegalStateException("no weighted problem factories");
     }
-    
-    protected abstract List<WeightedFactory> GetWeightedFactories();
-    
-    protected class WeightedFactory
+
+    protected abstract WeightedFactory[] getWeightedFactories();
+
+    protected record WeightedFactory(IProblemFactory problemFactory, int weight)
     {
-        public IProblemFactory ProblemFactory;
-        public int Weight;
-        
-        public WeightedFactory(IProblemFactory problemFactory, int weight)
-        {
-            this.ProblemFactory = problemFactory;
-            this.Weight = weight;
-        }
-    }
+    };
 }

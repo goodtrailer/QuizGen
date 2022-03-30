@@ -1,6 +1,7 @@
 package goodtrailer.quizgen.problem;
 
-public interface IProblemFactory
+import java.util.function.Supplier;
+
+public interface IProblemFactory extends Supplier<IProblem>
 {
-    IProblem Generate();
 }

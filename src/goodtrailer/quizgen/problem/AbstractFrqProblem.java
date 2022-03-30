@@ -29,6 +29,9 @@ public abstract class AbstractFrqProblem implements IProblem
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
         
+        initialize();
+        promptText.setText(getPrompt());
+        
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
         panel.add(promptText);
@@ -36,23 +39,21 @@ public abstract class AbstractFrqProblem implements IProblem
         panel.add(inputText);
     }
     
-    public final boolean Submit()
+    @Override
+    public final boolean submit()
     {
-        boolean isCorrect = CheckInput(inputText.getText());
+        boolean isCorrect = checkInput(inputText.getText());
         inputText.setBackground(isCorrect ? COLOR_CORRECT : COLOR_WRONG);
         return isCorrect;
     }
     
-    protected void SetPrompt(String prompt)
-    {
-        promptText.setText(prompt);
-    }
-    
-    protected abstract boolean CheckInput(String input);
-    
     @Override
-    public JPanel GetPanel()
+    public JPanel getPanel()
     {
         return panel;
     }
+    
+    protected abstract void initialize();
+    protected abstract boolean checkInput(String input);
+    protected abstract String getPrompt();
 }
