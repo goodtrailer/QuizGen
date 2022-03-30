@@ -4,7 +4,6 @@ public abstract class AbstractRandomProblemFactory implements IProblemFactory
 {
     private IProblemFactory[] factories;
     
-    public AbstractRandomProblemFactory()
     {
         factories = getFactories().clone();
     }

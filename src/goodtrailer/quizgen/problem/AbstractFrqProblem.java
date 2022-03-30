@@ -11,15 +11,15 @@ import javax.swing.JTextArea;
 
 public abstract class AbstractFrqProblem implements IProblem
 {
-    public static final Color  COLOR_CORRECT = new Color(0xD7F4D2);
+    public static final Color COLOR_CORRECT = new Color(0xD7F4D2);
     public static final Color COLOR_WRONG = new Color(0xFFA9A9);
     public static final int COLUMNS = 20;
     public static final int PADDING = 10;
-    
+
     private JPanel panel = new JPanel();
     private JTextArea promptText = new JTextArea("void");
     private JTextArea inputText = new JTextArea();
-    
+
     public AbstractFrqProblem()
     {
         promptText.setColumns(COLUMNS);
@@ -38,7 +38,7 @@ public abstract class AbstractFrqProblem implements IProblem
         panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
         panel.add(inputText);
     }
-    
+
     @Override
     public final boolean submit()
     {
@@ -46,14 +46,14 @@ public abstract class AbstractFrqProblem implements IProblem
         inputText.setBackground(isCorrect ? COLOR_CORRECT : COLOR_WRONG);
         return isCorrect;
     }
-    
+
     @Override
     public JPanel getPanel()
     {
         return panel;
     }
-    
-    protected abstract void initialize();
+
     protected abstract boolean checkInput(String input);
     protected abstract String getPrompt();
+    protected abstract void initialize();
 }

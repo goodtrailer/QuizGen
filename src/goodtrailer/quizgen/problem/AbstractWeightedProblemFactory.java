@@ -6,11 +6,9 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
     private int[] thresholds;
     private int weightSum = 0;
 
-    public AbstractWeightedProblemFactory()
     {
         wFactories = getWeightedFactories().clone();
         thresholds = new int[wFactories.length];
-        weightSum = 0;
         for (int i = 0; i < wFactories.length; i++)
         {
             thresholds[i] = weightSum;

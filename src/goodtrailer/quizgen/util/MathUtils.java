@@ -48,7 +48,7 @@ public abstract class MathUtils
 
     public static boolean areEqual(double a, double b)
     {
-        return areEqual(a, b, 3);
+        return areEqual(a, b, MathConstants.DEFAULT_PLACES);
     }
     
     public static boolean areEqual(double[] a, double[] b, int places)
@@ -65,11 +65,6 @@ public abstract class MathUtils
     
     public static boolean areEqual(double[] a, double[] b)
     {
-        return areEqual(a, b, 3);
-    }
-
-    public static String lineAsString(int slope, int yIntersect)
-    {
-        return String.format("y = %dx + %d", slope, yIntersect);
+        return areEqual(a, b, MathConstants.DEFAULT_PLACES);
     }
 }

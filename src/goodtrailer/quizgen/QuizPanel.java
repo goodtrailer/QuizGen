@@ -19,11 +19,17 @@ public class QuizPanel extends JPanel
 
     private static final long serialVersionUID = 4126538549451781876L;
 
-    private Box problemsBox = new Box(BoxLayout.Y_AXIS);
-    private JButton submitButton = new JButton("Submit");
-    private JScrollPane scrollPane = new JScrollPane(problemsBox);
+    private Box problemsBox;
+    private JButton submitButton;
+    private JScrollPane scrollPane;
     private IProblem[] problems;
 
+    {
+        problemsBox = new Box(BoxLayout.PAGE_AXIS);
+        submitButton = new JButton("Submit");
+        scrollPane = new JScrollPane(problemsBox);
+    }
+    
     public QuizPanel()
     {
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
@@ -33,7 +39,7 @@ public class QuizPanel extends JPanel
             submitAll();
         });
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(scrollPane);
         add(submitButton);
     }

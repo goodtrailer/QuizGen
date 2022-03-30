@@ -1,32 +1,27 @@
 package goodtrailer.quizgen.problem;
 
+import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathUtils;
 
 public class LineDistanceProblem extends AbstractFrqProblem
 {
-    public static final int MAX_SLOPE = 12;
-    public static final int MAX_Y_INTERSECT = 16;
-
-    private int slope;
-    private int yIntersect0;
-    private int yIntersect1;
+    private Line line0;
+    private Line line1;
     private double distance;
     
     @Override
     protected void initialize()
     {
-        slope = (int) (Math.random() * (MAX_SLOPE + 1));
-        yIntersect0 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
-        yIntersect1 = (int) (Math.random() * (MAX_Y_INTERSECT + 1));
-        distance = Math.abs(yIntersect1 - yIntersect0) / Math.sqrt(slope * slope + 1);
+        line0 = Line.random();
+        line1 = Line.randomParallel(line0);
+        distance = line0.distance(line1);
     }
     
     @Override
     protected String getPrompt()
     {
         return String.format("Find the minimum distance between the lines { %s } and { %s }.",
-                MathUtils.lineAsString(slope, yIntersect0),
-                MathUtils.lineAsString(slope, yIntersect1));
+                line0.toString(), line1.toString());
     }
 
     @Override
