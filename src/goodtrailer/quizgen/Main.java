@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import goodtrailer.quizgen.problem.Ch10ProblemFactory;
+import goodtrailer.quizgen.problem.ChapterProblemFactory;
 
 public class Main
 {
@@ -18,7 +18,7 @@ public class Main
     {
         var frame = new JFrame("QuizGen");
         var quizPanel = new QuizPanel();
-        quizPanel.generate(new Ch10ProblemFactory(), 30);
+        quizPanel.generate(new ChapterProblemFactory(10), 30);
         quizPanel.setPreferredSize(new Dimension(600, 400));
         
         frame.add(quizPanel);
