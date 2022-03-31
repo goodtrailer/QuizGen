@@ -1,5 +1,7 @@
 package goodtrailer.quizgen.util;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public abstract class MathUtils
 {
     public static double parseFraction(String string)
@@ -66,5 +68,15 @@ public abstract class MathUtils
     public static boolean areEqual(double[] a, double[] b)
     {
         return areEqual(a, b, MathConstants.DEFAULT_PLACES);
+    }
+    
+    public static int randomInt(int inclusiveMax)
+    {
+        return ThreadLocalRandom.current().nextInt(-inclusiveMax, inclusiveMax + 1);
+    }
+    
+    public static double randomDouble(double max)
+    {
+        return ThreadLocalRandom.current().nextDouble(-max, max);
     }
 }

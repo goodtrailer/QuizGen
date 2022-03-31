@@ -29,13 +29,14 @@ public record Line(int slope, int yIntercept)
     
     public String toString()
     {
-        return String.format("y = %dx + %d", slope, yIntercept);
+        String operation = yIntercept >= 0 ? "+" : "-";
+        return String.format("y = %dx %s %d", slope, operation, Math.abs(yIntercept));
     }
 
     public static Line random(int maxSlope, int maxYIntercept)
     {
-        int slope = (int) (Math.random() * (maxSlope + 1));
-        int yIntercept = (int) (Math.random() * (maxYIntercept + 1));
+        int slope = MathUtils.randomInt(maxSlope);
+        int yIntercept = MathUtils.randomInt(maxYIntercept);
         return new Line(slope, yIntercept);
     }
 
@@ -46,7 +47,7 @@ public record Line(int slope, int yIntercept)
 
     public static Line randomParallel(Line line, int maxYIntercept)
     {
-        int yIntercept = (int) (Math.random() * (maxYIntercept + 1));
+        int yIntercept = MathUtils.randomInt(maxYIntercept);
         return new Line(line.slope, yIntercept);
     }
 
