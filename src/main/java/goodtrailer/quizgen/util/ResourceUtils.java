@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 public abstract class ResourceUtils
 {
-    public static final ImageIcon loadImage(String path)
+    public static final ImageIcon getImage(String path)
     {
         if (path.isBlank())
             return null;
