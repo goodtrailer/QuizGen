@@ -1,11 +1,15 @@
 package goodtrailer.quizgen.problem;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -19,25 +23,35 @@ public abstract class AbstractFrqProblem implements IProblem
 
     private JPanel panel = new JPanel();
     private JTextArea promptText = new JTextArea("void");
+    private JLabel pictureLabel = new JLabel();
     private JTextArea inputText = new JTextArea();
 
     public AbstractFrqProblem()
     {
+        initialize();
+
         promptText.setColumns(COLUMNS);
         promptText.setEditable(false);
         promptText.setLineWrap(true);
         promptText.setOpaque(false);
+        promptText.setText(getPrompt());
+
+        pictureLabel.setIcon(getImage());
+
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
-
-        initialize();
-        promptText.setText(getPrompt());
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
         panel.add(promptText);
         panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
+        panel.add(pictureLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
         panel.add(inputText);
+        
+        for (var c : panel.getComponents())
+            if (c instanceof JComponent jc)
+                jc.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     @Override
@@ -62,6 +76,8 @@ public abstract class AbstractFrqProblem implements IProblem
     protected abstract Result checkInput(String input);
 
     protected abstract String getPrompt();
+
+    protected abstract Icon getImage();
 
     protected abstract void initialize();
 }

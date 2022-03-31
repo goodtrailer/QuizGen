@@ -2,7 +2,7 @@ package goodtrailer.quizgen.problem;
 
 public class Ch10ProblemFactory extends AbstractWeightedProblemFactory
 {
-    private final static WeightedFactory[] weighted_factories = new WeightedFactory[] {
+    private static final WeightedFactory[] weighted_factories = new WeightedFactory[] {
             new WeightedFactory(LineIntersectionProblem::new, 2),
             new WeightedFactory(LineDistanceProblem::new, 1),
     };

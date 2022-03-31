@@ -1,5 +1,7 @@
 package goodtrailer.quizgen.problem;
 
+import javax.swing.Icon;
+
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathUtils;
 
@@ -22,6 +24,12 @@ public class LineDistanceProblem extends AbstractFrqProblem
     {
         return String.format("Find the minimum distance between the lines { %s } and { %s }.",
                 line0.toString(), line1.toString());
+    }
+    
+    @Override
+    protected Icon getImage()
+    {
+        return null;
     }
 
     @Override
