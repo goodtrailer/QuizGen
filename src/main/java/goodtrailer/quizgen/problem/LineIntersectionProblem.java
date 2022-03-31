@@ -46,9 +46,9 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         switch (line0.solutionType(line1))
         {
         case DOES_NOT_EXIST:
-            return Result.fromBoolean(input.equals(MathConstants.DOES_NOT_EXIST));
+            return Result.from(input.equals(MathConstants.DOES_NOT_EXIST));
         case TRUE:
-            return Result.fromBoolean(input.equals(MathConstants.TRUE));
+            return Result.from(input.equals(MathConstants.TRUE));
         case EXISTS:
             double[] inPoint;
             try
@@ -63,7 +63,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
             if (inPoint.length != 2)
                 return Result.INVALID;
 
-            return Result.fromBoolean(MathUtils.areEqual(inPoint, intersection));
+            return Result.from(MathUtils.areEqual(inPoint, intersection));
         default:
             throw new IllegalStateException("illegal line solution type");
         }

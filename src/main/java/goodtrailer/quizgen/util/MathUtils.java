@@ -2,15 +2,19 @@ package goodtrailer.quizgen.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class MathUtils
+public final class MathUtils
 {
+    private MathUtils()
+    {
+    }
+    
     public static double parseFraction(String string)
     {
         string = string.trim();
 
         if (string.isEmpty())
             throw new NumberFormatException("empty string");
-        
+
         if (string.charAt(0) == '/')
             throw new NumberFormatException("starts with fraction bar");
 
@@ -52,29 +56,29 @@ public abstract class MathUtils
     {
         return areEqual(a, b, MathConstants.DEFAULT_PLACES);
     }
-    
+
     public static boolean areEqual(double[] a, double[] b, int places)
     {
         if (a.length != b.length)
             return false;
-        
+
         for (int i = 0; i < a.length; i++)
             if (!areEqual(a[i], b[i], places))
                 return false;
-        
+
         return true;
     }
-    
+
     public static boolean areEqual(double[] a, double[] b)
     {
         return areEqual(a, b, MathConstants.DEFAULT_PLACES);
     }
-    
+
     public static int randomInt(int inclusiveMax)
     {
         return ThreadLocalRandom.current().nextInt(-inclusiveMax, inclusiveMax + 1);
     }
-    
+
     public static double randomDouble(double max)
     {
         return ThreadLocalRandom.current().nextDouble(-max, max);

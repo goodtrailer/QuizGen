@@ -6,7 +6,7 @@ public enum Result
     CORRECT,
     INVALID;
     
-    public static Result fromBoolean(boolean isCorrect)
+    public static Result from(boolean isCorrect)
     {
         return isCorrect ? CORRECT : INCORRECT;
     }

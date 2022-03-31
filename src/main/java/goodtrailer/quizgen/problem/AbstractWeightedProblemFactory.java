@@ -1,5 +1,7 @@
 package goodtrailer.quizgen.problem;
 
+import java.util.Arrays;
+
 public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 {
     private WeightedFactory[] wFactories = getWeightedFactories();
@@ -18,11 +20,14 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
     @Override
     public final IProblem get()
     {
+        if (thresholds.length == 0)
+            throw new IllegalStateException("no weighted problem factories");
+
         int x = (int) (Math.random() * weightSum);
-        for (int i = thresholds.length - 1; i >= 0; i--)
-            if (x >= thresholds[i])
-                return wFactories[i].problemFactory.get();
-        throw new IllegalStateException("no weighted problem factories");
+        int i = Arrays.binarySearch(thresholds, x);
+        if (i < 0)
+            i = -i - 2;
+        return wFactories[i].problemFactory.get();
     }
 
     protected abstract WeightedFactory[] getWeightedFactories();

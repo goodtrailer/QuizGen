@@ -45,6 +45,6 @@ public class LineDistanceProblem extends AbstractFrqProblem
             return Result.INVALID;
         }
 
-        return Result.fromBoolean(MathUtils.areEqual(inDistance, distance));
+        return Result.from(MathUtils.areEqual(inDistance, distance));
     }
 }
