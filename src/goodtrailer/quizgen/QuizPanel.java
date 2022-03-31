@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 
 import goodtrailer.quizgen.problem.IProblem;
 import goodtrailer.quizgen.problem.IProblemFactory;
+import goodtrailer.quizgen.problem.Result;
 
 public class QuizPanel extends JPanel
 {
@@ -61,7 +62,7 @@ public class QuizPanel extends JPanel
     {
         int correct = 0;
         for (var question : problems)
-            if (question.submit())
+            if (question.submit() == Result.CORRECT)
                 correct++;
         return correct;
     }

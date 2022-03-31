@@ -12,7 +12,8 @@ import javax.swing.JTextArea;
 public abstract class AbstractFrqProblem implements IProblem
 {
     public static final Color COLOR_CORRECT = new Color(0xD7F4D2);
-    public static final Color COLOR_WRONG = new Color(0xFFA9A9);
+    public static final Color COLOR_INCORRECT = new Color(0xFFA9A9);
+    public static final Color COLOR_INVALID = new Color(0xFEC98F);
     public static final int COLUMNS = 20;
     public static final int PADDING = 10;
 
@@ -28,10 +29,10 @@ public abstract class AbstractFrqProblem implements IProblem
         promptText.setOpaque(false);
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
-        
+
         initialize();
         promptText.setText(getPrompt());
-        
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
         panel.add(promptText);
@@ -40,11 +41,16 @@ public abstract class AbstractFrqProblem implements IProblem
     }
 
     @Override
-    public final boolean submit()
+    public final Result submit()
     {
-        boolean isCorrect = checkInput(inputText.getText());
-        inputText.setBackground(isCorrect ? COLOR_CORRECT : COLOR_WRONG);
-        return isCorrect;
+        var result = checkInput(inputText.getText());
+        inputText.setBackground(switch (result)
+        {
+        case INCORRECT -> COLOR_INCORRECT;
+        case CORRECT -> COLOR_CORRECT;
+        case INVALID -> COLOR_INVALID;
+        });
+        return result;
     }
 
     @Override
@@ -53,7 +59,9 @@ public abstract class AbstractFrqProblem implements IProblem
         return panel;
     }
 
-    protected abstract boolean checkInput(String input);
+    protected abstract Result checkInput(String input);
+
     protected abstract String getPrompt();
+
     protected abstract void initialize();
 }

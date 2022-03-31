@@ -8,7 +8,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
     private Line line0;
     private Line line1;
     private double distance;
-    
+
     @Override
     protected void initialize()
     {
@@ -16,7 +16,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
         line1 = Line.randomParallel(line0);
         distance = line0.distance(line1);
     }
-    
+
     @Override
     protected String getPrompt()
     {
@@ -25,7 +25,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
     }
 
     @Override
-    protected boolean checkInput(String input)
+    protected Result checkInput(String input)
     {
         double inDistance;
         try
@@ -34,10 +34,9 @@ public class LineDistanceProblem extends AbstractFrqProblem
         }
         catch (NumberFormatException nfe)
         {
-            // TODO: handle invalid inputs, maybe enum for correct/incorrect/invalid
-            return false;
+            return Result.INVALID;
         }
 
-        return MathUtils.areEqual(inDistance, distance);
+        return Result.fromBoolean(MathUtils.areEqual(inDistance, distance));
     }
 }

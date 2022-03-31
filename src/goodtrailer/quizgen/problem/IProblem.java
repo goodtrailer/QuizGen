@@ -4,6 +4,6 @@ import javax.swing.JPanel;
 
 public interface IProblem
 {
-    boolean submit();
+    Result submit();
     JPanel getPanel();
 }
