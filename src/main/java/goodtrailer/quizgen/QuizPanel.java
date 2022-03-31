@@ -1,6 +1,7 @@
 package goodtrailer.quizgen;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import goodtrailer.quizgen.problem.IProblem;
 import goodtrailer.quizgen.problem.IProblemFactory;
@@ -19,6 +21,7 @@ import goodtrailer.quizgen.problem.Result;
 public class QuizPanel extends JPanel
 {
     public static final int SCROLL_INCREMENT = 5;
+    public static final int PADDING = 5;
 
     private static final long serialVersionUID = 4126538549451781876L;
 
@@ -31,13 +34,12 @@ public class QuizPanel extends JPanel
     {
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
-        submitButton.addActionListener((ActionEvent ae) ->
-        {
-            submitAll();
-        });
+        submitButton.addActionListener((ActionEvent ae) -> submitAll());
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         add(scrollPane);
+        add(Box.createRigidArea(new Dimension(0, PADDING)));
         add(submitButton);
         
         for (var c : getComponents())

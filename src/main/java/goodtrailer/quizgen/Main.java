@@ -38,7 +38,7 @@ public class Main
         {
             System.err.println("Failed to set font.");
         }
-        
+
         SwingUtilities.invokeLater(Main::run);
     }
 
