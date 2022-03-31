@@ -2,17 +2,13 @@ package goodtrailer.quizgen.problem;
 
 public abstract class AbstractRandomProblemFactory implements IProblemFactory
 {
-    private IProblemFactory[] factories;
-    
-    {
-        factories = getFactories().clone();
-    }
-    
+    private IProblemFactory[] factories = getFactories();
+
     @Override
     public final IProblem get()
     {
-        return factories[(int)(Math.random() * factories.length)].get();
+        return factories[(int) (Math.random() * factories.length)].get();
     }
-    
+
     protected abstract IProblemFactory[] getFactories();
 }

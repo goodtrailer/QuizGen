@@ -1,10 +1,12 @@
 package goodtrailer.quizgen;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -20,16 +22,10 @@ public class QuizPanel extends JPanel
 
     private static final long serialVersionUID = 4126538549451781876L;
 
-    private Box problemsBox;
-    private JButton submitButton;
-    private JScrollPane scrollPane;
+    private Box problemsBox = new Box(BoxLayout.PAGE_AXIS);
+    private JButton submitButton = new JButton("Submit");
+    private JScrollPane scrollPane = new JScrollPane(problemsBox);
     private IProblem[] problems;
-
-    {
-        problemsBox = new Box(BoxLayout.PAGE_AXIS);
-        submitButton = new JButton("Submit");
-        scrollPane = new JScrollPane(problemsBox);
-    }
     
     public QuizPanel()
     {
@@ -43,6 +39,10 @@ public class QuizPanel extends JPanel
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(scrollPane);
         add(submitButton);
+        
+        for (var c : getComponents())
+            if (c instanceof JComponent jc)
+                jc.setAlignmentX(Component.RIGHT_ALIGNMENT);
     }
 
     public void generate(IProblemFactory factory, int count)

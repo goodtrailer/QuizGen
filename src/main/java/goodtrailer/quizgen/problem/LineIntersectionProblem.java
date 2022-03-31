@@ -28,7 +28,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
                 line0.toString(), line1.toString(), MathConstants.DOES_NOT_EXIST,
                 MathConstants.TRUE);
     }
-    
+
     @Override
     protected Icon getImage()
     {

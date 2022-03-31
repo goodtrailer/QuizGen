@@ -2,13 +2,12 @@ package goodtrailer.quizgen.problem;
 
 public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 {
-    private WeightedFactory[] wFactories;
-    private int[] thresholds;
+    private WeightedFactory[] wFactories = getWeightedFactories();
+    private int[] thresholds = new int[wFactories.length];
     private int weightSum = 0;
 
+    public AbstractWeightedProblemFactory()
     {
-        wFactories = getWeightedFactories().clone();
-        thresholds = new int[wFactories.length];
         for (int i = 0; i < wFactories.length; i++)
         {
             thresholds[i] = weightSum;

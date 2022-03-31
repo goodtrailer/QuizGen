@@ -48,7 +48,7 @@ public abstract class AbstractFrqProblem implements IProblem
         panel.add(pictureLabel);
         panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
         panel.add(inputText);
-        
+
         for (var c : panel.getComponents())
             if (c instanceof JComponent jc)
                 jc.setAlignmentX(Component.LEFT_ALIGNMENT);
