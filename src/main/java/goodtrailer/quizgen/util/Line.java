@@ -20,17 +20,28 @@ public record Line(int slope, int yIntercept)
 
         return SolutionType.EXISTS;
     }
-    
+
     public double[] solution(Line other)
     {
         double x = ((double) other.yIntercept - yIntercept) / (slope - other.slope);
         return new double[] { x, slope * x + yIntercept };
     }
-    
+
     public String toString()
     {
-        String operation = yIntercept >= 0 ? "+" : "-";
-        return String.format("y = %dx %s %d", slope, operation, Math.abs(yIntercept));
+        String prefix = "y = ";
+
+        if (slope == 0 && yIntercept == 0)
+            return prefix + "0";
+
+        if (slope == 0)
+            return prefix + yIntercept;
+
+        if (yIntercept == 0)
+            return prefix + slope + "x";
+
+        return prefix + (slope == 1 ? "" : Integer.toString(slope)) + "x"
+                + (yIntercept > 0 ? " + " : " - ") + Math.abs(yIntercept);
     }
 
     public static Line random(int maxSlope, int maxYIntercept)
