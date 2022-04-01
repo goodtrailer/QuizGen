@@ -65,7 +65,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
 
             return Result.from(intersection.equals(inPoint));
         default:
-            throw new IllegalStateException("illegal line solution type");
+            throw new IllegalStateException("illegal solution type");
         }
     }
 }
