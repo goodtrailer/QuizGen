@@ -2,6 +2,7 @@ package goodtrailer.quizgen.problem;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -28,22 +29,17 @@ public abstract class AbstractProblem implements IProblem
         promptText.setLineWrap(true);
         promptText.setOpaque(false);
         promptText.setText(getPrompt());
-
+        
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        panel.add(promptText);
-        panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
-        var components = getComponents();
-        if (components != null)
-            for (var c : components)
-            {
-                panel.add(c);
-                panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
-            }
-
-        for (var c : panel.getComponents())
-            if (c instanceof JComponent jc)
-                jc.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        var components = new ArrayList<JComponent>();
+        addComponents(components);
+        for (var c : components)
+        {
+            c.setAlignmentX(Component.LEFT_ALIGNMENT);
+            panel.add(c);
+        }
     }
     
     @Override
@@ -52,9 +48,19 @@ public abstract class AbstractProblem implements IProblem
         return panel;
     }
 
+    protected void addComponents(List<JComponent> components)
+    {
+        components.add(promptText);
+        components.add(createFiller());
+    }
+
     protected abstract void initialize();
 
-    protected abstract List<JComponent> getComponents();
-
     protected abstract String getPrompt();
+    
+    protected static JComponent createFiller()
+    {
+        var dim = new Dimension(0, PADDING);
+        return new Box.Filler(dim, dim, dim);
+    }
 }

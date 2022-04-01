@@ -1,6 +1,5 @@
 package goodtrailer.quizgen.problem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
@@ -38,10 +37,11 @@ public abstract class AbstractMcqProblem extends AbstractProblem
     }
 
     @Override
-    protected List<JComponent> getComponents()
+    protected void addComponents(List<JComponent> components)
     {
-        var choices = getChoices();
+        super.addComponents(components);
 
+        var choices = getChoices();
         correctIndex = choices.correctIndex;
         buttonBox = new Box(BoxLayout.PAGE_AXIS);
         buttonGroup = new ButtonGroup();
@@ -54,7 +54,7 @@ public abstract class AbstractMcqProblem extends AbstractProblem
         }
         buttonBox.setBackground(Result.INVALID.toColor());
 
-        return new ArrayList<JComponent>(List.of(buttonBox));
+        components.addAll(List.of(buttonBox, createFiller()));
     }
 
     protected abstract Choices getChoices();

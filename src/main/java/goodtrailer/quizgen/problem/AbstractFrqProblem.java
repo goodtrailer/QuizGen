@@ -1,6 +1,5 @@
 package goodtrailer.quizgen.problem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -19,13 +18,16 @@ public abstract class AbstractFrqProblem extends AbstractProblem
     }
 
     @Override
-    protected List<JComponent> getComponents()
+    protected void addComponents(List<JComponent> components)
     {
+        super.addComponents(components);
+        
         inputText = new JTextArea();
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
-        return new ArrayList<JComponent>(List.of(inputText));
+        
+        components.addAll(List.of(inputText, createFiller()));
     }
-
+    
     protected abstract Result checkInput(String input);
 }

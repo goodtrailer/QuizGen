@@ -38,8 +38,10 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
     }
 
     @Override
-    protected List<JComponent> getComponents()
+    protected void addComponents(List<JComponent> components)
     {
+        super.addComponents(components);
+
         var headers = new String[] { "x", "f(x)" };
         var data = new String[2 * MAX_X + 1][2];
         for (int i = 0, x = -MAX_X; x <= MAX_X; i++, x++)
@@ -51,10 +53,8 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
         var scrollPane = new JScrollPane(table);
         scrollPane.setMaximumSize(new Dimension(300, 0));
-        
-        var components = super.getComponents();
-        components.add(0, scrollPane);
-        return components;
+
+        components.addAll(components.size() - 2, List.of(scrollPane, createFiller()));
     }
 
     @Override
