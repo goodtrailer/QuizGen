@@ -29,8 +29,9 @@ public class Main
         }
         catch (FontFormatException | IOException e)
         {
+            System.err.print("Failed to set font: ");
             e.printStackTrace();
-            font = new FontUIResource("Georgia", Font.PLAIN, 14);
+            font = new FontUIResource(Font.SERIF, Font.PLAIN, 18);
         }
         UI_FONT = font;
     }
