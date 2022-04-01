@@ -23,12 +23,6 @@ public abstract class AbstractProblem implements IProblem
     public AbstractProblem()
     {
         initialize();
-
-        promptText.setColumns(COLUMNS);
-        promptText.setEditable(false);
-        promptText.setLineWrap(true);
-        promptText.setOpaque(false);
-        promptText.setText(getPrompt());
         
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
@@ -50,6 +44,13 @@ public abstract class AbstractProblem implements IProblem
 
     protected void addComponents(List<JComponent> components)
     {
+        promptText.setColumns(COLUMNS);
+        promptText.setEditable(false);
+        promptText.setLineWrap(true);
+        promptText.setOpaque(false);
+        promptText.setText(getPrompt());
+        promptText.setWrapStyleWord(true);
+        
         components.add(promptText);
         components.add(createFiller());
     }
