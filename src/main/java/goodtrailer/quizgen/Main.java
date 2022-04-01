@@ -2,6 +2,8 @@ package goodtrailer.quizgen;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -9,13 +11,30 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 import goodtrailer.quizgen.problem.ChapterProblemFactory;
+import goodtrailer.quizgen.util.ResourceUtils;
 
 public class Main
 {
     public static final String NAME = "QuizGen";
     public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
-    public static final FontUIResource UI_FONT = new FontUIResource("Georgia", Font.PLAIN, 14);
-    
+    public static final FontUIResource UI_FONT;
+
+    static
+    {
+        FontUIResource font;
+        try
+        {
+            var file = ResourceUtils.getFile(Main.class, "EBGaramondRegular.otf");
+            font = new FontUIResource(Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(18.f));
+        }
+        catch (FontFormatException | IOException e)
+        {
+            e.printStackTrace();
+            font = new FontUIResource("Georgia", Font.PLAIN, 14);
+        }
+        UI_FONT = font;
+    }
+
     public static void main(String[] vargs)
     {
         try

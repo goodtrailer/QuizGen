@@ -14,6 +14,13 @@ public record Exponential(double a, double b, double m, double c)
         return a * Math.pow(b, m * x + c);
     }
     
+    public GrowthType growthType()
+    {
+        if (m == 0 || b <= 0)
+            return GrowthType.NEITHER;
+        return m > 0 ? GrowthType.GROWTH : GrowthType.DECAY;
+    }
+    
     public boolean isZero(int places)
     {
         return MathUtils.areEqual(a, 0, places) || MathUtils.areEqual(b, 0, places);
@@ -59,14 +66,14 @@ public record Exponential(double a, double b, double m, double c)
         if (isZero(places))
             return "0";
 
-        String string = MathUtils.toString(a, places);
+        String coefficient = MathUtils.toString(a, places);
 
         var line = new Line(m, c);
         if (line.isZero())
-            return string;
+            return coefficient;
 
-        return String.format("%s%s^(%s)", string, MathUtils.toString(b, places),
-                line.toString(places));
+        String base = String.format(b < 0 ? "(%s)" : "%s", MathUtils.toString(b, places));
+        return String.format("%s \u22C5 %s^(%s)", coefficient, base, line.toString(places));
     }
     
     @Override
@@ -115,5 +122,19 @@ public record Exponential(double a, double b, double m, double c)
     public static Exponential randomSimple()
     {
         return randomSimple(DEFAULT_MAX_A, DEFAULT_MAX_B);
+    }
+    
+    public enum GrowthType
+    {
+        GROWTH,
+        DECAY,
+        NEITHER;
+        
+        @Override
+        public String toString()
+        {
+            var string = super.toString();
+            return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+        }
     }
 }

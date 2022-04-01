@@ -1,7 +1,5 @@
 package goodtrailer.quizgen.problem;
 
-import javax.swing.JComponent;
-
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathConstants;
 import goodtrailer.quizgen.util.Point;
@@ -27,12 +25,6 @@ public class LineIntersectionProblem extends AbstractFrqProblem
                 "Find the point where the lines { y_0 = %s } and { y_1 = %s } intersect. %s and %s are valid.",
                 line0.toString(), line1.toString(), MathConstants.DOES_NOT_EXIST,
                 MathConstants.TRUE);
-    }
-
-    @Override
-    protected JComponent[] getComponents()
-    {
-        return null;
     }
 
     @Override

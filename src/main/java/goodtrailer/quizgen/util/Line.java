@@ -62,7 +62,7 @@ public record Line(double m, double b)
             return MathUtils.toString(m, places) + "x";
 
         return (m == 1 ? "" : MathUtils.toString(m, places)) + "x"
-                + (b > 0 ? " + " : " - ") + MathUtils.toString(Math.abs(b), places);
+                + (b > 0 ? " + " : " \u2013 ") + MathUtils.toString(Math.abs(b), places);
     }
 
     @Override

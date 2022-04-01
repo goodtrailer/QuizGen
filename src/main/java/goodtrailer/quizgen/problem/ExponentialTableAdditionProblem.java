@@ -1,6 +1,7 @@
 package goodtrailer.quizgen.problem;
 
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
@@ -13,6 +14,7 @@ import goodtrailer.quizgen.util.Point;
 public class ExponentialTableAdditionProblem extends AbstractFrqProblem
 {
     public static final int MAX_X = 2;
+    public static final int PADDING = 2;
 
     private Exponential exponential;
     private Point point0;
@@ -36,7 +38,7 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
     }
 
     @Override
-    protected JComponent[] getComponents()
+    protected List<JComponent> getComponents()
     {
         var headers = new String[] { "x", "f(x)" };
         var data = new String[2 * MAX_X + 1][2];
@@ -46,9 +48,13 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
             data[i][1] = MathUtils.toString(exponential.evaluate(x));
         }
         var table = new JTable(data, headers);
-        table.setMaximumSize(new Dimension(300, Integer.MAX_VALUE));
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        return new JComponent[] { new JScrollPane(table) };
+        var scrollPane = new JScrollPane(table);
+        scrollPane.setMaximumSize(new Dimension(300, 0));
+        
+        var components = super.getComponents();
+        components.add(0, scrollPane);
+        return components;
     }
 
     @Override
