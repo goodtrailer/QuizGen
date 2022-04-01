@@ -8,11 +8,19 @@ public final class ResourceUtils
     {
     }
 
-    public static final ImageIcon getImage(String path)
+    public static final ImageIcon getImage(Object origin, String path)
     {
-        if (path.isBlank())
+        var resource = origin.getClass().getResource(path);
+        if (resource == null)
             return null;
+        return new ImageIcon(resource);
+    }
 
-        return new ImageIcon(ResourceUtils.class.getResource(path));
+    public static final ImageIcon getImage(Class<?> origin, String path)
+    {
+        var resource = origin.getResource(path);
+        if (resource == null)
+            return null;
+        return new ImageIcon(resource);
     }
 }
