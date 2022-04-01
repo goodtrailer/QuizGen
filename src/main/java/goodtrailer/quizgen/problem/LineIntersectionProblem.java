@@ -1,8 +1,8 @@
 package goodtrailer.quizgen.problem;
 
 import goodtrailer.quizgen.util.Line;
-import goodtrailer.quizgen.util.MathConstants;
 import goodtrailer.quizgen.util.Point;
+import goodtrailer.quizgen.util.SolutionType;
 
 public class LineIntersectionProblem extends AbstractFrqProblem
 {
@@ -23,8 +23,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
     {
         return String.format(
                 "Find the point where the lines { y\u2080 = %s } and { y\u2081 = %s } intersect. %s and %s are valid.",
-                line0.toString(), line1.toString(), MathConstants.DOES_NOT_EXIST,
-                MathConstants.TRUE);
+                line0.toString(), line1.toString(), SolutionType.DNE, SolutionType.TRUE);
     }
 
     @Override
@@ -35,12 +34,21 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         if (input.isBlank())
             return Result.INVALID;
 
+        SolutionType inType = switch (SolutionType.valueOf(input))
+        {
+        case DNE -> SolutionType.DNE;
+        case TRUE -> SolutionType.TRUE;
+        default -> SolutionType.EXISTS;
+        };
+
+        if (inType != line0.solutionType(line1))
+            return Result.INCORRECT;
+
         switch (line0.solutionType(line1))
         {
-        case DOES_NOT_EXIST:
-            return Result.from(input.equals(MathConstants.DOES_NOT_EXIST));
+        case DNE:
         case TRUE:
-            return Result.from(input.equals(MathConstants.TRUE));
+            return Result.CORRECT;
         case EXISTS:
             Point inPoint;
             try

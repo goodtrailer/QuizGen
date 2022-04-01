@@ -43,7 +43,7 @@ public record Line(double m, double b)
     {
         if (MathUtils.areEqual(m, other.m, places))
             return MathUtils.areEqual(b, other.b, places) ? SolutionType.TRUE
-                    : SolutionType.DOES_NOT_EXIST;
+                    : SolutionType.DNE;
 
         return SolutionType.EXISTS;
     }

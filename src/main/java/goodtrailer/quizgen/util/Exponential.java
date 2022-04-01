@@ -50,7 +50,7 @@ public record Exponential(double a, double b, double m, double c)
     public SolutionType solutionType(Exponential other, int places)
     {
         if (Math.signum(b) != Math.signum(other.b))
-            return SolutionType.DOES_NOT_EXIST;
+            return SolutionType.DNE;
 
         if (MathUtils.areEqual(a, other.a, places)
                 && MathUtils.areEqual(b, other.b, places)
@@ -62,7 +62,7 @@ public record Exponential(double a, double b, double m, double c)
         double lnb1 = Math.log(other.b);
         double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
         double denom = m * lnb0 - other.m * lnb1;
-        return Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DOES_NOT_EXIST;
+        return Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
     }
     
     public SolutionType solutionType(Exponential other)
