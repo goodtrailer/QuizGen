@@ -51,7 +51,14 @@ public class QuizPanel extends JPanel
     {
         problems = new IProblem[count];
         problemsBox.removeAll();
-        for (int i = count - 1; i >= 0; i--)
+        
+        {
+            var p = factory.get();
+            problems[count - 1] = p;
+            problemsBox.add(p.getRootComponent(), 0);
+        }
+        
+        for (int i = count - 2; i >= 0; i--)
         {
             var p = factory.get();
             problems[i] = p;
