@@ -72,12 +72,12 @@ public abstract class AbstractFrqProblem implements IProblem
     {
         return panel;
     }
-
-    protected abstract Result checkInput(String input);
+    
+    protected abstract void initialize();
 
     protected abstract JComponent[] getComponents();
 
     protected abstract String getPrompt();
-
-    protected abstract void initialize();
+    
+    protected abstract Result checkInput(String input);
 }

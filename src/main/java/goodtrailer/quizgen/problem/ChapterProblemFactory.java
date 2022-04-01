@@ -3,16 +3,17 @@ package goodtrailer.quizgen.problem;
 public class ChapterProblemFactory implements IProblemFactory
 {
     private IProblemFactory factory;
-    
+
     public ChapterProblemFactory(int chapter)
     {
-        switch (chapter)
+        factory = switch (chapter)
         {
-        case 10 -> factory = new Ch10ProblemFactory();
+        case 6 -> new Ch6ProblemFactory();
+        case 10 -> new Ch10ProblemFactory();
         default -> throw new IllegalArgumentException("unsupported chapter");
-        }
+        };
     }
-    
+
     @Override
     public IProblem get()
     {

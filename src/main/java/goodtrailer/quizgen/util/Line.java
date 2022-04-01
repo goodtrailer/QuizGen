@@ -1,70 +1,96 @@
 package goodtrailer.quizgen.util;
 
-public record Line(int slope, int yIntercept)
+// y = mx + b
+public record Line(double m, double b)
 {
-    public static final int DEFAULT_MAX_SLOPE = 12;
-    public static final int DEFAULT_MAX_Y_INTERCEPT = 16;
+    public static final int DEFAULT_MAX_M = 12;
+    public static final int DEFAULT_MAX_B = 16;
 
     public double distance(Line other)
     {
-        if (other.slope != slope)
+        if (other.m != m)
             throw new IllegalArgumentException("non-parallel lines");
 
-        return Math.abs(yIntercept - other.yIntercept) / Math.sqrt(slope * other.slope + 1);
+        return Math.abs(b - other.b) / Math.sqrt(m * other.m + 1);
+    }
+    
+    public double evaluate(double x)
+    {
+        return m * x + b;
+    }
+    
+    public boolean isZero(int places)
+    {
+        return MathUtils.areEqual(m, 0, places) && MathUtils.areEqual(b, 0, places);
+    }
+    
+    public boolean isZero()
+    {
+        return isZero(MathConstants.DEFAULT_PLACES);
+    }
+    
+    public Line offset(double offset)
+    {
+        return new Line(m, b + offset);
+    }
+
+    public Line scale(double scalar)
+    {
+        return new Line(scalar * m, scalar * b);
     }
 
     public SolutionType solutionType(Line other)
     {
-        if (other.slope == slope)
-            return other.yIntercept == yIntercept ? SolutionType.TRUE : SolutionType.DOES_NOT_EXIST;
+        if (other.m == m)
+            return other.b == b ? SolutionType.TRUE : SolutionType.DOES_NOT_EXIST;
 
         return SolutionType.EXISTS;
     }
 
     public Point solution(Line other)
     {
-        double x = ((double) other.yIntercept - yIntercept) / (slope - other.slope);
-        return new Point(x, slope * x + yIntercept);
+        double x = ((double) other.b - b) / (m - other.m);
+        return new Point(x, m * x + b);
+    }
+
+    public String toString(int places)
+    {
+        if (MathUtils.areEqual(m, 0, places))
+            return MathUtils.toString(b, places);
+
+        if (MathUtils.areEqual(b, 0, places))
+            return MathUtils.toString(m, places) + "x";
+
+        return (m == 1 ? "" : MathUtils.toString(m, places)) + "x"
+                + (b > 0 ? " + " : " - ") + MathUtils.toString(Math.abs(b), places);
     }
 
     @Override
     public String toString()
     {
-        String prefix = "y = ";
-
-        if (slope == 0 && yIntercept == 0)
-            return prefix + "0";
-
-        if (slope == 0)
-            return prefix + yIntercept;
-
-        if (yIntercept == 0)
-            return prefix + slope + "x";
-
-        return prefix + (slope == 1 ? "" : Integer.toString(slope)) + "x"
-                + (yIntercept > 0 ? " + " : " - ") + Math.abs(yIntercept);
+        return toString(MathConstants.DEFAULT_PLACES);
     }
 
-    public static Line random(int maxSlope, int maxYIntercept)
+    public static Line random(int maxA, int maxB)
     {
-        int slope = MathUtils.randomInt(maxSlope);
-        int yIntercept = MathUtils.randomInt(maxYIntercept);
-        return new Line(slope, yIntercept);
+        int m = MathUtils.randomInt(maxA);
+        int b = MathUtils.randomInt(maxB);
+        return new Line(m, b);
     }
 
     public static Line random()
     {
-        return random(DEFAULT_MAX_SLOPE, DEFAULT_MAX_Y_INTERCEPT);
+        return random(DEFAULT_MAX_M, DEFAULT_MAX_B);
     }
 
-    public static Line randomParallel(Line line, int maxYIntercept)
+    public static Line randomParallel(Line other, int maxB)
     {
-        int yIntercept = MathUtils.randomInt(maxYIntercept);
-        return new Line(line.slope, yIntercept);
+        int b = MathUtils.randomInt(maxB);
+        return new Line(other.m, b);
     }
 
-    public static Line randomParallel(Line line)
+    public static Line randomParallel(Line other)
     {
-        return randomParallel(line, DEFAULT_MAX_Y_INTERCEPT);
+        return randomParallel(other, DEFAULT_MAX_B);
     }
 }

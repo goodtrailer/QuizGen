@@ -1,13 +1,14 @@
 package goodtrailer.quizgen.util;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.text.DecimalFormat;
 
 public final class MathUtils
 {
     private MathUtils()
     {
     }
-    
+
     public static double parseFraction(String string)
     {
         string = string.trim();
@@ -43,21 +44,21 @@ public final class MathUtils
         return areEqual(a, b, MathConstants.DEFAULT_PLACES);
     }
 
-    public static boolean areEqual(double[] a, double[] b, int places)
+    public static String toString(double a, int places)
     {
-        if (a.length != b.length)
-            return false;
+        if (places < 0)
+            throw new IllegalArgumentException("negative places");
 
-        for (int i = 0; i < a.length; i++)
-            if (!areEqual(a[i], b[i], places))
-                return false;
+        String format = "0";
+        if (places > 0)
+            format += "." + "#".repeat(places);
 
-        return true;
+        return new DecimalFormat(format).format(a);
     }
 
-    public static boolean areEqual(double[] a, double[] b)
+    public static String toString(double a)
     {
-        return areEqual(a, b, MathConstants.DEFAULT_PLACES);
+        return toString(a, MathConstants.DEFAULT_PLACES);
     }
 
     public static int randomInt(int inclusiveMax)

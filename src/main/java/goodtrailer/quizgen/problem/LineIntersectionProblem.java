@@ -24,7 +24,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
     protected String getPrompt()
     {
         return String.format(
-                "Find the point where the lines { %s } and { %s } intersect. %s and %s are valid.",
+                "Find the point where the lines { y_0 = %s } and { y_1 = %s } intersect. %s and %s are valid.",
                 line0.toString(), line1.toString(), MathConstants.DOES_NOT_EXIST,
                 MathConstants.TRUE);
     }

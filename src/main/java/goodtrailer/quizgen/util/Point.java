@@ -25,16 +25,16 @@ public record Point(double[] components)
     {
         return equals(other, MathConstants.DEFAULT_PLACES);
     }
-    
+
     @Override
     public boolean equals(Object other)
     {
         if (!(other instanceof Point pOther))
             return false;
-        
+
         return equals(pOther);
     }
-    
+
     public int dimensions()
     {
         return components.length;
@@ -54,20 +54,40 @@ public record Point(double[] components)
         return Math.sqrt(sum);
     }
 
-    @Override
-    public String toString()
+    public String toString(int places)
     {
         if (components.length == 0)
             return "( )";
-        
+
         String string = "(";
-        String format = "%" + MathConstants.DEFAULT_PLACES + "f";
         for (int i = 0; i < components.length - 1; i++)
         {
-            string += String.format(format, components[i]) + ", ";
+            string += MathUtils.toString(components[i], places) + ", ";
         }
-        string += String.format(format, components[components.length - 1]);
+        string += MathUtils.toString(components[components.length - 1], places);
         return string + ")";
+    }
+
+    @Override
+    public String toString()
+    {
+        return toString(MathConstants.DEFAULT_PLACES);
+    }
+
+    public double x()
+    {
+        if (components.length < 1)
+            throw new IllegalStateException("too few dimensions");
+
+        return components[0];
+    }
+
+    public double y()
+    {
+        if (components.length < 2)
+            throw new IllegalStateException("too few dimensions");
+
+        return components[1];
     }
 
     public static Point random(int dimensions, int maxComponentValue)
@@ -87,7 +107,7 @@ public record Point(double[] components)
     {
         return new Point(dimensions, DEFAULT_MAX_COMPONENT_VALUE);
     }
-    
+
     public static Point parse(String string)
     {
         string = string.trim();
@@ -99,7 +119,7 @@ public record Point(double[] components)
         var point = new double[components.length];
         for (var i = 0; i < components.length; i++)
             point[i] = MathUtils.parseFraction(components[i]);
-        
+
         return new Point(point);
     }
 }

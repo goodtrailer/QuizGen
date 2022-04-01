@@ -22,7 +22,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        return String.format("Find the minimum distance between the lines { %s } and { %s }.",
+        return String.format("Find the minimum distance between the lines { y_0 = %s } and { y_1 = %s }.",
                 line0.toString(), line1.toString());
     }
     

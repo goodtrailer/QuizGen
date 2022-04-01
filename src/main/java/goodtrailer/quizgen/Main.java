@@ -46,7 +46,7 @@ public class Main
     {
         var frame = new JFrame(NAME);
         var quizPanel = new QuizPanel();
-        quizPanel.generate(new ChapterProblemFactory(10), 30);
+        quizPanel.generate(new ChapterProblemFactory(6), 30);
         quizPanel.setPreferredSize(DEFAULT_SIZE);
 
         frame.add(quizPanel);
