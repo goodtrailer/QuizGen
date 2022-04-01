@@ -21,12 +21,13 @@ public record Line(int slope, int yIntercept)
         return SolutionType.EXISTS;
     }
 
-    public double[] solution(Line other)
+    public Point solution(Line other)
     {
         double x = ((double) other.yIntercept - yIntercept) / (slope - other.slope);
-        return new double[] { x, slope * x + yIntercept };
+        return new Point(x, slope * x + yIntercept);
     }
 
+    @Override
     public String toString()
     {
         String prefix = "y = ";

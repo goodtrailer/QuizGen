@@ -32,20 +32,6 @@ public final class MathUtils
         }
     }
 
-    public static double[] parsePoint(String string)
-    {
-        string = string.trim();
-
-        if (string.charAt(0) != '(' || string.charAt(string.length() - 1) != ')')
-            throw new NumberFormatException("invalid opening/closing parentheses");
-
-        var components = string.substring(1, string.length() - 1).split(",");
-        var point = new double[components.length];
-        for (var i = 0; i < components.length; i++)
-            point[i] = parseFraction(components[i]);
-        return point;
-    }
-
     public static boolean areEqual(double a, double b, int places)
     {
         var epsilon = Math.pow(10.0, -places) / 2;

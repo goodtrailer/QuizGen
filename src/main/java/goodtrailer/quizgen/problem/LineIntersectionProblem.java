@@ -4,13 +4,13 @@ import javax.swing.JComponent;
 
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathConstants;
-import goodtrailer.quizgen.util.MathUtils;
+import goodtrailer.quizgen.util.Point;
 
 public class LineIntersectionProblem extends AbstractFrqProblem
 {
     private Line line0;
     private Line line1;
-    private double[] intersection;
+    private Point intersection;
 
     @Override
     protected void initialize()
@@ -50,20 +50,20 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         case TRUE:
             return Result.from(input.equals(MathConstants.TRUE));
         case EXISTS:
-            double[] inPoint;
+            Point inPoint;
             try
             {
-                inPoint = MathUtils.parsePoint(input);
+                inPoint = Point.parse(input);
             }
             catch (NumberFormatException nfe)
             {
                 return Result.INVALID;
             }
 
-            if (inPoint.length != 2)
+            if (inPoint.dimensions() != 2)
                 return Result.INVALID;
 
-            return Result.from(MathUtils.areEqual(inPoint, intersection));
+            return Result.from(intersection.equals(inPoint));
         default:
             throw new IllegalStateException("illegal line solution type");
         }
