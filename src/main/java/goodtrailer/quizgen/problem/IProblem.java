@@ -1,9 +1,9 @@
 package goodtrailer.quizgen.problem;
 
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 
 public interface IProblem
 {
     Result submit();
-    JPanel getPanel();
+    JComponent getRootComponent();
 }

@@ -7,9 +7,7 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -23,7 +21,6 @@ public abstract class AbstractFrqProblem implements IProblem
 
     private JPanel panel = new JPanel();
     private JTextArea promptText = new JTextArea("void");
-    private JLabel pictureLabel = new JLabel();
     private JTextArea inputText = new JTextArea();
 
     public AbstractFrqProblem()
@@ -36,8 +33,6 @@ public abstract class AbstractFrqProblem implements IProblem
         promptText.setOpaque(false);
         promptText.setText(getPrompt());
 
-        pictureLabel.setIcon(getImage());
-
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
 
@@ -45,8 +40,13 @@ public abstract class AbstractFrqProblem implements IProblem
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
         panel.add(promptText);
         panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
-        panel.add(pictureLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
+        var components = getComponents();
+        if (components != null)
+            for (var c : components)
+            {
+                panel.add(c);
+                panel.add(Box.createRigidArea(new Dimension(0, PADDING)));
+            }
         panel.add(inputText);
 
         for (var c : panel.getComponents())
@@ -68,16 +68,16 @@ public abstract class AbstractFrqProblem implements IProblem
     }
 
     @Override
-    public JPanel getPanel()
+    public JComponent getRootComponent()
     {
         return panel;
     }
 
     protected abstract Result checkInput(String input);
 
-    protected abstract String getPrompt();
+    protected abstract JComponent[] getComponents();
 
-    protected abstract Icon getImage();
+    protected abstract String getPrompt();
 
     protected abstract void initialize();
 }

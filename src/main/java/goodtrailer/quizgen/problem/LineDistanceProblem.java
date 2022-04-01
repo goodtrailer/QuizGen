@@ -1,6 +1,6 @@
 package goodtrailer.quizgen.problem;
 
-import javax.swing.Icon;
+import javax.swing.JComponent;
 
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathUtils;
@@ -27,7 +27,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
     }
     
     @Override
-    protected Icon getImage()
+    protected JComponent[] getComponents()
     {
         return null;
     }

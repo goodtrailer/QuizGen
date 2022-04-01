@@ -56,7 +56,7 @@ public class QuizPanel extends JPanel
             var p = factory.get();
             problems[i] = p;
             problemsBox.add(new JSeparator(SwingConstants.HORIZONTAL), 0);
-            problemsBox.add(p.getPanel(), 0);
+            problemsBox.add(p.getRootComponent(), 0);
         }
     }
 
