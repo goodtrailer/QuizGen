@@ -7,7 +7,7 @@ public class Ch6ProblemFactory extends AbstractWeightedProblemFactory
             new WeightedFactory(ExponentialTableAdditionProblem::new, 1),
             new WeightedFactory(ExponentialGrowthTypeProblem::new, 1),
             // new WeightedFactory(ExponentialRateOfChangeProblem::new, 1),
-            // new WeightedFactory(ExponentialIntersectionProblem::new, 4),
+            new WeightedFactory(ExponentialIntersectionProblem::new, 3),
     };
 
     @Override

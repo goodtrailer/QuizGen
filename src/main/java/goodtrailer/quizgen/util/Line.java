@@ -13,22 +13,22 @@ public record Line(double m, double b)
 
         return Math.abs(b - other.b) / Math.sqrt(m * other.m + 1);
     }
-    
+
     public double evaluate(double x)
     {
         return m * x + b;
     }
-    
+
     public boolean isZero(int places)
     {
         return MathUtils.areEqual(m, 0, places) && MathUtils.areEqual(b, 0, places);
     }
-    
+
     public boolean isZero()
     {
         return isZero(MathConstants.DEFAULT_PLACES);
     }
-    
+
     public Line offset(double offset)
     {
         return new Line(m, b + offset);
@@ -39,18 +39,24 @@ public record Line(double m, double b)
         return new Line(scalar * m, scalar * b);
     }
 
-    public SolutionType solutionType(Line other)
+    public SolutionType solutionType(Line other, int places)
     {
-        if (other.m == m)
-            return other.b == b ? SolutionType.TRUE : SolutionType.DOES_NOT_EXIST;
+        if (MathUtils.areEqual(m, other.m, places))
+            return MathUtils.areEqual(b, other.b, places) ? SolutionType.TRUE
+                    : SolutionType.DOES_NOT_EXIST;
 
         return SolutionType.EXISTS;
+    }
+
+    public SolutionType solutionType(Line other)
+    {
+        return solutionType(other, MathConstants.DEFAULT_PLACES);
     }
 
     public Point solution(Line other)
     {
         double x = ((double) other.b - b) / (m - other.m);
-        return new Point(x, m * x + b);
+        return new Point(x, evaluate(x));
     }
 
     public String toString(int places)

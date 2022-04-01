@@ -1,41 +1,41 @@
 package goodtrailer.quizgen.problem;
 
-import goodtrailer.quizgen.util.Line;
+import goodtrailer.quizgen.util.Exponential;
 import goodtrailer.quizgen.util.MathConstants;
 import goodtrailer.quizgen.util.Point;
 
-public class LineIntersectionProblem extends AbstractFrqProblem
+public class ExponentialIntersectionProblem extends AbstractFrqProblem
 {
-    private Line line0;
-    private Line line1;
+    private Exponential exponential0;
+    private Exponential exponential1;
     private Point intersection;
 
     @Override
     protected void initialize()
     {
-        line0 = Line.random();
-        line1 = Line.random();
-        intersection = line0.solution(line1);
+        exponential0 = Exponential.random();
+        exponential1 = Exponential.randomLikeBase(exponential0);
+        intersection = exponential0.solution(exponential1);
     }
 
     @Override
     protected String getPrompt()
     {
         return String.format(
-                "Find the point where the lines { y\u2080 = %s } and { y\u2081 = %s } intersect. %s and %s are valid.",
-                line0.toString(), line1.toString(), MathConstants.DOES_NOT_EXIST,
+                "Find the point where the curves { y\u2080 = %s } and { y\u2081 = %s } intersect. %s and %s are valid.",
+                exponential0.toString(), exponential1.toString(), MathConstants.DOES_NOT_EXIST,
                 MathConstants.TRUE);
     }
 
     @Override
-    public Result checkInput(String input)
+    protected Result checkInput(String input)
     {
         input = input.trim();
 
         if (input.isBlank())
             return Result.INVALID;
 
-        switch (line0.solutionType(line1))
+        switch (exponential0.solutionType(exponential1))
         {
         case DOES_NOT_EXIST:
             return Result.from(input.equals(MathConstants.DOES_NOT_EXIST));
