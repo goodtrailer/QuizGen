@@ -24,7 +24,7 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
     protected void initialize()
     {
         exponential = Exponential.randomSimple();
-        while (exponential.isZero() || Math.abs(exponential.b()) == 1)
+        while (exponential.isZero() || exponential.b() == 1)
             exponential = Exponential.randomSimple();
 
         int x0 = 0, x1 = 0;
