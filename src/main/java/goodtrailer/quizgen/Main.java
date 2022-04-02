@@ -90,8 +90,10 @@ public class Main
         chapters.sort(Integer::compare);
         for (var c : chapters)
             chapterCombo.addItem("Chapter " + c);
-
+        
+        chapterCombo.setSelectedIndex(-1);
         chapterCombo.setMaximumSize(chapterCombo.getPreferredSize());
+        chapterCombo.setPrototypeDisplayValue("Chapter \u2013\u2013");
         chapterCombo.addActionListener((ActionEvent ae) ->
         {
             int chapter = chapters.get(chapterCombo.getSelectedIndex());
