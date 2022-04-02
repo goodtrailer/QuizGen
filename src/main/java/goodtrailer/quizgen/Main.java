@@ -27,24 +27,27 @@ public class Main
     public static final String NAME = "QuizGen";
     public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
     public static final FontUIResource UI_FONT;
+    public static final float FONT_SIZE = 18.f;
     public static final int PADDING = 5;
     public static final int PROBLEM_COUNT = 15;
 
     static
     {
-        FontUIResource font;
+        FontUIResource fontUIResource;
         try
         {
             var file = ResourceUtils.getFile(Main.class, "EBGaramondRegular.otf");
-            font = new FontUIResource(Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(18.f));
+            var font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(FONT_SIZE);
+            fontUIResource = new FontUIResource(font);
         }
         catch (FontFormatException | IOException e)
         {
             System.err.print("Failed to set font: ");
             e.printStackTrace();
-            font = new FontUIResource(Font.SERIF, Font.PLAIN, 18);
+            
+            fontUIResource = new FontUIResource(Font.SERIF, Font.PLAIN, 18);
         }
-        UI_FONT = font;
+        UI_FONT = fontUIResource;
     }
 
     public static void main(String[] vargs)
@@ -55,20 +58,14 @@ public class Main
         }
         catch (Exception e)
         {
-            System.err.println("Failed to set Look & Feel.");
+            System.err.print("Failed to set Look & Feel: ");
+            e.printStackTrace();
         }
-
-        try
-        {
-            Iterable<?> keys = () -> UIManager.getDefaults().keys().asIterator();
-            for (var key : keys)
-                if (UIManager.get(key) instanceof FontUIResource)
-                    UIManager.put(key, UI_FONT);
-        }
-        catch (Exception e)
-        {
-            System.err.println("Failed to set font.");
-        }
+        
+        Iterable<?> keys = () -> UIManager.getDefaults().keys().asIterator();
+        for (var key : keys)
+            if (UIManager.get(key) instanceof FontUIResource)
+                UIManager.put(key, UI_FONT);
 
         SwingUtilities.invokeLater(Main::run);
     }
@@ -93,7 +90,6 @@ public class Main
         
         chapterCombo.setSelectedIndex(-1);
         chapterCombo.setMaximumSize(chapterCombo.getPreferredSize());
-        chapterCombo.setPrototypeDisplayValue("Chapter \u2013\u2013");
         chapterCombo.addActionListener((ActionEvent ae) ->
         {
             int chapter = chapters.get(chapterCombo.getSelectedIndex());
