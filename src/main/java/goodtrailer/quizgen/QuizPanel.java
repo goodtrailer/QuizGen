@@ -8,6 +8,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -26,6 +27,8 @@ public class QuizPanel extends JPanel
     private static final long serialVersionUID = 4126538549451781876L;
 
     private Box problemsBox = new Box(BoxLayout.PAGE_AXIS);
+    private Box bottomBox = new Box(BoxLayout.LINE_AXIS);
+    private JLabel correctLabel = new JLabel("\u2013/\u2013");
     private JButton submitButton = new JButton("Submit");
     private JScrollPane scrollPane = new JScrollPane(problemsBox);
     private IProblem[] problems;
@@ -34,13 +37,17 @@ public class QuizPanel extends JPanel
     {
         scrollPane.getVerticalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(SCROLL_INCREMENT);
+        
         submitButton.addActionListener((ActionEvent ae) -> submitAll());
+        bottomBox.add(correctLabel);
+        bottomBox.add(Box.createHorizontalGlue());
+        bottomBox.add(submitButton);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
         add(scrollPane);
         add(Box.createRigidArea(new Dimension(0, PADDING)));
-        add(submitButton);
+        add(bottomBox);
         
         for (var c : getComponents())
             if (c instanceof JComponent jc)
@@ -73,6 +80,7 @@ public class QuizPanel extends JPanel
         for (var question : problems)
             if (question.submit() == Result.CORRECT)
                 correct++;
+        correctLabel.setText(String.format("%d/%d", correct, problems.length));
         return correct;
     }
 
