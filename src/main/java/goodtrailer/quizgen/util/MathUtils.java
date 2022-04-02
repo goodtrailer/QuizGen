@@ -48,11 +48,20 @@ public final class MathUtils
 
         return Double.parseDouble(string.substring(0, string.length() - 1)) / 100.;
     }
+    
+    public static boolean areEqual(double a, double b, double epsilon)
+    {
+        return Math.abs(a - b) <= epsilon;
+    }
+
+    public static boolean areEqual(double a, double b, int places, double leeway)
+    {
+        return areEqual(a, b, Math.pow(10.0, -places) / (2.0 - leeway));
+    }
 
     public static boolean areEqual(double a, double b, int places)
     {
-        var epsilon = Math.pow(10.0, -places) / 2;
-        return Math.abs(a - b) <= epsilon;
+        return areEqual(a, b, places, MathConstants.DEFAULT_LEEWAY);
     }
 
     public static boolean areEqual(double a, double b)
