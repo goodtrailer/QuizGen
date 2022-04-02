@@ -53,6 +53,11 @@ public record Point(double[] components)
         }
         return Math.sqrt(sum);
     }
+    
+    public boolean is2d()
+    {
+        return components.length == 2;
+    }
 
     public String toString(int places)
     {

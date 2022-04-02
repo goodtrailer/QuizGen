@@ -23,7 +23,8 @@ public class ExponentialIntersectionProblem extends AbstractFrqProblem
     {
         return String.format(
                 "Find the point where the curves { y\u2080 = %s } and { y\u2081 = %s } intersect. %s and %s are valid.",
-                exponential0.toString(), exponential1.toString(), SolutionType.DNE, SolutionType.TRUE);
+                exponential0.toString(), exponential1.toString(), SolutionType.DNE,
+                SolutionType.TRUE);
     }
 
     @Override
@@ -34,21 +35,12 @@ public class ExponentialIntersectionProblem extends AbstractFrqProblem
         if (input.isBlank())
             return Result.INVALID;
 
-        SolutionType inType = switch (SolutionType.valueOf(input))
-        {
-        case DNE -> SolutionType.DNE;
-        case TRUE -> SolutionType.TRUE;
-        default -> SolutionType.EXISTS;
-        };
-        
-        if (inType != exponential0.solutionType(exponential1))
-            return Result.INCORRECT;
-
-        switch (exponential0.solutionType(exponential1))
+        SolutionType inType = SolutionType.valueOf(input, SolutionType.EXISTS);
+        switch (inType)
         {
         case DNE:
         case TRUE:
-            return Result.CORRECT;
+            return Result.from(inType == exponential0.solutionType(exponential1));
         case EXISTS:
             Point inPoint;
             try
@@ -59,6 +51,9 @@ public class ExponentialIntersectionProblem extends AbstractFrqProblem
             {
                 return Result.INVALID;
             }
+
+            if (inType != exponential0.solutionType(exponential1))
+                return Result.INCORRECT;
 
             if (inPoint.dimensions() != 2)
                 return Result.INVALID;

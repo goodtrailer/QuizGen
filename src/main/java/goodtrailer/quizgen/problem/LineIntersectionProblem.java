@@ -34,21 +34,12 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         if (input.isBlank())
             return Result.INVALID;
 
-        SolutionType inType = switch (SolutionType.valueOf(input))
-        {
-        case DNE -> SolutionType.DNE;
-        case TRUE -> SolutionType.TRUE;
-        default -> SolutionType.EXISTS;
-        };
-
-        if (inType != line0.solutionType(line1))
-            return Result.INCORRECT;
-
-        switch (line0.solutionType(line1))
+        SolutionType inType = SolutionType.valueOf(input, SolutionType.EXISTS);
+        switch (inType)
         {
         case DNE:
         case TRUE:
-            return Result.CORRECT;
+            return Result.from(inType == line0.solutionType(line1));
         case EXISTS:
             Point inPoint;
             try
@@ -59,6 +50,9 @@ public class LineIntersectionProblem extends AbstractFrqProblem
             {
                 return Result.INVALID;
             }
+
+            if (inType != line0.solutionType(line1))
+                return Result.INCORRECT;
 
             if (inPoint.dimensions() != 2)
                 return Result.INVALID;

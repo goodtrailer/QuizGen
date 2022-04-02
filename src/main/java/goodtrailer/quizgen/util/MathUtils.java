@@ -9,7 +9,7 @@ public final class MathUtils
     {
     }
 
-    public static double parseFraction(String string)
+    public static double parseFraction(String string) throws NumberFormatException
     {
         string = string.trim();
 
@@ -31,6 +31,22 @@ public final class MathUtils
         default:
             throw new NumberFormatException("multiple fraction bars");
         }
+    }
+
+    public static double parsePercentage(String string) throws NumberFormatException
+    {
+        string = string.trim();
+
+        if (string.isEmpty())
+            throw new NumberFormatException("empty string");
+
+        if (string.charAt(0) == '%')
+            throw new NumberFormatException("starts with percentage symbol '%'");
+
+        if (string.charAt(string.length() - 1) != '%')
+            throw new NumberFormatException("does not end with percentage symbol '%'");
+
+        return Double.parseDouble(string.substring(0, string.length() - 1)) / 100.;
     }
 
     public static boolean areEqual(double a, double b, int places)
