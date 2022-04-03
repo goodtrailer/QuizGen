@@ -19,17 +19,21 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
+import goodtrailer.quizgen.gui.QuizPanel;
 import goodtrailer.quizgen.problem.ChapterProblemFactory;
 import goodtrailer.quizgen.util.ResourceUtils;
 
 public class Main
 {
     public static final String NAME = "QuizGen";
-    public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
-    public static final FontUIResource UI_FONT;
+    
     public static final float FONT_SIZE = 18.f;
+    public static final FontUIResource UI_FONT;
+    
+    public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
     public static final int PADDING = 5;
     public static final int PROBLEM_COUNT = 15;
+    public static final int SCROLL_INCREMENT = 20;
 
     static
     {
@@ -103,6 +107,7 @@ public class Main
         });
 
         quizPanel.setPreferredSize(DEFAULT_SIZE);
+        quizPanel.setScrollableIncrement(SCROLL_INCREMENT);
         bottomBox.add(correctLabel);
         bottomBox.add(Box.createRigidArea(new Dimension(PADDING, 0)));
         bottomBox.add(chapterCombo);

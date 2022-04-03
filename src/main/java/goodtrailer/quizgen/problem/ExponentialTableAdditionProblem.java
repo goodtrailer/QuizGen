@@ -11,7 +11,7 @@ import goodtrailer.quizgen.util.Exponential;
 import goodtrailer.quizgen.util.MathUtils;
 import goodtrailer.quizgen.util.Point;
 
-public class ExponentialTableAdditionProblem extends AbstractFrqProblem
+class ExponentialTableAdditionProblem extends AbstractFrqProblem
 {
     public static final int MAX_X = 2;
     public static final int PADDING = 2;
@@ -23,9 +23,9 @@ public class ExponentialTableAdditionProblem extends AbstractFrqProblem
     @Override
     protected void initialize()
     {
-        exponential = Exponential.randomSimple();
-        while (exponential.isZero() || exponential.b() == 1)
-            exponential = Exponential.randomSimple();
+        exponential = Exponential.random().withM(MathUtils.randomInt(1));
+        while (exponential.isConstant())
+            exponential = Exponential.random().withM(MathUtils.randomInt(1));
 
         int x0 = 0, x1 = 0;
         while (x0 == x1)

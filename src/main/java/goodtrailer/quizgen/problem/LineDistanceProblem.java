@@ -3,7 +3,7 @@ package goodtrailer.quizgen.problem;
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.MathUtils;
 
-public class LineDistanceProblem extends AbstractFrqProblem
+class LineDistanceProblem extends AbstractFrqProblem
 {
     private Line line0;
     private Line line1;
@@ -13,7 +13,7 @@ public class LineDistanceProblem extends AbstractFrqProblem
     protected void initialize()
     {
         line0 = Line.random();
-        line1 = Line.randomParallel(line0);
+        line1 = Line.random().withB(line0.b());
         distance = line0.distance(line1);
     }
 

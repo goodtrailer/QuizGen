@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import goodtrailer.quizgen.util.Exponential;
 
-public class ExponentialGrowthTypeProblem extends AbstractMcqProblem
+class ExponentialGrowthTypeProblem extends AbstractMcqProblem
 {
     private Exponential exponential;
     

@@ -3,7 +3,7 @@ package goodtrailer.quizgen.problem;
 import goodtrailer.quizgen.util.Exponential;
 import goodtrailer.quizgen.util.MathUtils;
 
-public class ExponentialRateOfChangeProblem extends AbstractFrqProblem
+class ExponentialRateOfChangeProblem extends AbstractFrqProblem
 {
     private Exponential exponential;
     

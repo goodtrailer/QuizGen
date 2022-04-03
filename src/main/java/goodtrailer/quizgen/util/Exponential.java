@@ -25,11 +25,35 @@ public record Exponential(double a, double b, double m, double c)
         return a * Math.pow(b, m * x + c);
     }
 
-    public GrowthType growthType()
+    public Exponential withA(double a)
     {
-        if (m == 0 || b <= 0)
-            return GrowthType.NEITHER;
-        return m > 0 ? GrowthType.GROWTH : GrowthType.DECAY;
+        return new Exponential(a, b, m, c);
+    }
+
+    public Exponential withB(double b)
+    {
+        return new Exponential(a, b, m, c);
+    }
+
+    public Exponential withM(double m)
+    {
+        return new Exponential(a, b, m, c);
+    }
+
+    public Exponential withC(double c)
+    {
+        return new Exponential(a, b, m, c);
+    }
+
+    public boolean isConstant(int places)
+    {
+        return MathUtils.areEqual(b, 1, places) || MathUtils.areEqual(m, 0, places)
+                || isZero(places);
+    }
+
+    public boolean isConstant()
+    {
+        return isConstant(MathConstants.DEFAULT_PLACES);
     }
 
     public boolean isZero(int places)
@@ -42,15 +66,33 @@ public record Exponential(double a, double b, double m, double c)
         return isZero(MathConstants.DEFAULT_PLACES);
     }
 
-    public Exponential scale(double scalar)
+    public GrowthType growthType(int places)
     {
-        return new Exponential(a * scalar, b, m, c);
+        if (isConstant() || b < 0)
+            return GrowthType.NEITHER;
+
+        boolean isGrowth = m > 0;
+        if (b < 1)
+            isGrowth = !isGrowth;
+
+        return isGrowth ? GrowthType.GROWTH : GrowthType.DECAY;
     }
 
-    public SolutionType solutionType(Exponential other, int places)
+    public GrowthType growthType()
     {
-        if (Math.signum(b) != Math.signum(other.b))
-            return SolutionType.DNE;
+        return growthType(MathConstants.DEFAULT_PLACES);
+    }
+
+    public Solution solution(Exponential other, int places)
+    {
+        double lnb0 = Math.log(b);
+        double lnb1 = Math.log(other.b);
+        double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
+        double denom = m * lnb0 - other.m * lnb1;
+        double x = numer / denom;
+
+        var type = Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
+        var point = new Point(x, evaluate(x));
 
         boolean zeros = isZero(places) && other.isZero(places);
         boolean equal = MathUtils.areEqual(a, other.a, places)
@@ -58,28 +100,14 @@ public record Exponential(double a, double b, double m, double c)
                 && MathUtils.areEqual(m, other.m, places)
                 && MathUtils.areEqual(c, other.c, places);
         if (zeros || equal)
-            return SolutionType.TRUE;
+            type = SolutionType.TRUE;
 
-        double lnb0 = Math.log(b);
-        double lnb1 = Math.log(other.b);
-        double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
-        double denom = m * lnb0 - other.m * lnb1;
-        return Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
+        return new Solution(type, point);
     }
 
-    public SolutionType solutionType(Exponential other)
+    public Solution solution(Exponential other)
     {
-        return solutionType(other, 3);
-    }
-
-    public Point solution(Exponential other)
-    {
-        double lnb0 = Math.log(b);
-        double lnb1 = Math.log(other.b);
-        double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
-        double denom = m * lnb0 - other.m * lnb1;
-        double x = numer / denom;
-        return new Point(x, evaluate(x));
+        return solution(other, 3);
     }
 
     public String toString(int places)
@@ -115,34 +143,6 @@ public record Exponential(double a, double b, double m, double c)
     public static Exponential random()
     {
         return random(DEFAULT_MAX_A, DEFAULT_MAX_B, DEFAULT_MAX_M, DEFAULT_MAX_C);
-    }
-
-    public static Exponential randomLikeBase(Exponential other, int maxA, int maxM, int maxC)
-    {
-        int a = MathUtils.randomInt(maxA);
-        int m = MathUtils.randomInt(maxM);
-        int c = MathUtils.randomInt(maxC);
-        return new Exponential(a, other.b, m, c);
-    }
-
-    public static Exponential randomLikeBase(Exponential other)
-    {
-        return randomLikeBase(other, DEFAULT_MAX_A, DEFAULT_MAX_M, DEFAULT_MAX_B);
-    }
-
-    public static Exponential randomSimple(int maxA, int maxB)
-    {
-        int a = MathUtils.randomInt(maxA);
-        int b = Math.abs(MathUtils.randomInt(maxB));
-        int m = 0;
-        while (m == 0)
-            m = (int) Math.signum(Math.random() - 0.5);
-        return new Exponential(a, b, m, 0);
-    }
-
-    public static Exponential randomSimple()
-    {
-        return randomSimple(DEFAULT_MAX_A, DEFAULT_MAX_B);
     }
 
     public enum GrowthType

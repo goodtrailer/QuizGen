@@ -2,20 +2,21 @@ package goodtrailer.quizgen.problem;
 
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.Point;
+import goodtrailer.quizgen.util.Solution;
 import goodtrailer.quizgen.util.SolutionType;
 
-public class LineIntersectionProblem extends AbstractFrqProblem
+class LineIntersectionProblem extends AbstractFrqProblem
 {
     private Line line0;
     private Line line1;
-    private Point intersection;
+    private Solution solution;
 
     @Override
     protected void initialize()
     {
         line0 = Line.random();
         line1 = Line.random();
-        intersection = line0.solution(line1);
+        solution = line0.solution(line1);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class LineIntersectionProblem extends AbstractFrqProblem
         {
         case DNE:
         case TRUE:
-            return Result.from(inType == line0.solutionType(line1));
+            return Result.from(inType == solution.type());
         case EXISTS:
             Point inPoint;
             try
@@ -51,13 +52,13 @@ public class LineIntersectionProblem extends AbstractFrqProblem
                 return Result.INVALID;
             }
 
-            if (inType != line0.solutionType(line1))
+            if (inType != solution.type())
                 return Result.INCORRECT;
 
             if (inPoint.dimensions() != 2)
                 return Result.INVALID;
 
-            return Result.from(intersection.equals(inPoint));
+            return Result.from(solution.point().equals(inPoint));
         default:
             throw new IllegalStateException("illegal solution type");
         }

@@ -110,7 +110,7 @@ public record Point(double[] components)
 
     public static Point random(int dimensions)
     {
-        return new Point(dimensions, DEFAULT_MAX_COMPONENT_VALUE);
+        return random(dimensions, DEFAULT_MAX_COMPONENT_VALUE);
     }
 
     public static Point parse(String string)
@@ -126,5 +126,10 @@ public record Point(double[] components)
             point[i] = MathUtils.parseFraction(components[i]);
 
         return new Point(point);
+    }
+    
+    public static Point zero(int dimensions)
+    {
+        return new Point(new double[dimensions]);
     }
 }

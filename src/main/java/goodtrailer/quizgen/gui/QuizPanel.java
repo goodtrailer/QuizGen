@@ -1,14 +1,9 @@
-package goodtrailer.quizgen;
+package goodtrailer.quizgen.gui;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 
 import goodtrailer.quizgen.problem.IProblem;
@@ -19,7 +14,7 @@ public class QuizPanel extends JPanel
 {
     private static final long serialVersionUID = 4126538549451781876L;
 
-    private ScrollableBox problemsBox = new ScrollableBox(BoxLayout.PAGE_AXIS);
+    private ScrollableBox problemsBox = new ScrollableBox(BoxLayout.PAGE_AXIS, true, false);
     private JScrollPane scrollPane = new JScrollPane(problemsBox);
     private IProblem[] problems;
 
@@ -48,6 +43,11 @@ public class QuizPanel extends JPanel
             problemsBox.add(p.getRootComponent(), 0);
         }
     }
+    
+    public void setScrollableIncrement(int increment)
+    {
+        problemsBox.setScrollableIncrement(increment);
+    }
 
     public int submitAll()
     {
@@ -61,47 +61,5 @@ public class QuizPanel extends JPanel
     public int count()
     {
         return problems.length;
-    }
-
-    private class ScrollableBox extends Box implements Scrollable
-    {
-        public static final int SCROLL_INCREMENT = 20;
-        
-        private static final long serialVersionUID = 8642183969100983700L;
-        
-        public ScrollableBox(int axis)
-        {
-            super(axis);
-        }
-
-        @Override
-        public Dimension getPreferredScrollableViewportSize()
-        {
-            return getPreferredSize();
-        }
-
-        @Override
-        public int getScrollableUnitIncrement(Rectangle visible, int orientation, int direction)
-        {
-            return SCROLL_INCREMENT;
-        }
-
-        @Override
-        public int getScrollableBlockIncrement(Rectangle visible, int orientation, int direction)
-        {
-            return SCROLL_INCREMENT;
-        }
-
-        @Override
-        public boolean getScrollableTracksViewportWidth()
-        {
-            return true;
-        }
-
-        @Override
-        public boolean getScrollableTracksViewportHeight()
-        {
-            return false;
-        }
     }
 }
