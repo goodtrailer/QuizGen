@@ -15,7 +15,7 @@ class ParallelLineDistanceProblem extends AbstractFrqProblem
     protected void initialize()
     {
         line0 = Linear.random();
-        line1 = Linear.random().withB(line0.b());
+        line1 = Linear.random().withM(line0.m());
         distance = line0.distance(line1);
     }
 
