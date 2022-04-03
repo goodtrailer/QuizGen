@@ -1,5 +1,7 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter6;
 
+import goodtrailer.quizgen.problem.AbstractFrqProblem;
+import goodtrailer.quizgen.problem.Result;
 import goodtrailer.quizgen.util.Exponential;
 import goodtrailer.quizgen.util.MathUtils;
 

@@ -1,5 +1,7 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter10;
 
+import goodtrailer.quizgen.problem.AbstractFrqProblem;
+import goodtrailer.quizgen.problem.Result;
 import goodtrailer.quizgen.util.Line;
 import goodtrailer.quizgen.util.Point;
 import goodtrailer.quizgen.util.Solution;

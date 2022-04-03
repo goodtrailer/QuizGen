@@ -13,7 +13,7 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
         for (int i = 0; i < wFactories.length; i++)
         {
             thresholds[i] = weightSum;
-            weightSum += wFactories[i].weight;
+            weightSum += wFactories[i].weight();
         }
     }
 
@@ -27,12 +27,23 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
         int i = Arrays.binarySearch(thresholds, x);
         if (i < 0)
             i = -i - 2;
-        return wFactories[i].problemFactory.get();
+        return wFactories[i].get();
     }
 
     protected abstract WeightedFactory[] getWeightedFactories();
 
-    protected record WeightedFactory(IProblemFactory problemFactory, int weight)
+    protected record WeightedFactory(IProblemFactory factory, int weight) implements IProblemFactory
     {
+        public WeightedFactory(IProblemFactory factory, int weight)
+        {
+            this.factory = factory;
+            this.weight = weight;
+        }
+
+        @Override
+        public IProblem get()
+        {
+            return factory.get();
+        }
     };
 }

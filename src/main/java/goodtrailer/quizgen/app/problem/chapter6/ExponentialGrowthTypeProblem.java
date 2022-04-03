@@ -1,7 +1,8 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter6;
 
 import java.util.ArrayList;
 
+import goodtrailer.quizgen.problem.AbstractMcqProblem;
 import goodtrailer.quizgen.util.Exponential;
 
 class ExponentialGrowthTypeProblem extends AbstractMcqProblem

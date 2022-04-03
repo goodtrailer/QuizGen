@@ -1,4 +1,4 @@
-package goodtrailer.quizgen;
+package goodtrailer.quizgen.app;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,8 +19,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
+import goodtrailer.quizgen.app.problem.ChapterProblemFactory;
 import goodtrailer.quizgen.gui.QuizPanel;
-import goodtrailer.quizgen.problem.ChapterProblemFactory;
 import goodtrailer.quizgen.util.ResourceUtils;
 
 public class Main

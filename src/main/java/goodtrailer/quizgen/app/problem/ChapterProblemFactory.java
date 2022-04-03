@@ -1,8 +1,13 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem;
 
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Supplier;
+
+import goodtrailer.quizgen.app.problem.chapter10.Chapter10ProblemFactory;
+import goodtrailer.quizgen.app.problem.chapter6.Chapter6ProblemFactory;
+import goodtrailer.quizgen.problem.IProblem;
+import goodtrailer.quizgen.problem.IProblemFactory;
 
 public class ChapterProblemFactory implements IProblemFactory
 {
@@ -12,8 +17,8 @@ public class ChapterProblemFactory implements IProblemFactory
     static
     {
         factories = new HashMap<Integer, Supplier<IProblemFactory>>();
-        factories.put(6, Ch6ProblemFactory::new);
-        factories.put(10, Ch10ProblemFactory::new);
+        factories.put(6, Chapter6ProblemFactory::new);
+        factories.put(10, Chapter10ProblemFactory::new);
     }
 
     public ChapterProblemFactory(int chapter)

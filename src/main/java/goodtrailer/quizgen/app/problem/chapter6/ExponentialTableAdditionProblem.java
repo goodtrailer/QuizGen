@@ -1,4 +1,4 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter6;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -7,6 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import goodtrailer.quizgen.problem.AbstractFrqProblem;
+import goodtrailer.quizgen.problem.Result;
 import goodtrailer.quizgen.util.Exponential;
 import goodtrailer.quizgen.util.MathUtils;
 import goodtrailer.quizgen.util.Point;

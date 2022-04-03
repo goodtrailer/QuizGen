@@ -1,6 +1,8 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter10;
 
-class Ch10ProblemFactory extends AbstractWeightedProblemFactory
+import goodtrailer.quizgen.problem.AbstractWeightedProblemFactory;
+
+public class Chapter10ProblemFactory extends AbstractWeightedProblemFactory
 {
     private static final WeightedFactory[] weighted_factories = new WeightedFactory[] {
             new WeightedFactory(LineIntersectionProblem::new, 2),

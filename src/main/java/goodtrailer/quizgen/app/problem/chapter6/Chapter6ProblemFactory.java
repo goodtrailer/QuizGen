@@ -1,6 +1,8 @@
-package goodtrailer.quizgen.problem;
+package goodtrailer.quizgen.app.problem.chapter6;
 
-class Ch6ProblemFactory extends AbstractWeightedProblemFactory
+import goodtrailer.quizgen.problem.AbstractWeightedProblemFactory;
+
+public class Chapter6ProblemFactory extends AbstractWeightedProblemFactory
 {
     private static final WeightedFactory[] weighted_factories = new WeightedFactory[] {
             // new WeightedFactory(ExponentialDomainRangeProblem::new, 2),
