@@ -16,7 +16,7 @@ public abstract class AbstractMcqProblem extends AbstractProblem
     private int correctIndex;
 
     @Override
-    public Result submit()
+    public final Result submit()
     {
         var result = Result.INVALID;
         for (int i = 0; i < buttons.length; i++)
