@@ -1,19 +1,20 @@
 package goodtrailer.quizgen.problem;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 {
-    private WeightedFactory[] wFactories = getWeightedFactories();
-    private int[] thresholds = new int[wFactories.length];
+    private List<WeightedFactory> wFactories = getWeightedFactories();
+    private int[] thresholds = new int[wFactories.size()];
     private int weightSum = 0;
 
     public AbstractWeightedProblemFactory()
     {
-        for (int i = 0; i < wFactories.length; i++)
+        for (int i = 0; i < wFactories.size(); i++)
         {
             thresholds[i] = weightSum;
-            weightSum += wFactories[i].weight();
+            weightSum += wFactories.get(i).weight();
         }
     }
 
@@ -27,10 +28,10 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
         int i = Arrays.binarySearch(thresholds, x);
         if (i < 0)
             i = -i - 2;
-        return wFactories[i].get();
+        return wFactories.get(i).get();
     }
 
-    protected abstract WeightedFactory[] getWeightedFactories();
+    protected abstract List<WeightedFactory> getWeightedFactories();
 
     protected record WeightedFactory(IProblemFactory factory, int weight) implements IProblemFactory
     {
