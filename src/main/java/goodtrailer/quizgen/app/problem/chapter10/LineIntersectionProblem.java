@@ -2,22 +2,22 @@ package goodtrailer.quizgen.app.problem.chapter10;
 
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Line;
+import goodtrailer.quizgen.util.Linear;
 import goodtrailer.quizgen.util.Point;
 import goodtrailer.quizgen.util.Solution;
 import goodtrailer.quizgen.util.SolutionType;
 
 class LineIntersectionProblem extends AbstractFrqProblem
 {
-    private Line line0;
-    private Line line1;
+    private Linear line0;
+    private Linear line1;
     private Solution solution;
 
     @Override
     protected void initialize()
     {
-        line0 = Line.random();
-        line1 = Line.random();
+        line0 = Linear.random();
+        line1 = Linear.random();
         solution = line0.solution(line1);
     }
 
@@ -57,7 +57,7 @@ class LineIntersectionProblem extends AbstractFrqProblem
             if (inType != solution.type())
                 return Result.INCORRECT;
 
-            if (inPoint.dimensions() != 2)
+            if (!inPoint.is2d())
                 return Result.INVALID;
 
             return Result.from(solution.point().equals(inPoint));

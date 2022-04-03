@@ -90,9 +90,19 @@ public final class MathUtils
     {
         return ThreadLocalRandom.current().nextInt(-inclusiveMax, inclusiveMax + 1);
     }
+    
+    public static int randomInt(int inclusiveMin, int inclusiveMax)
+    {
+        return ThreadLocalRandom.current().nextInt(inclusiveMin, inclusiveMax + 1);
+    }
 
     public static double randomDouble(double max)
     {
         return ThreadLocalRandom.current().nextDouble(-max, max);
+    }
+
+    public static double randomDouble(double min, double max)
+    {
+        return ThreadLocalRandom.current().nextDouble(min, max);
     }
 }

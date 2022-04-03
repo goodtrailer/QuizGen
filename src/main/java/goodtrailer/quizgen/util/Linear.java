@@ -1,7 +1,7 @@
 package goodtrailer.quizgen.util;
 
 // y = mx + b
-public record Line(double m, double b)
+public record Linear(double m, double b)
 {
     public static final int DEFAULT_MAX_M = 12;
     public static final int DEFAULT_MAX_B = 16;
@@ -11,14 +11,14 @@ public record Line(double m, double b)
         return m * x + b;
     }
 
-    public Line withM(double m)
+    public Linear withM(double m)
     {
-        return new Line(m, b);
+        return new Linear(m, b);
     }
 
-    public Line withB(double b)
+    public Linear withB(double b)
     {
-        return new Line(m, b);
+        return new Linear(m, b);
     }
 
     public boolean isConstant(int places)
@@ -41,7 +41,7 @@ public record Line(double m, double b)
         return isZero(MathConstants.DEFAULT_PLACES);
     }
 
-    public double distance(Line other)
+    public double distance(Linear other)
     {
         var soln = solution(other);
 
@@ -52,7 +52,7 @@ public record Line(double m, double b)
         };
     }
 
-    public Solution solution(Line other, int places)
+    public Solution solution(Linear other, int places)
     {
         double x = ((double) other.b - b) / (m - other.m);
         var point = new Point(x, evaluate(x));
@@ -67,7 +67,7 @@ public record Line(double m, double b)
         return new Solution(type, point);
     }
 
-    public Solution solution(Line other)
+    public Solution solution(Linear other)
     {
         return solution(other, MathConstants.DEFAULT_PLACES);
     }
@@ -90,14 +90,14 @@ public record Line(double m, double b)
         return toString(MathConstants.DEFAULT_PLACES);
     }
 
-    public static Line random(int maxA, int maxB)
+    public static Linear random(int maxA, int maxB)
     {
         int m = MathUtils.randomInt(maxA);
         int b = MathUtils.randomInt(maxB);
-        return new Line(m, b);
+        return new Linear(m, b);
     }
 
-    public static Line random()
+    public static Linear random()
     {
         return random(DEFAULT_MAX_M, DEFAULT_MAX_B);
     }

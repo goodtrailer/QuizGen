@@ -15,8 +15,7 @@ import goodtrailer.quizgen.util.Point;
 
 class ExponentialTableAdditionProblem extends AbstractFrqProblem
 {
-    public static final int MAX_X = 2;
-    public static final int PADDING = 2;
+    private static final int max_x = 2;
 
     private Exponential exponential;
     private Point point0;
@@ -32,8 +31,8 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
         int x0 = 0, x1 = 0;
         while (x0 == x1)
         {
-            x0 = MathUtils.randomInt(MAX_X);
-            x1 = MathUtils.randomInt(MAX_X);
+            x0 = MathUtils.randomInt(max_x);
+            x1 = MathUtils.randomInt(max_x);
         }
         point0 = new Point(x0, exponential.evaluate(x0));
         point1 = new Point(x1, exponential.evaluate(x1));
@@ -45,8 +44,8 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
         super.addComponents(components);
 
         var headers = new String[] { "x", "f(x)" };
-        var data = new String[2 * MAX_X + 1][2];
-        for (int i = 0, x = -MAX_X; x <= MAX_X; i++, x++)
+        var data = new String[2 * max_x + 1][2];
+        for (int i = 0, x = -max_x; x <= max_x; i++, x++)
         {
             data[i][0] = MathUtils.toString(x);
             data[i][1] = MathUtils.toString(exponential.evaluate(x));

@@ -32,7 +32,7 @@ public class Main
     
     public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
     public static final int PADDING = 5;
-    public static final int PROBLEM_COUNT = 15;
+    public static final int PROBLEM_COUNT = 30;
     public static final int SCROLL_INCREMENT = 20;
 
     static

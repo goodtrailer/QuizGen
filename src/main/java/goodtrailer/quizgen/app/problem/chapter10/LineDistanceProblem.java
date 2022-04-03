@@ -2,20 +2,20 @@ package goodtrailer.quizgen.app.problem.chapter10;
 
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Line;
+import goodtrailer.quizgen.util.Linear;
 import goodtrailer.quizgen.util.MathUtils;
 
 class LineDistanceProblem extends AbstractFrqProblem
 {
-    private Line line0;
-    private Line line1;
+    private Linear line0;
+    private Linear line1;
     private double distance;
 
     @Override
     protected void initialize()
     {
-        line0 = Line.random();
-        line1 = Line.random().withB(line0.b());
+        line0 = Linear.random();
+        line1 = Linear.random().withB(line0.b());
         distance = line0.distance(line1);
     }
 

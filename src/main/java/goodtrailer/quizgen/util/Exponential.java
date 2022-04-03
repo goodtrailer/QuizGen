@@ -117,7 +117,7 @@ public record Exponential(double a, double b, double m, double c)
 
         String coefficient = MathUtils.toString(a, places);
 
-        var line = new Line(m, c);
+        var line = new Linear(m, c);
         if (line.isZero())
             return coefficient;
 

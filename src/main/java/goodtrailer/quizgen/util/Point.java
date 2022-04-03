@@ -116,6 +116,9 @@ public record Point(double[] components)
     public static Point parse(String string)
     {
         string = string.trim();
+        
+        if (string.isEmpty())
+            throw new NumberFormatException("blank/empty string");
 
         if (string.charAt(0) != '(' || string.charAt(string.length() - 1) != ')')
             throw new NumberFormatException("invalid opening/closing parentheses");
