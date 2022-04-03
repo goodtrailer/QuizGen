@@ -5,7 +5,7 @@ import goodtrailer.quizgen.problem.Result;
 import goodtrailer.quizgen.util.Linear;
 import goodtrailer.quizgen.util.MathUtils;
 
-class LineDistanceProblem extends AbstractFrqProblem
+class ParallelLineDistanceProblem extends AbstractFrqProblem
 {
     private Linear line0;
     private Linear line1;
@@ -22,8 +22,9 @@ class LineDistanceProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        return String.format("Find the minimum distance between the lines { y\u2080 = %s } and { y\u2081 = %s }.",
-                line0.toString(), line1.toString());
+        String message = "Find the minimum distance between the lines { y\u2080 = %s } and "
+            + "{ y\u2081 = %s }.";
+        return String.format(message, line0.toString(), line1.toString());
     }
 
     @Override
