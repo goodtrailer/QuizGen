@@ -62,7 +62,7 @@ class TransversalAngleProblem extends AbstractFrqProblem
     {
         String message = "In the transversal below, C = %d\u00B0; A = (%s)\u00B0; B = (%s)\u00B0. "
                 + "Find the values of x and y. Give your solution in the form of a point (x, y).";
-        return String.format(message, angleC, angleA.toString(), angleB.toString());
+        return String.format(message, angleC, angleA.toString(), angleB.toString("y"));
     }
 
     @Override

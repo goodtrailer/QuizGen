@@ -110,25 +110,36 @@ public record Exponential(double a, double b, double m, double c)
         return solution(other, 3);
     }
 
-    public String toString(int places)
+    public String toString(String variable, int places)
     {
         if (isZero(places))
             return "0";
 
-        String coefficient = MathUtils.toString(a, places);
+        String coef = MathUtils.toString(a, places);
 
         var line = new Linear(m, c);
         if (line.isZero())
-            return coefficient;
+            return coef;
 
         String base = String.format(b < 0 ? "(%s)" : "%s", MathUtils.toString(b, places));
-        return String.format("%s \u22C5 %s^(%s)", coefficient, base, line.toString(places));
+        
+        return String.format("%s \u22C5 %s^(%s)", coef, base, line.toString(variable, places));
+    }
+
+    public String toString(int places)
+    {
+        return toString(MathConstants.DEFAULT_VARIABLE, places);
+    }
+    
+    public String toString(String variable)
+    {
+        return toString(variable, MathConstants.DEFAULT_PLACES);
     }
 
     @Override
     public String toString()
     {
-        return toString(MathConstants.DEFAULT_PLACES);
+        return toString(MathConstants.DEFAULT_VARIABLE, MathConstants.DEFAULT_PLACES);
     }
 
     public static Exponential random(int maxA, int maxB, int maxM, int maxC)

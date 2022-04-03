@@ -71,23 +71,33 @@ public record Linear(double m, double b)
     {
         return solution(other, MathConstants.DEFAULT_PLACES);
     }
-
-    public String toString(int places)
+    
+    public String toString(String variable, int places)
     {
         if (MathUtils.areEqual(m, 0, places))
             return MathUtils.toString(b, places);
 
         if (MathUtils.areEqual(b, 0, places))
-            return MathUtils.toString(m, places) + "x";
+            return MathUtils.toString(m, places) + variable;
 
-        return (m == 1 ? "" : MathUtils.toString(m, places)) + "x"
+        return (m == 1 ? "" : MathUtils.toString(m, places)) + variable
                 + (b > 0 ? " + " : " \u2013 ") + MathUtils.toString(Math.abs(b), places);
+    }
+
+    public String toString(int places)
+    {
+        return toString(MathConstants.DEFAULT_VARIABLE, places);
+    }
+    
+    public String toString(String variable)
+    {
+        return toString(variable, MathConstants.DEFAULT_PLACES);
     }
 
     @Override
     public String toString()
     {
-        return toString(MathConstants.DEFAULT_PLACES);
+        return toString(MathConstants.DEFAULT_VARIABLE, MathConstants.DEFAULT_PLACES);
     }
 
     public static Linear random(int maxA, int maxB)
