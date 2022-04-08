@@ -13,7 +13,5 @@ public class Chapter10ProblemFactory extends AbstractWeightedProblemFactory
 
     @Override
     protected List<WeightedFactory> getWeightedFactories()
-    {
-        return weighted_factories;
-    }
+    { return weighted_factories; }
 }

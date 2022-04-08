@@ -7,11 +7,11 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import goodtrailer.quizgen.math.IMathUtils;
+import goodtrailer.quizgen.math.Point;
+import goodtrailer.quizgen.math.function.Exponential;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Exponential;
-import goodtrailer.quizgen.util.MathUtils;
-import goodtrailer.quizgen.util.Point;
 
 class ExponentialTableAdditionProblem extends AbstractFrqProblem
 {
@@ -24,15 +24,15 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
     @Override
     protected void initialize()
     {
-        exponential = Exponential.random().withM(MathUtils.randomInt(1));
+        exponential = Exponential.random().withM(IMathUtils.randomInt(1));
         while (exponential.isConstant())
-            exponential = Exponential.random().withM(MathUtils.randomInt(1));
+            exponential = Exponential.random().withM(IMathUtils.randomInt(1));
 
         int x0 = 0, x1 = 0;
         while (x0 == x1)
         {
-            x0 = MathUtils.randomInt(max_x);
-            x1 = MathUtils.randomInt(max_x);
+            x0 = IMathUtils.randomInt(max_x);
+            x1 = IMathUtils.randomInt(max_x);
         }
         point0 = new Point(x0, exponential.evaluate(x0));
         point1 = new Point(x1, exponential.evaluate(x1));
@@ -47,8 +47,8 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
         var data = new String[2 * max_x + 1][2];
         for (int i = 0, x = -max_x; x <= max_x; i++, x++)
         {
-            data[i][0] = MathUtils.toString(x);
-            data[i][1] = MathUtils.toString(exponential.evaluate(x));
+            data[i][0] = IMathUtils.toString(x);
+            data[i][1] = IMathUtils.toString(exponential.evaluate(x));
         }
         var table = new JTable(data, headers);
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
@@ -62,8 +62,8 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
     protected String getPrompt()
     {
         return String.format("What is the value of { f(%s) + f(%s) }?",
-                MathUtils.toString(point0.x()),
-                MathUtils.toString(point1.x()));
+                IMathUtils.toString(point0.x()),
+                IMathUtils.toString(point1.x()));
     }
 
     @Override
@@ -72,13 +72,13 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
         double input;
         try
         {
-            input = MathUtils.parseFraction(string);
+            input = IMathUtils.parseFraction(string);
         }
         catch (NumberFormatException nfe)
         {
             return Result.INVALID;
         }
 
-        return Result.from(MathUtils.areEqual(input, point0.y() + point1.y()));
+        return Result.from(IMathUtils.areEqual(input, point0.y() + point1.y()));
     }
 }

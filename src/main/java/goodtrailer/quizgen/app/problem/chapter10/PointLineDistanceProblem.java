@@ -1,10 +1,10 @@
 package goodtrailer.quizgen.app.problem.chapter10;
 
+import goodtrailer.quizgen.math.IMathUtils;
+import goodtrailer.quizgen.math.Point;
+import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Linear;
-import goodtrailer.quizgen.util.MathUtils;
-import goodtrailer.quizgen.util.Point;
 
 class PointLineDistanceProblem extends AbstractFrqProblem
 {
@@ -38,13 +38,13 @@ class PointLineDistanceProblem extends AbstractFrqProblem
         double inDistance;
         try
         {
-            inDistance = MathUtils.parseFraction(input);
+            inDistance = IMathUtils.parseFraction(input);
         }
         catch (NumberFormatException nfe)
         {
             return Result.INVALID;
         }
 
-        return Result.from(MathUtils.areEqual(inDistance, distance));
+        return Result.from(IMathUtils.areEqual(inDistance, distance));
     }
 }

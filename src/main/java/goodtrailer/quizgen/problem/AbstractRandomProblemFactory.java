@@ -6,9 +6,7 @@ public abstract class AbstractRandomProblemFactory implements IProblemFactory
 
     @Override
     public final IProblem get()
-    {
-        return factories[(int) (Math.random() * factories.length)].get();
-    }
+    { return factories[(int) (Math.random() * factories.length)].get(); }
 
     protected abstract IProblemFactory[] getFactories();
 }

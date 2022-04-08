@@ -1,4 +1,4 @@
-package goodtrailer.quizgen.util;
+package goodtrailer.quizgen.math;
 
 public enum SolutionType
 {
@@ -10,7 +10,7 @@ public enum SolutionType
     {
         try
         {
-            return SolutionType.valueOf(string);
+            return valueOf(string);
         }
         catch (IllegalArgumentException iae)
         {

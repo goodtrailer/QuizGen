@@ -7,8 +7,7 @@ import javax.swing.ImageIcon;
 public final class ResourceUtils
 {
     private ResourceUtils()
-    {
-    }
+    {}
 
     public static final ImageIcon getImage(Class<?> origin, String path)
     {
@@ -19,17 +18,11 @@ public final class ResourceUtils
     }
 
     public static final ImageIcon getImage(Object origin, String path)
-    {
-        return getImage(origin.getClass(), path);
-    }
+    { return getImage(origin.getClass(), path); }
 
     public static final InputStream getFile(Class<?> origin, String path)
-    {
-        return origin.getResourceAsStream(path);
-    }
-    
+    { return origin.getResourceAsStream(path); }
+
     public static final InputStream getFile(Object origin, String path)
-    {
-        return getFile(origin.getClass(), path);
-    }
+    { return getFile(origin.getClass(), path); }
 }

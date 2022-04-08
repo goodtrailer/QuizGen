@@ -43,11 +43,9 @@ public class QuizPanel extends JPanel
             problemsBox.add(p.getRootComponent(), 0);
         }
     }
-    
+
     public void setScrollableIncrement(int increment)
-    {
-        problemsBox.setScrollableIncrement(increment);
-    }
+    { problemsBox.setScrollableIncrement(increment); }
 
     public int submitAll()
     {
@@ -59,7 +57,5 @@ public class QuizPanel extends JPanel
     }
 
     public int count()
-    {
-        return problems.length;
-    }
+    { return problems.length; }
 }

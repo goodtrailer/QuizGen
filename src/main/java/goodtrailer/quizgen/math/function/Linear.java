@@ -1,0 +1,117 @@
+package goodtrailer.quizgen.math.function;
+
+import java.util.List;
+
+import goodtrailer.quizgen.math.AbstractFunction;
+import goodtrailer.quizgen.math.IFunction;
+import goodtrailer.quizgen.math.Interval;
+import goodtrailer.quizgen.math.IMathUtils;
+import goodtrailer.quizgen.math.Point;
+import goodtrailer.quizgen.math.Solution;
+import goodtrailer.quizgen.math.SolutionType;
+
+// y = mx + b
+public class Linear extends AbstractFunction
+{
+    public static final int DEFAULT_MAX_M = 12;
+    public static final int DEFAULT_MAX_B = 16;
+
+    private final double m, b;
+
+    public Linear(double m, double b)
+    {
+        this.m = m;
+        this.b = b;
+    }
+
+    public double m()
+    { return m; }
+
+    public double b()
+    { return b; }
+
+    public Linear withM(double m)
+    { return new Linear(m, b); }
+
+    public Linear withB(double b)
+    { return new Linear(m, b); }
+
+    // ------------------------------------------------------------------------------------- customs
+
+    public double distance(Linear other)
+    {
+        var soln = solution(other);
+
+        return switch (soln.type())
+        {
+        case DNE -> Math.abs(b - other.b) / Math.sqrt(m * other.m + 1);
+        default -> 0;
+        };
+    }
+
+    // ----------------------------------------------------------------------------------- overrides
+
+    @Override
+    public double evaluate(double input)
+    { return m * input + b; }
+
+    @Override
+    public boolean isConstant(int places)
+    { return IMathUtils.areEqual(m, 0, places); }
+
+    @Override
+    public boolean isZero(int places)
+    { return IMathUtils.areEqual(m, 0, places) && IMathUtils.areEqual(b, 0, places); }
+
+    @Override
+    public List<Interval> domain(int places)
+    { return List.of(Interval.real()); }
+
+    @Override
+    public List<Interval> range(int places)
+    { return List.of(Interval.real()); }
+
+    @Override
+    public Solution solution(IFunction otherFunc, int places)
+    {
+        if (!(otherFunc instanceof Linear other))
+            throw new IllegalArgumentException("otherFunc not a Linear");
+
+        double x = ((double) other.b - b) / (m - other.m);
+        var point = new Point(x, evaluate(x));
+        var type = SolutionType.EXISTS;
+
+        if (IMathUtils.areEqual(m, other.m, places))
+        {
+            boolean same = IMathUtils.areEqual(b, other.b, places);
+            type = same ? SolutionType.TRUE : SolutionType.DNE;
+        }
+
+        return new Solution(type, point);
+    }
+
+    @Override
+    public String toString(String variable, int places)
+    {
+        if (IMathUtils.areEqual(m, 0, places))
+            return IMathUtils.toString(b, places);
+
+        if (IMathUtils.areEqual(b, 0, places))
+            return IMathUtils.toString(m, places) + variable;
+
+        return (m == 1 ? "" : IMathUtils.toString(m, places)) + variable
+                + (b > 0 ? " + " : " \u2013 ") + IMathUtils.toString(Math.abs(b), places);
+    }
+
+    // ------------------------------------------------------------------------------------- statics
+
+    public static Linear random(int maxA, int maxB)
+    {
+        int m = IMathUtils.randomInt(maxA);
+        int b = IMathUtils.randomInt(maxB);
+        return new Linear(m, b);
+    }
+
+    public static Linear random()
+    { return random(DEFAULT_MAX_M, DEFAULT_MAX_B); }
+}

@@ -21,13 +21,13 @@ public abstract class AbstractFrqProblem extends AbstractProblem
     protected void addComponents(List<JComponent> components)
     {
         super.addComponents(components);
-        
+
         inputText = new JTextArea();
         inputText.setColumns(COLUMNS);
         inputText.setLineWrap(true);
-        
+
         components.addAll(List.of(inputText, createFiller()));
     }
-    
+
     protected abstract Result checkInput(String input);
 }

@@ -7,7 +7,8 @@ import goodtrailer.quizgen.problem.AbstractWeightedProblemFactory;
 public class Chapter6ProblemFactory extends AbstractWeightedProblemFactory
 {
     private static final List<WeightedFactory> weighted_factories = List.of(
-            // new WeightedFactory(ExponentialDomainRangeProblem::new, 2),
+            new WeightedFactory(ExponentialDomainProblem::new, 1),
+            new WeightedFactory(ExponentialRangeProblem::new, 1),
             new WeightedFactory(ExponentialTableAdditionProblem::new, 1),
             new WeightedFactory(ExponentialGrowthTypeProblem::new, 1),
             new WeightedFactory(ExponentialRateOfChangeProblem::new, 1),
@@ -15,7 +16,5 @@ public class Chapter6ProblemFactory extends AbstractWeightedProblemFactory
 
     @Override
     protected List<WeightedFactory> getWeightedFactories()
-    {
-        return weighted_factories;
-    }
+    { return weighted_factories; }
 }

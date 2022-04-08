@@ -16,17 +16,17 @@ public abstract class AbstractProblem implements IProblem
 {
     public static final int COLUMNS = 20;
     public static final int PADDING = 10;
-    
+
     private JPanel panel = new JPanel();
     private JTextArea promptText = new JTextArea("void");
 
     public AbstractProblem()
     {
         initialize();
-        
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        
+
         var components = new ArrayList<JComponent>();
         addComponents(components);
         for (var c : components)
@@ -35,12 +35,10 @@ public abstract class AbstractProblem implements IProblem
             panel.add(c);
         }
     }
-    
+
     @Override
     public final JComponent getRootComponent()
-    {
-        return panel;
-    }
+    { return panel; }
 
     protected void addComponents(List<JComponent> components)
     {
@@ -50,7 +48,7 @@ public abstract class AbstractProblem implements IProblem
         promptText.setOpaque(false);
         promptText.setText(getPrompt());
         promptText.setWrapStyleWord(true);
-        
+
         components.add(promptText);
         components.add(createFiller());
     }
@@ -58,7 +56,7 @@ public abstract class AbstractProblem implements IProblem
     protected abstract void initialize();
 
     protected abstract String getPrompt();
-    
+
     protected static JComponent createFiller()
     {
         var dim = new Dimension(0, PADDING);

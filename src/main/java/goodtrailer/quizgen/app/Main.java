@@ -26,10 +26,10 @@ import goodtrailer.quizgen.util.ResourceUtils;
 public class Main
 {
     public static final String NAME = "QuizGen";
-    
+
     public static final float FONT_SIZE = 18.f;
     public static final FontUIResource UI_FONT;
-    
+
     public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
     public static final int PADDING = 5;
     public static final int PROBLEM_COUNT = 30;
@@ -48,7 +48,7 @@ public class Main
         {
             System.err.print("Failed to set font: ");
             e.printStackTrace();
-            
+
             fontUIResource = new FontUIResource(Font.SERIF, Font.PLAIN, 18);
         }
         UI_FONT = fontUIResource;
@@ -65,7 +65,7 @@ public class Main
             System.err.print("Failed to set Look & Feel: ");
             e.printStackTrace();
         }
-        
+
         Iterable<?> keys = () -> UIManager.getDefaults().keys().asIterator();
         for (var key : keys)
             if (UIManager.get(key) instanceof FontUIResource)
@@ -91,7 +91,7 @@ public class Main
         chapters.sort(Integer::compare);
         for (var c : chapters)
             chapterCombo.addItem("Chapter " + c);
-        
+
         chapterCombo.setSelectedIndex(-1);
         chapterCombo.setMaximumSize(chapterCombo.getPreferredSize());
         chapterCombo.addActionListener((ActionEvent ae) ->

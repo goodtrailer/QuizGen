@@ -1,9 +1,9 @@
 package goodtrailer.quizgen.app.problem.chapter10;
 
+import goodtrailer.quizgen.math.IMathUtils;
+import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Linear;
-import goodtrailer.quizgen.util.MathUtils;
 
 class ParallelLineDistanceProblem extends AbstractFrqProblem
 {
@@ -23,7 +23,7 @@ class ParallelLineDistanceProblem extends AbstractFrqProblem
     protected String getPrompt()
     {
         String message = "Find the minimum distance between the lines { y\u2080 = %s } and "
-            + "{ y\u2081 = %s }.";
+                + "{ y\u2081 = %s }.";
         return String.format(message, line0.toString(), line1.toString());
     }
 
@@ -33,13 +33,13 @@ class ParallelLineDistanceProblem extends AbstractFrqProblem
         double inDistance;
         try
         {
-            inDistance = MathUtils.parseFraction(input);
+            inDistance = IMathUtils.parseFraction(input);
         }
         catch (NumberFormatException nfe)
         {
             return Result.INVALID;
         }
 
-        return Result.from(MathUtils.areEqual(inDistance, distance));
+        return Result.from(IMathUtils.areEqual(inDistance, distance));
     }
 }

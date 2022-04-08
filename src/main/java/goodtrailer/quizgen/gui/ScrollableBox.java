@@ -9,7 +9,7 @@ import javax.swing.Scrollable;
 class ScrollableBox extends Box implements Scrollable
 {
     private static final long serialVersionUID = 8642183969100983700L;
-    
+
     private int increment = 20;
     private boolean tracksWidth;
     private boolean tracksHeight;
@@ -20,39 +20,27 @@ class ScrollableBox extends Box implements Scrollable
         this.tracksWidth = tracksWidth;
         this.tracksHeight = tracksHeight;
     }
-    
+
     public void setScrollableIncrement(int increment)
-    {
-        this.increment = increment;
-    }
+    { this.increment = increment; }
 
     @Override
     public Dimension getPreferredScrollableViewportSize()
-    {
-        return getPreferredSize();
-    }
+    { return getPreferredSize(); }
 
     @Override
     public int getScrollableUnitIncrement(Rectangle visible, int orientation, int direction)
-    {
-        return increment;
-    }
+    { return increment; }
 
     @Override
     public int getScrollableBlockIncrement(Rectangle visible, int orientation, int direction)
-    {
-        return increment;
-    }
+    { return increment; }
 
     @Override
     public boolean getScrollableTracksViewportWidth()
-    {
-        return tracksWidth;
-    }
+    { return tracksWidth; }
 
     @Override
     public boolean getScrollableTracksViewportHeight()
-    {
-        return tracksHeight;
-    }
+    { return tracksHeight; }
 }

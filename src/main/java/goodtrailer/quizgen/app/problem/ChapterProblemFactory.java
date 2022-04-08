@@ -22,18 +22,12 @@ public class ChapterProblemFactory implements IProblemFactory
     }
 
     public ChapterProblemFactory(int chapter)
-    {
-        factory = factories.get(chapter).get();
-    }
+    { factory = factories.get(chapter).get(); }
 
     @Override
     public IProblem get()
-    {
-        return factory.get();
-    }
-    
+    { return factory.get(); }
+
     public static Set<Integer> chapters()
-    {
-        return factories.keySet();
-    }
+    { return factories.keySet(); }
 }

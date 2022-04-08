@@ -1,13 +1,11 @@
-package goodtrailer.quizgen.util;
+package goodtrailer.quizgen.math;
 
 public record Point(double[] components)
 {
     public static final int DEFAULT_MAX_COMPONENT_VALUE = 12;
 
     public Point(double... components)
-    {
-        this.components = components;
-    }
+    { this.components = components; }
 
     public boolean equals(Point other, int places)
     {
@@ -15,16 +13,14 @@ public record Point(double[] components)
             return false;
 
         for (int i = 0; i < components.length; i++)
-            if (!MathUtils.areEqual(other.components[i], components[i], places))
+            if (!IMathUtils.areEqual(other.components[i], components[i], places))
                 return false;
 
         return true;
     }
 
     public boolean equals(Point other)
-    {
-        return equals(other, MathConstants.DEFAULT_PLACES);
-    }
+    { return equals(other, IMathConstants.DEFAULT_PLACES); }
 
     @Override
     public boolean equals(Object other)
@@ -36,9 +32,7 @@ public record Point(double[] components)
     }
 
     public int dimensions()
-    {
-        return components.length;
-    }
+    { return components.length; }
 
     public double distance(Point other)
     {
@@ -53,11 +47,9 @@ public record Point(double[] components)
         }
         return Math.sqrt(sum);
     }
-    
+
     public boolean is2d()
-    {
-        return components.length == 2;
-    }
+    { return components.length == 2; }
 
     public String toString(int places)
     {
@@ -67,17 +59,15 @@ public record Point(double[] components)
         String string = "(";
         for (int i = 0; i < components.length - 1; i++)
         {
-            string += MathUtils.toString(components[i], places) + ", ";
+            string += IMathUtils.toString(components[i], places) + ", ";
         }
-        string += MathUtils.toString(components[components.length - 1], places);
+        string += IMathUtils.toString(components[components.length - 1], places);
         return string + ")";
     }
 
     @Override
     public String toString()
-    {
-        return toString(MathConstants.DEFAULT_PLACES);
-    }
+    { return toString(IMathConstants.DEFAULT_PLACES); }
 
     public double x()
     {
@@ -103,20 +93,18 @@ public record Point(double[] components)
         double[] components = new double[dimensions];
         for (int i = 0; i < components.length; i++)
         {
-            components[i] = MathUtils.randomInt(maxComponentValue);
+            components[i] = IMathUtils.randomInt(maxComponentValue);
         }
         return new Point(components);
     }
 
     public static Point random(int dimensions)
-    {
-        return random(dimensions, DEFAULT_MAX_COMPONENT_VALUE);
-    }
+    { return random(dimensions, DEFAULT_MAX_COMPONENT_VALUE); }
 
     public static Point parse(String string)
     {
         string = string.trim();
-        
+
         if (string.isEmpty())
             throw new NumberFormatException("blank/empty string");
 
@@ -126,13 +114,11 @@ public record Point(double[] components)
         var components = string.substring(1, string.length() - 1).split(",");
         var point = new double[components.length];
         for (var i = 0; i < components.length; i++)
-            point[i] = MathUtils.parseFraction(components[i]);
+            point[i] = IMathUtils.parseFraction(components[i]);
 
         return new Point(point);
     }
-    
+
     public static Point zero(int dimensions)
-    {
-        return new Point(new double[dimensions]);
-    }
+    { return new Point(new double[dimensions]); }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import goodtrailer.quizgen.math.IMathUtils;
+import goodtrailer.quizgen.math.Point;
+import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Linear;
-import goodtrailer.quizgen.util.MathUtils;
-import goodtrailer.quizgen.util.Point;
 import goodtrailer.quizgen.util.ResourceUtils;
 
 class TransversalAngleProblem extends AbstractFrqProblem
@@ -34,7 +34,7 @@ class TransversalAngleProblem extends AbstractFrqProblem
         while (angleB.isConstant())
             angleB = Linear.random();
 
-        angleC = MathUtils.randomInt(min_angle_c, max_angle_c);
+        angleC = IMathUtils.randomInt(min_angle_c, max_angle_c);
         variant = (int) (Math.random() * variants_count);
 
         double x, y;

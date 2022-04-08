@@ -19,7 +19,5 @@ public enum Result
     }
 
     public static Result from(boolean isCorrect)
-    {
-        return isCorrect ? CORRECT : INCORRECT;
-    }
+    { return isCorrect ? CORRECT : INCORRECT; }
 }

@@ -43,8 +43,6 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 
         @Override
         public IProblem get()
-        {
-            return factory.get();
-        }
+        { return factory.get(); }
     };
 }

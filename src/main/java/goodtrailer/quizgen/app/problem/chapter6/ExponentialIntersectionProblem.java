@@ -1,11 +1,11 @@
 package goodtrailer.quizgen.app.problem.chapter6;
 
+import goodtrailer.quizgen.math.Point;
+import goodtrailer.quizgen.math.Solution;
+import goodtrailer.quizgen.math.SolutionType;
+import goodtrailer.quizgen.math.function.Exponential;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.Exponential;
-import goodtrailer.quizgen.util.Point;
-import goodtrailer.quizgen.util.Solution;
-import goodtrailer.quizgen.util.SolutionType;
 
 class ExponentialIntersectionProblem extends AbstractFrqProblem
 {
