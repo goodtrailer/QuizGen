@@ -156,7 +156,7 @@ public class Exponential extends AbstractFunction
     public static Exponential random(int maxA, int maxB, int maxM, int maxC)
     {
         int a = IMathUtils.randomInt(maxA);
-        int b = Math.abs(IMathUtils.randomInt(maxB));
+        int b = IMathUtils.randomInt(0, maxB);
         int m = IMathUtils.randomInt(maxM);
         int c = IMathUtils.randomInt(maxC);
         return new Exponential(a, b, m, c);

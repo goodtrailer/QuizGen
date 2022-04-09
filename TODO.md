@@ -1,6 +1,4 @@
 ### Immediate
-* unnecessary comment on range problem
-* fix b calculation in exponential.random
 
 ### Soon
 * chapter 8
