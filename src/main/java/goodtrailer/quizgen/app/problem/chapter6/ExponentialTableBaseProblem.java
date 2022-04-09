@@ -49,8 +49,12 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
             data[i][0] = IMathUtils.toString(x);
             data[i][1] = IMathUtils.toString(function.evaluate(x));
         }
+        
         var table = new JTable(data, headers);
+        int fontHeight = table.getFontMetrics(table.getFont()).getHeight();
+        table.setRowHeight(fontHeight);
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        
         var scrollPane = new JScrollPane(table);
         scrollPane.setMaximumSize(new Dimension(300, 0));
 

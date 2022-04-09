@@ -40,7 +40,7 @@ public class Main
         FontUIResource fontUIResource;
         try
         {
-            var file = IResourceUtils.getFile(Main.class, "EBGaramondRegular.otf");
+            var file = IResourceUtils.getFile(Main.class, "STIXTwoMath-Regular.otf");
             var font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(FONT_SIZE);
             fontUIResource = new FontUIResource(font);
         }
