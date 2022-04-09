@@ -49,7 +49,7 @@ public class Main
             System.err.print("Failed to set font: ");
             e.printStackTrace();
 
-            fontUIResource = new FontUIResource(Font.SERIF, Font.PLAIN, 18);
+            fontUIResource = new FontUIResource(Font.SERIF, Font.PLAIN, (int)FONT_SIZE);
         }
         UI_FONT = fontUIResource;
     }
