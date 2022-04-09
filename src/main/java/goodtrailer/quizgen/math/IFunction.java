@@ -31,4 +31,46 @@ public interface IFunction
     String toString(String variable);
 
     String toString(int places);
+
+    public static IFunction zero()
+    {
+        return new AbstractFunction()
+        {
+
+            @Override
+            public double evaluate(double input)
+            { return 0; }
+
+            @Override
+            public boolean isConstant(int places)
+            { return true; }
+
+            @Override
+            public boolean isZero(int places)
+            { return true; }
+
+            @Override
+            public List<Interval> domain(int places)
+            { return List.of(Interval.real()); }
+
+            @Override
+            public List<Interval> range(int places)
+            { return List.of(Interval.point(0)); }
+
+            @Override
+            public Solution solution(IFunction otherFunc, int places)
+            {
+                var type = IMathUtils.areEqual(otherFunc.evaluate(0), 0, places)
+                        ? SolutionType.EXISTS
+                        : SolutionType.DNE;
+                var point = Point.zero(2);
+
+                return new Solution(type, point);
+            }
+
+            @Override
+            public String toString(String variable, int places)
+            { return "0"; }
+        };
+    }
 }

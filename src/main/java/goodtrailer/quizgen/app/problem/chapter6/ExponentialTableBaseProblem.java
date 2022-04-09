@@ -7,35 +7,33 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import goodtrailer.quizgen.math.IFunction;
 import goodtrailer.quizgen.math.IMathUtils;
-import goodtrailer.quizgen.math.Point;
 import goodtrailer.quizgen.math.function.Exponential;
+import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
 
-class ExponentialTableAdditionProblem extends AbstractFrqProblem
+class ExponentialTableBaseProblem extends AbstractFrqProblem
 {
     private static final int max_x = 2;
 
-    private Exponential exponential;
-    private Point point0;
-    private Point point1;
+    private IFunction function;
+    private double base;
 
     @Override
     protected void initialize()
     {
-        exponential = Exponential.random().withM(IMathUtils.randomInt(1));
-        while (exponential.isConstant())
-            exponential = Exponential.random().withM(IMathUtils.randomInt(1));
+        boolean isExponential = Math.random() * 2 > 1 ? true : false;
 
-        int x0 = 0, x1 = 0;
-        while (x0 == x1)
+        function = IFunction.zero();
+        while (function.isConstant())
         {
-            x0 = IMathUtils.randomInt(max_x);
-            x1 = IMathUtils.randomInt(max_x);
+            function = isExponential
+                    ? Exponential.random().withM(IMathUtils.randomInt(1))
+                    : Linear.random();
         }
-        point0 = new Point(x0, exponential.evaluate(x0));
-        point1 = new Point(x1, exponential.evaluate(x1));
+        base = isExponential ? ((Exponential) function).b() : 0;
     }
 
     @Override
@@ -48,7 +46,7 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
         for (int i = 0, x = -max_x; x <= max_x; i++, x++)
         {
             data[i][0] = IMathUtils.toString(x);
-            data[i][1] = IMathUtils.toString(exponential.evaluate(x));
+            data[i][1] = IMathUtils.toString(function.evaluate(x));
         }
         var table = new JTable(data, headers);
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
@@ -61,9 +59,8 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        return String.format("What is the value of { f(%s) + f(%s) }?",
-                IMathUtils.toString(point0.x()),
-                IMathUtils.toString(point1.x()));
+        return "Is the following table's function exponential? If so, write its base (reciprocals "
+                + "are valid). Otherwise, write 0.";
     }
 
     @Override
@@ -79,6 +76,9 @@ class ExponentialTableAdditionProblem extends AbstractFrqProblem
             return Result.INVALID;
         }
 
-        return Result.from(IMathUtils.areEqual(input, point0.y() + point1.y()));
+        boolean isCorrect = IMathUtils.areEqual(input, base)
+                || IMathUtils.areEqual(input, 1.0 / base);
+        
+        return Result.from(isCorrect);
     }
 }
