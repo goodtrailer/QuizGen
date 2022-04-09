@@ -22,7 +22,6 @@ class ExponentialRangeProblem extends AbstractMcqProblem
     @Override
     protected Choices getChoices()
     {
-        // domain of an exponential function is always (-inf, inf)
         int correctIndex = -1;
         var intervals = new ArrayList<Interval>(List.of(
                 Interval.real(),
