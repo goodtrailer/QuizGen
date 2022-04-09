@@ -1,5 +1,7 @@
 ### Immediate
-* ResourceUtils -> IResourceUtils
+* unnecessary comment on range problem
+* fix b calculation in exponential.random
+* un-public exponentail range problem
 
 ### Soon
 * chapter 8

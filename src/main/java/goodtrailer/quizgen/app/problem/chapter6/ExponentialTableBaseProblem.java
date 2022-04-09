@@ -13,6 +13,7 @@ import goodtrailer.quizgen.math.function.Exponential;
 import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
+import goodtrailer.quizgen.util.IBooleanUtils;
 
 class ExponentialTableBaseProblem extends AbstractFrqProblem
 {
@@ -24,7 +25,7 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
     @Override
     protected void initialize()
     {
-        boolean isExponential = Math.random() * 2 > 1 ? true : false;
+        boolean isExponential = IBooleanUtils.random();
 
         function = IFunction.zero();
         while (function.isConstant())

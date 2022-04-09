@@ -29,11 +29,11 @@ class ExponentialDomainProblem extends AbstractMcqProblem
                 Interval.real().withLower(0),
                 Interval.real().withUpper(0)));
         intervals.add(Interval.point(exponential.evaluate(0)));
-        
+
         var descriptions = new ArrayList<String>();
         for (var i : intervals)
             descriptions.add(i.toString());
-        
+
         return new Choices(descriptions, correctIndex);
     }
 }
