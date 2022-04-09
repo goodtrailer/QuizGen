@@ -7,7 +7,7 @@ import goodtrailer.quizgen.math.Interval;
 import goodtrailer.quizgen.math.function.Exponential;
 import goodtrailer.quizgen.problem.AbstractMcqProblem;
 
-public class ExponentialRangeProblem extends AbstractMcqProblem
+class ExponentialRangeProblem extends AbstractMcqProblem
 {
     private Exponential exponential;
 
