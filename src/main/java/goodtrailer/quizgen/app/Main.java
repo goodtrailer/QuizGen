@@ -21,7 +21,7 @@ import javax.swing.plaf.FontUIResource;
 
 import goodtrailer.quizgen.app.problem.ChapterProblemFactory;
 import goodtrailer.quizgen.gui.QuizPanel;
-import goodtrailer.quizgen.util.ResourceUtils;
+import goodtrailer.quizgen.util.IResourceUtils;
 
 public class Main
 {
@@ -40,7 +40,7 @@ public class Main
         FontUIResource fontUIResource;
         try
         {
-            var file = ResourceUtils.getFile(Main.class, "EBGaramondRegular.otf");
+            var file = IResourceUtils.getFile(Main.class, "EBGaramondRegular.otf");
             var font = Font.createFont(Font.TRUETYPE_FONT, file).deriveFont(FONT_SIZE);
             fontUIResource = new FontUIResource(font);
         }

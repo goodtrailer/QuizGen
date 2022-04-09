@@ -10,7 +10,7 @@ import goodtrailer.quizgen.math.Point;
 import goodtrailer.quizgen.math.function.Linear;
 import goodtrailer.quizgen.problem.AbstractFrqProblem;
 import goodtrailer.quizgen.problem.Result;
-import goodtrailer.quizgen.util.ResourceUtils;
+import goodtrailer.quizgen.util.IResourceUtils;
 
 class TransversalAngleProblem extends AbstractFrqProblem
 {
@@ -71,7 +71,7 @@ class TransversalAngleProblem extends AbstractFrqProblem
         super.addComponents(components);
 
         String filename = String.format("Transversal%d.png", variant);
-        var label = new JLabel(ResourceUtils.getImage(this, filename));
+        var label = new JLabel(IResourceUtils.getImage(this, filename));
         components.addAll(components.size() - 2, List.of(label, createFiller()));
     }
 
