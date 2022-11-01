@@ -8,7 +8,6 @@
     * 4 perimeter/area of rectangle from points
     * 4 perimeter/area of triangle from points
     * 5 **visual** adjacent angles given super angle
-    * 6 **visual** complementary angles
 
 ### Mid Priority
 * chapter 11
@@ -17,3 +16,7 @@
 ### Low Priority
 * function factories—possibly over-engineering
 * fix font vertical alignment—requires editing font
+
+### API Improvements
+* linear sums
+* linear.constant and exponential.constant

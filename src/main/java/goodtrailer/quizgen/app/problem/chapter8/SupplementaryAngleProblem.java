@@ -40,7 +40,7 @@ public class SupplementaryAngleProblem extends AbstractFrqProblem
                 + "m\u2220A = a\u00B0 = (%s)\u00B0\n"
                 + "m\u2220B = b\u00B0 = (%s)\u00B0\n\n"
                 + "Find the values of a and b. Give your solution in the form of a point (a, b).";
-        return String.format(message, angleA.toString("z"), angleB.toString("z"));
+        return String.format(message, angleA.toString("x"), angleB.toString("x"));
     }
 
     @Override

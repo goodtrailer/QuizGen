@@ -7,6 +7,7 @@ import goodtrailer.quizgen.problem.AbstractWeightedProblemFactory;
 public class Chapter8ProblemFactory extends AbstractWeightedProblemFactory
 {
     private static final List<WeightedFactory> weighted_factories = List.of(
+            new WeightedFactory(AdjacentAngleProblem::new, 2),
             new WeightedFactory(ComplementaryAngleProblem::new, 1),
             new WeightedFactory(SupplementaryAngleProblem::new, 1));
 
