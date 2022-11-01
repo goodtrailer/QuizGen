@@ -2,7 +2,6 @@ package goodtrailer.quizgen.math;
 
 public record Interval(double lower, double upper, boolean lInclusive, boolean uInclusive)
 {
-
     public static final boolean DEFAULT_LOWER_INCLUSIVE = true;
     public static final boolean DEFAULT_UPPER_INCLUSIVE = false;
 
