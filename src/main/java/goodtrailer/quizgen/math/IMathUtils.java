@@ -46,21 +46,6 @@ public interface IMathUtils
             return Result.INVALID;
         }
     }
-    
-    static Result tryParseFractionEquals(String a, String b)
-    { return tryParseFractionEquals(a, b, IMathConstants.DEFAULT_PLACES); }
-    
-    static Result tryParseFractionEquals(String a, String b, int places)
-    {
-        try
-        {
-            return tryParseFractionEquals(parseFraction(a), b, places);
-        }
-        catch (NumberFormatException nfe)
-        {
-            return Result.INVALID;
-        }
-    }
 
     static double parsePercentage(String string) throws NumberFormatException
     {
@@ -86,21 +71,6 @@ public interface IMathUtils
         try
         {
             return Result.from(equals(a, parsePercentage(b), places));
-        }
-        catch (NumberFormatException nfe)
-        {
-            return Result.INVALID;
-        }
-    }
-    
-    static Result tryParsePercentageEquals(String a, String b)
-    { return tryParsePercentageEquals(a, b, IMathConstants.DEFAULT_PLACES); }
-    
-    static Result tryParsePercentageEquals(String a, String b, int places)
-    {
-        try
-        {
-            return tryParsePercentageEquals(parsePercentage(a), b, places);
         }
         catch (NumberFormatException nfe)
         {
