@@ -105,9 +105,9 @@ public class Linear extends AbstractFunction
 
     // ------------------------------------------------------------------------------------- statics
 
-    public static Linear random(int maxA, int maxB)
+    public static Linear random(int maxM, int maxB)
     {
-        int m = IMathUtils.randomInt(maxA);
+        int m = IMathUtils.randomInt(maxM);
         int b = IMathUtils.randomInt(maxB);
         return new Linear(m, b);
     }

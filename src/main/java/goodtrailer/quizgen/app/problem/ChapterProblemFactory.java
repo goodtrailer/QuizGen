@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 
 import goodtrailer.quizgen.app.problem.chapter10.Chapter10ProblemFactory;
 import goodtrailer.quizgen.app.problem.chapter6.Chapter6ProblemFactory;
+import goodtrailer.quizgen.app.problem.chapter8.Chapter8ProblemFactory;
 import goodtrailer.quizgen.problem.IProblem;
 import goodtrailer.quizgen.problem.IProblemFactory;
 
@@ -18,6 +19,7 @@ public class ChapterProblemFactory implements IProblemFactory
     {
         factories = new HashMap<Integer, Supplier<IProblemFactory>>();
         factories.put(6, Chapter6ProblemFactory::new);
+        factories.put(8, Chapter8ProblemFactory::new);
         factories.put(10, Chapter10ProblemFactory::new);
     }
 
