@@ -11,13 +11,19 @@ class ExponentialRateOfChangeProblem extends AbstractFrqProblem
 
     @Override
     protected void initialize()
-    { exponential = Exponential.random(); }
+    {
+        exponential = Exponential.random();
+        while (exponential.isConstant())
+            exponential = Exponential.random();
+    }
 
     @Override
     protected String getPrompt()
     {
-        return String.format("What is the percentage rate of change of the equation { y = %s }?",
-                exponential.toString());
+        String message = "Find the percentage rate of change of the exponential equation:\n\n"
+                + "y = %s";
+        
+        return String.format(message, exponential.toString());
     }
 
     @Override

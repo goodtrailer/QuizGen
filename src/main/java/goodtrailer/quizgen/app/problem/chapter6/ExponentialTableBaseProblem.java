@@ -64,8 +64,11 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        return "Is the following table's function exponential? If so, write its base (reciprocals "
-                + "are valid). Otherwise, write 0.";
+        String message = "Is the following table's function exponential?\n"
+                + "If so, find its base (reciprocals are valid).\n"
+                + "Otherwise, write 0.";
+        
+        return message;
     }
 
     @Override

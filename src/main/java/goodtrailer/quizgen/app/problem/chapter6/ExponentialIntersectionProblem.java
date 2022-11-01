@@ -24,10 +24,13 @@ class ExponentialIntersectionProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        return String.format(
-                "Find the point where the curves { y\u2080 = %s } and { y\u2081 = %s } intersect. %s and %s are valid.",
-                exponential0.toString(), exponential1.toString(), SolutionType.DNE,
-                SolutionType.TRUE);
+        String message = "Find the point where the curves y\u2080 and y\u2081 intersect.\n\n"
+                + "y\u2080 = %s\n"
+                + "y\u2081 = %s\n\n"
+                + "%s and %s are valid. Give your solution in the form of a point (x, y).";
+
+        return String.format(message, exponential0.toString(), exponential1.toString(),
+                SolutionType.DNE, SolutionType.TRUE);
     }
 
     @Override

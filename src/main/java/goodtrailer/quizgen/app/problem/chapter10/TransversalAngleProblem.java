@@ -60,9 +60,12 @@ class TransversalAngleProblem extends AbstractFrqProblem
     @Override
     protected String getPrompt()
     {
-        String message = "In the transversal below, m\u2220C = %d\u00B0; m\u2220A = (%s)\u00B0; "
-                + "m\u2220B = (%s)\u00B0. Find the values of x and y. Give your solution in the "
-                + "form of a point (x, y).";
+        String message = "In the diagram below, A, B, and C are angles of a transversal. The "
+                + "diagram is not to scale.\n\n"
+                + "m\u2220C = %d\u00B0\n"
+                + "m\u2220A = (%s)\u00B0\n"
+                + "m\u2220B = (%s)\u00B0\n\n"
+                + "Find the values of x and y. Give your solution in the form of a point (x, y).";
         return String.format(message, angleC, angleA.toString(), angleB.toString("y"));
     }
 

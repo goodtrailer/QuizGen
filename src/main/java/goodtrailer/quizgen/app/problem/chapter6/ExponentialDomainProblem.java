@@ -17,7 +17,12 @@ class ExponentialDomainProblem extends AbstractMcqProblem
 
     @Override
     protected String getPrompt()
-    { return String.format("Describe the domain of { y = %s }.", exponential.toString()); }
+    {
+        String message = "Describe the domain of the exponential equation:\n\n"
+                + "y = %s";
+        
+        return String.format(message, exponential.toString());
+    }
 
     @Override
     protected Choices getChoices()
