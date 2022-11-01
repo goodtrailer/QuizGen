@@ -21,7 +21,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
     private int angleABC;
     private Linear angleABD;
     private Linear angleCBD;
-    private Point solution;
+    private Point point;
     
     private int variant;
     
@@ -42,7 +42,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
         
         var angleSum = angleABD.add(angleCBD);
         double x = angleSum.solution(new Linear(0, angleABC)).point().x();
-        solution = new Point(angleABD.evaluate(x), angleCBD.evaluate(x));
+        point = new Point(angleABD.evaluate(x), angleCBD.evaluate(x));
     }
     
     @Override
@@ -85,6 +85,6 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
         if (!inPoint.is2d())
             return Result.INVALID;
 
-        return solution.equals(inPoint);
+        return point.equals(inPoint);
     }
 }

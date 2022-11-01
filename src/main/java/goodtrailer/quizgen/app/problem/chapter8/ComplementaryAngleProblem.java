@@ -14,7 +14,7 @@ import goodtrailer.quizgen.util.IResourceUtils;
 public class ComplementaryAngleProblem extends AbstractFrqProblem
 {
     private Linear angleA, angleB;
-    private Point solution;
+    private Point point;
 
     @Override
     protected void initialize()
@@ -29,7 +29,7 @@ public class ComplementaryAngleProblem extends AbstractFrqProblem
         
         var angleSum = angleA.add(angleB);
         double x = angleSum.solution(new Linear(0, 90)).point().x();
-        solution = new Point(angleA.evaluate(x), angleB.evaluate(x));
+        point = new Point(angleA.evaluate(x), angleB.evaluate(x));
     }
 
     @Override
@@ -71,6 +71,6 @@ public class ComplementaryAngleProblem extends AbstractFrqProblem
         if (!inPoint.is2d())
             return Result.INVALID;
 
-        return solution.equals(inPoint);
+        return point.equals(inPoint);
     }
 }

@@ -21,7 +21,7 @@ class TransversalAngleProblem extends AbstractFrqProblem
     private Linear angleA, angleB;
     private int angleC;
     private int variant;
-    private Point solution;
+    private Point point;
 
     @Override
     protected void initialize()
@@ -54,7 +54,7 @@ class TransversalAngleProblem extends AbstractFrqProblem
         default:
             throw new IllegalStateException("invalid problem variant");
         }
-        solution = new Point(x, y);
+        point = new Point(x, y);
     }
 
     @Override
@@ -94,6 +94,6 @@ class TransversalAngleProblem extends AbstractFrqProblem
             return Result.INVALID;
         }
 
-        return solution.equals(inPoint);
+        return point.equals(inPoint);
     }
 }
