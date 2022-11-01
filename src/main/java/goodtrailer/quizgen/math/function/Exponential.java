@@ -71,6 +71,32 @@ public class Exponential extends AbstractFunction
 
     public ExponentialGrowthType growthType()
     { return growthType(IMathConstants.DEFAULT_PLACES); }
+    
+    public Solution solution(Exponential other)
+    { return solution(other, IMathConstants.DEFAULT_PLACES); }
+
+    public Solution solution(Exponential other, int places)
+    {
+        double lnb0 = Math.log(b);
+        double lnb1 = Math.log(other.b);
+        double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
+        double denom = m * lnb0 - other.m * lnb1;
+        double x = numer / denom;
+
+        var type = Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
+        var point = new Point(x, evaluate(x));
+
+        boolean constants = isConstant(places) && other.isConstant(places)
+                && IMathUtils.areEqual(evaluate(0), other.evaluate(0), places);
+        boolean identical = IMathUtils.areEqual(a, other.a, places)
+                && IMathUtils.areEqual(b, other.b, places)
+                && IMathUtils.areEqual(m, other.m, places)
+                && IMathUtils.areEqual(c, other.c, places);
+        if (constants || identical)
+            type = SolutionType.TRUE;
+
+        return new Solution(type, point);
+    }
 
     // ----------------------------------------------------------------------------------- overrides
 
@@ -105,32 +131,6 @@ public class Exponential extends AbstractFunction
             return List.of(Interval.real().withLower(0));
         else
             return List.of(Interval.real().withUpper(0));
-    }
-    
-    public Solution solution(Exponential other)
-    { return solution(other, IMathConstants.DEFAULT_PLACES); }
-
-    public Solution solution(Exponential other, int places)
-    {
-        double lnb0 = Math.log(b);
-        double lnb1 = Math.log(other.b);
-        double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;
-        double denom = m * lnb0 - other.m * lnb1;
-        double x = numer / denom;
-
-        var type = Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
-        var point = new Point(x, evaluate(x));
-
-        boolean constants = isConstant(places) && other.isConstant(places)
-                && IMathUtils.areEqual(evaluate(0), other.evaluate(0), places);
-        boolean identical = IMathUtils.areEqual(a, other.a, places)
-                && IMathUtils.areEqual(b, other.b, places)
-                && IMathUtils.areEqual(m, other.m, places)
-                && IMathUtils.areEqual(c, other.c, places);
-        if (constants || identical)
-            type = SolutionType.TRUE;
-
-        return new Solution(type, point);
     }
 
     @Override

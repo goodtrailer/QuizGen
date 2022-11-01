@@ -27,7 +27,7 @@ public class ComplementaryAngleProblem extends AbstractFrqProblem
         while (angleB.isConstant())
             angleB = Linear.random();
         
-        var angleSum = new Linear(angleA.m() + angleB.m(), angleA.b() + angleB.b());
+        var angleSum = angleA.add(angleB);
         double x = angleSum.solution(new Linear(0, 90)).point().x();
         solution = new Point(angleA.evaluate(x), angleB.evaluate(x));
     }

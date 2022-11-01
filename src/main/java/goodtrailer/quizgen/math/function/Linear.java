@@ -49,6 +49,27 @@ public class Linear extends AbstractFunction
         };
     }
 
+    public Solution solution(Linear other)
+    { return solution(other, IMathConstants.DEFAULT_PLACES); }
+    
+    public Solution solution(Linear other, int places)
+    {
+        double x = ((double) other.b - b) / (m - other.m);
+        var point = new Point(x, evaluate(x));
+        var type = SolutionType.EXISTS;
+
+        if (IMathUtils.areEqual(m, other.m, places))
+        {
+            boolean same = IMathUtils.areEqual(b, other.b, places);
+            type = same ? SolutionType.TRUE : SolutionType.DNE;
+        }
+
+        return new Solution(type, point);
+    }
+    
+    public Linear add(Linear other)
+    { return new Linear(m + other.m, b + other.b); }
+
     // ----------------------------------------------------------------------------------- overrides
 
     @Override
@@ -70,24 +91,6 @@ public class Linear extends AbstractFunction
     @Override
     public List<Interval> range(int places)
     { return List.of(Interval.real()); }
-
-    public Solution solution(Linear other)
-    { return solution(other, IMathConstants.DEFAULT_PLACES); }
-    
-    public Solution solution(Linear other, int places)
-    {
-        double x = ((double) other.b - b) / (m - other.m);
-        var point = new Point(x, evaluate(x));
-        var type = SolutionType.EXISTS;
-
-        if (IMathUtils.areEqual(m, other.m, places))
-        {
-            boolean same = IMathUtils.areEqual(b, other.b, places);
-            type = same ? SolutionType.TRUE : SolutionType.DNE;
-        }
-
-        return new Solution(type, point);
-    }
 
     @Override
     public String toString(String variable, int places)

@@ -36,3 +36,5 @@
 * function.constant
 * function.random constant probability
 * function.random zero probability
+
+* variant image label

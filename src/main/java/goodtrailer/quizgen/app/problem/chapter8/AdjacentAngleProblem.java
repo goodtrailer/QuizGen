@@ -40,7 +40,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
         while (angleCBD.isConstant())
             angleCBD = Linear.random();
         
-        var angleSum = new Linear(angleABD.m() + angleCBD.m(), angleABD.b() + angleCBD.b());
+        var angleSum = angleABD.add(angleCBD);
         double x = angleSum.solution(new Linear(0, angleABC)).point().x();
         solution = new Point(angleABD.evaluate(x), angleCBD.evaluate(x));
     }
