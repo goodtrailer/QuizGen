@@ -7,6 +7,16 @@ public enum Result
     INCORRECT,
     CORRECT,
     INVALID;
+    
+    public boolean toBoolean()
+    {
+        return switch (this)
+        {
+        case INCORRECT -> false;
+        case CORRECT -> true;
+        case INVALID -> false;
+        };
+    }
 
     public Color toColor()
     {

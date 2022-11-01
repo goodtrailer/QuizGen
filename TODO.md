@@ -18,8 +18,6 @@
 * fix font vertical alignment—requires editing font
 
 ### API Improvements
-* linear.add
-
 * result.toBoolean
 * point.equals -> result
 * solution.equals -> result
