@@ -44,12 +44,12 @@ class TransversalAngleProblem extends AbstractFrqProblem
         case 0:
         case 2:
         case 3:
-            x = angleA.solution(new Linear(0, 180 - angleC)).point().x();
-            y = angleB.solution(new Linear(0, angleC)).point().x();
+            x = angleA.solution(Linear.constant(180 - angleC)).point().x();
+            y = angleB.solution(Linear.constant(angleC)).point().x();
             break;
         case 1:
-            x = angleA.solution(new Linear(0, angleC)).point().x();
-            y = angleB.solution(new Linear(0, 180 - angleC)).point().x();
+            x = angleA.solution(Linear.constant(angleC)).point().x();
+            y = angleB.solution(Linear.constant(180 - angleC)).point().x();
             break;
         default:
             throw new IllegalStateException("invalid problem variant");

@@ -28,7 +28,7 @@ public class SupplementaryAngleProblem extends AbstractFrqProblem
             angleB = Linear.random();
         
         var angleSum = angleA.add(angleB);
-        double x = angleSum.solution(new Linear(0, 180)).point().x();
+        double x = angleSum.solution(Linear.constant(180)).point().x();
         point = new Point(angleA.evaluate(x), angleB.evaluate(x));
     }
 
@@ -48,8 +48,7 @@ public class SupplementaryAngleProblem extends AbstractFrqProblem
     {
         super.addComponents(components);
 
-        String filename = "SupplementaryAngle.png";
-        var label = new JLabel(IResourceUtils.getImage(this, filename));
+        var label = new JLabel(IResourceUtils.getImage(this, "SupplementaryAngle.png"));
         components.addAll(components.size() - 2, List.of(label, createFiller()));
     }
     

@@ -137,4 +137,7 @@ public class Linear extends AbstractFunction
 
     public static Linear random()
     { return random(DEFAULT_MAX_M, DEFAULT_MAX_B); }
+    
+    public static Linear constant(double constant)
+    { return new Linear(0, constant); }
 }

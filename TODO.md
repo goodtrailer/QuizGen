@@ -21,7 +21,10 @@
 * interval.parse
 * interval.equals -> result
 * interval.equals (parse + equality) -> result
-* function.constant
 * function.random constant probability
 * function.random zero probability
 * variant image label
+
+### Bug Fixes
+* domain of 0^x
+* intersection of 0^x -> solution support for intervals?

@@ -83,11 +83,11 @@ public class Exponential extends AbstractFunction
         double denom = m * lnb0 - other.m * lnb1;
         double x = numer / denom;
 
-        var type = Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
+        var type = Double.isFinite(x) ? SolutionType.EXISTS : SolutionType.DNE;
         var point = new Point(x, evaluate(x));
 
         boolean constants = isConstant(places) && other.isConstant(places)
-                && IMathUtils.equals(evaluate(0), other.evaluate(0), places);
+                && IMathUtils.equals(evaluate(1), other.evaluate(1), places);
         boolean identical = IMathUtils.equals(a, other.a, places)
                 && IMathUtils.equals(b, other.b, places)
                 && IMathUtils.equals(m, other.m, places)
@@ -113,7 +113,7 @@ public class Exponential extends AbstractFunction
 
     @Override
     public boolean isZero(int places)
-    { return IMathUtils.equals(a, 0, places) || IMathUtils.equals(b, 0, places); }
+    { return IMathUtils.equals(a, 0, places); }
 
     @Override
     public List<Interval> domain(int places)
@@ -171,4 +171,7 @@ public class Exponential extends AbstractFunction
 
     public static Exponential random()
     { return random(DEFAULT_MAX_A, DEFAULT_MAX_B, DEFAULT_MAX_M, DEFAULT_MAX_C); }
+    
+    public static Exponential constant(double constant)
+    { return new Exponential(constant, 1, 0, 0); }
 }

@@ -1,5 +1,6 @@
 package goodtrailer.quizgen.app.problem.chapter6;
 
+import goodtrailer.quizgen.math.IMathUtils;
 import goodtrailer.quizgen.math.Solution;
 import goodtrailer.quizgen.math.SolutionType;
 import goodtrailer.quizgen.math.function.Exponential;
@@ -16,6 +17,9 @@ class ExponentialIntersectionProblem extends AbstractFrqProblem
     protected void initialize()
     {
         exponential0 = Exponential.random();
+        while (IMathUtils.equals(exponential0.b(), 0))
+            exponential0 = Exponential.random();
+        
         exponential1 = Exponential.random().withB(exponential0.b());
         solution = exponential0.solution(exponential1);
     }

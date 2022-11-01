@@ -23,13 +23,9 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
     private Linear angleCBD;
     private Point point;
     
-    private int variant;
-    
     @Override
     protected void initialize()
     {
-        variant = (int) (Math.random() * variants_count);
-        
         angleABC = IMathUtils.randomInt(min_abc, max_abc);
         
         angleABD = Linear.random();
@@ -41,7 +37,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
             angleCBD = Linear.random();
         
         var angleSum = angleABD.add(angleCBD);
-        double x = angleSum.solution(new Linear(0, angleABC)).point().x();
+        double x = angleSum.solution(Linear.constant(angleABC)).point().x();
         point = new Point(angleABD.evaluate(x), angleCBD.evaluate(x));
     }
     
@@ -62,7 +58,9 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
     {
         super.addComponents(components);
 
+        int variant = (int) (Math.random() * variants_count);
         String filename = String.format("AdjacentAngle%d.png", variant);
+        
         var label = new JLabel(IResourceUtils.getImage(this, filename));
         components.addAll(components.size() - 2, List.of(label, createFiller()));
     }
