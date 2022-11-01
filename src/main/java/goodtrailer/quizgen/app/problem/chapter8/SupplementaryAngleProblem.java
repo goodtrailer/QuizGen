@@ -71,6 +71,6 @@ public class SupplementaryAngleProblem extends AbstractFrqProblem
         if (!inPoint.is2d())
             return Result.INVALID;
 
-        return Result.from(solution.equals(inPoint));
+        return solution.equals(inPoint);
     }
 }

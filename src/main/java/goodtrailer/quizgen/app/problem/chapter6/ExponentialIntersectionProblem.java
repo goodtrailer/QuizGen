@@ -42,11 +42,16 @@ class ExponentialIntersectionProblem extends AbstractFrqProblem
             return Result.INVALID;
 
         SolutionType inType = SolutionType.valueOf(input, SolutionType.EXISTS);
+        
+        if (inType != solution.type())
+            return Result.INCORRECT;
+        
         switch (inType)
         {
         case DNE:
         case TRUE:
-            return Result.from(inType == solution.type());
+            return Result.CORRECT;
+            
         case EXISTS:
             Point inPoint;
             try
@@ -58,13 +63,8 @@ class ExponentialIntersectionProblem extends AbstractFrqProblem
                 return Result.INVALID;
             }
 
-            if (inType != solution.type())
-                return Result.INCORRECT;
-
-            if (inPoint.dimensions() != 2)
-                return Result.INVALID;
-
-            return Result.from(solution.point().equals(inPoint));
+            return solution.point().equals(inPoint);
+            
         default:
             throw new IllegalStateException("illegal solution type");
         }

@@ -94,9 +94,6 @@ class TransversalAngleProblem extends AbstractFrqProblem
             return Result.INVALID;
         }
 
-        if (!inPoint.is2d())
-            return Result.INVALID;
-
-        return Result.from(solution.equals(inPoint));
+        return solution.equals(inPoint);
     }
 }

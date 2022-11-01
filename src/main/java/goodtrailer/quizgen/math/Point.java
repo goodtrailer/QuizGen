@@ -1,5 +1,7 @@
 package goodtrailer.quizgen.math;
 
+import goodtrailer.quizgen.problem.Result;
+
 public record Point(double[] components)
 {
     public static final int DEFAULT_MAX_COMPONENT_VALUE = 12;
@@ -7,19 +9,19 @@ public record Point(double[] components)
     public Point(double... components)
     { this.components = components; }
 
-    public boolean equals(Point other, int places)
+    public Result equals(Point other, int places)
     {
         if (components.length != other.components.length)
-            return false;
+            return Result.INVALID;
 
         for (int i = 0; i < components.length; i++)
             if (!IMathUtils.areEqual(other.components[i], components[i], places))
-                return false;
+                return Result.INCORRECT;
 
-        return true;
+        return Result.CORRECT;
     }
 
-    public boolean equals(Point other)
+    public Result equals(Point other)
     { return equals(other, IMathConstants.DEFAULT_PLACES); }
 
     @Override
@@ -28,7 +30,7 @@ public record Point(double[] components)
         if (!(other instanceof Point pOther))
             return false;
 
-        return equals(pOther);
+        return equals(pOther).toBoolean();
     }
 
     public int dimensions()
