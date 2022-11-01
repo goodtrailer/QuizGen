@@ -23,6 +23,8 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
     private static final int max_b = 5;
     private static final int max_m = 1;
     private static final int max_c = 3;
+    
+    private static final int table_places = 12;
 
     private IFunction function;
     private double base;
@@ -52,7 +54,7 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
         for (int i = 0, x = -max_x; x <= max_x; i++, x++)
         {
             data[i][0] = IMathUtils.toString(x);
-            data[i][1] = IMathUtils.toString(function.evaluate(x));
+            data[i][1] = IMathUtils.toString(function.evaluate(x), table_places);
         }
         
         var table = new JTable(data, headers);

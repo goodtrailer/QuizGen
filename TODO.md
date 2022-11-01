@@ -18,7 +18,3 @@
 ### Low Priority
 * function factories—possibly over-engineering
 * fix font vertical alignment—requires editing font
-
-### Bugs
-* exponential intersection for base 1 where should be TRUE
-* linear to string for 1x

@@ -93,20 +93,35 @@ public class Linear extends AbstractFunction
     @Override
     public String toString(String variable, int places)
     {
-        if (IMathUtils.areEqual(m, 0, places))
-            return IMathUtils.toString(b, places);
-
-        if (IMathUtils.areEqual(b, 0, places))
-            return IMathUtils.toString(m, places) + variable;
+        if (isZero())
+            return "0";
         
         String coef = IMathUtils.toString(m, places);
         if (coef.equals("1"))
             coef = "";
+        else if (coef.equals("-1"))
+            coef = "-";
         
         String operator = b > 0 ? "+" : "\u2013";
         String constant = IMathUtils.toString(Math.abs(b), places);
         
-        return String.format("%s%s %s %s", coef, variable, operator, constant);
+        if (coef.equals("0"))
+        {
+            coef = "";
+            variable = "";
+            operator = "";
+            
+            if (b < 0)
+                constant = "-" + constant;
+        }
+        
+        if (constant.equals("0"))
+        {
+            constant = "";
+            operator = "";
+        }
+        
+        return String.format("%s%s%s%s", coef, variable, operator, constant);
     }
 
     // ------------------------------------------------------------------------------------- statics

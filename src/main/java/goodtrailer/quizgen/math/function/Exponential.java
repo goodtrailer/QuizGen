@@ -123,12 +123,13 @@ public class Exponential extends AbstractFunction
         var type = Double.isFinite(numer / denom) ? SolutionType.EXISTS : SolutionType.DNE;
         var point = new Point(x, evaluate(x));
 
-        boolean zeros = isZero(places) && other.isZero(places);
-        boolean equal = IMathUtils.areEqual(a, other.a, places)
+        boolean constants = isConstant(places) && other.isConstant(places)
+                && IMathUtils.areEqual(evaluate(0), other.evaluate(0), places);
+        boolean identical = IMathUtils.areEqual(a, other.a, places)
                 && IMathUtils.areEqual(b, other.b, places)
                 && IMathUtils.areEqual(m, other.m, places)
                 && IMathUtils.areEqual(c, other.c, places);
-        if (zeros || equal)
+        if (constants || identical)
             type = SolutionType.TRUE;
 
         return new Solution(type, point);
