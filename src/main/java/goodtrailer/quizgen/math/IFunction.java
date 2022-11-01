@@ -22,10 +22,6 @@ public interface IFunction
 
     List<Interval> range();
 
-    Solution solution(IFunction otherFunc, int places);
-
-    Solution solution(IFunction otherFunc);
-
     String toString(String variable, int places);
 
     String toString(String variable);
@@ -56,17 +52,6 @@ public interface IFunction
             @Override
             public List<Interval> range(int places)
             { return List.of(Interval.point(0)); }
-
-            @Override
-            public Solution solution(IFunction otherFunc, int places)
-            {
-                var type = IMathUtils.areEqual(otherFunc.evaluate(0), 0, places)
-                        ? SolutionType.EXISTS
-                        : SolutionType.DNE;
-                var point = Point.zero(2);
-
-                return new Solution(type, point);
-            }
 
             @Override
             public String toString(String variable, int places)

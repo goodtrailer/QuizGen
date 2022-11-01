@@ -3,7 +3,6 @@ package goodtrailer.quizgen.math.function;
 import java.util.List;
 
 import goodtrailer.quizgen.math.AbstractFunction;
-import goodtrailer.quizgen.math.IFunction;
 import goodtrailer.quizgen.math.Interval;
 import goodtrailer.quizgen.math.IMathConstants;
 import goodtrailer.quizgen.math.IMathUtils;
@@ -107,13 +106,12 @@ public class Exponential extends AbstractFunction
         else
             return List.of(Interval.real().withUpper(0));
     }
+    
+    public Solution solution(Exponential other)
+    { return solution(other, IMathConstants.DEFAULT_PLACES); }
 
-    @Override
-    public Solution solution(IFunction otherFunc, int places)
+    public Solution solution(Exponential other, int places)
     {
-        if (!(otherFunc instanceof Exponential other))
-            throw new IllegalArgumentException("otherFunc not an Exponential");
-
         double lnb0 = Math.log(b);
         double lnb1 = Math.log(other.b);
         double numer = Math.log(other.a / a) + other.c * lnb1 - c * lnb0;

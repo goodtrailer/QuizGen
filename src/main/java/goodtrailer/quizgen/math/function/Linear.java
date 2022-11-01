@@ -3,7 +3,7 @@ package goodtrailer.quizgen.math.function;
 import java.util.List;
 
 import goodtrailer.quizgen.math.AbstractFunction;
-import goodtrailer.quizgen.math.IFunction;
+import goodtrailer.quizgen.math.IMathConstants;
 import goodtrailer.quizgen.math.Interval;
 import goodtrailer.quizgen.math.IMathUtils;
 import goodtrailer.quizgen.math.Point;
@@ -71,12 +71,11 @@ public class Linear extends AbstractFunction
     public List<Interval> range(int places)
     { return List.of(Interval.real()); }
 
-    @Override
-    public Solution solution(IFunction otherFunc, int places)
+    public Solution solution(Linear other)
+    { return solution(other, IMathConstants.DEFAULT_PLACES); }
+    
+    public Solution solution(Linear other, int places)
     {
-        if (!(otherFunc instanceof Linear other))
-            throw new IllegalArgumentException("otherFunc not a Linear");
-
         double x = ((double) other.b - b) / (m - other.m);
         var point = new Point(x, evaluate(x));
         var type = SolutionType.EXISTS;

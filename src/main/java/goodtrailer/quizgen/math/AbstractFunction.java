@@ -16,9 +16,6 @@ public abstract class AbstractFunction implements IFunction
     public final List<Interval> range()
     { return range(IMathConstants.DEFAULT_PLACES); }
 
-    public final Solution solution(IFunction otherFunc)
-    { return solution(otherFunc, IMathConstants.DEFAULT_PLACES); }
-
     public final String toString(String variable)
     { return toString(variable, IMathConstants.DEFAULT_PLACES); }
 

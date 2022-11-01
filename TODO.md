@@ -9,7 +9,6 @@
     * 4 perimeter/area of triangle from points
     * 5 **visual** adjacent angles given super angle
     * 6 **visual** complementary angles
-    * 6 **visual** supplementary angles
 
 ### Mid Priority
 * chapter 11
