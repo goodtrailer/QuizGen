@@ -15,7 +15,7 @@ public record Point(double[] components)
             return Result.INVALID;
 
         for (int i = 0; i < components.length; i++)
-            if (!IMathUtils.areEqual(other.components[i], components[i], places))
+            if (!IMathUtils.equals(other.components[i], components[i], places))
                 return Result.INCORRECT;
 
         return Result.CORRECT;
@@ -31,6 +31,21 @@ public record Point(double[] components)
             return false;
 
         return equals(pOther).toBoolean();
+    }
+    
+    public Result tryParseEquals(String other)
+    { return tryParseEquals(other, IMathConstants.DEFAULT_PLACES); }
+    
+    public Result tryParseEquals(String other, int places)
+    {
+        try
+        {
+            return equals(parse(other), places);
+        }
+        catch (NumberFormatException nfe)
+        {
+            return Result.INVALID;
+        }
     }
 
     public int dimensions()

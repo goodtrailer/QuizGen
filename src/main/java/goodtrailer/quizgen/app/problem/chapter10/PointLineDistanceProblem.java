@@ -35,16 +35,6 @@ class PointLineDistanceProblem extends AbstractFrqProblem
     @Override
     public Result checkInput(String input)
     {
-        double inDistance;
-        try
-        {
-            inDistance = IMathUtils.parseFraction(input);
-        }
-        catch (NumberFormatException nfe)
-        {
-            return Result.INVALID;
-        }
-
-        return Result.from(IMathUtils.areEqual(inDistance, distance));
+        return IMathUtils.tryParseFractionEquals(distance, input);
     }
 }

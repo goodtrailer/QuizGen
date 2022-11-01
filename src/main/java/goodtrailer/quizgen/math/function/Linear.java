@@ -58,9 +58,9 @@ public class Linear extends AbstractFunction
         var point = new Point(x, evaluate(x));
         var type = SolutionType.EXISTS;
 
-        if (IMathUtils.areEqual(m, other.m, places))
+        if (IMathUtils.equals(m, other.m, places))
         {
-            boolean same = IMathUtils.areEqual(b, other.b, places);
+            boolean same = IMathUtils.equals(b, other.b, places);
             type = same ? SolutionType.TRUE : SolutionType.DNE;
         }
 
@@ -78,11 +78,11 @@ public class Linear extends AbstractFunction
 
     @Override
     public boolean isConstant(int places)
-    { return IMathUtils.areEqual(m, 0, places); }
+    { return IMathUtils.equals(m, 0, places); }
 
     @Override
     public boolean isZero(int places)
-    { return IMathUtils.areEqual(m, 0, places) && IMathUtils.areEqual(b, 0, places); }
+    { return IMathUtils.equals(m, 0, places) && IMathUtils.equals(b, 0, places); }
 
     @Override
     public List<Interval> domain(int places)

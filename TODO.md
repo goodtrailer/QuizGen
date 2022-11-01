@@ -18,17 +18,10 @@
 * fix font vertical alignment—requires editing font
 
 ### API Improvements
-* imathutils.areequal -> result
-
-* imathutils.areequal (parse + equality) -> result
-* point.equals (parse + equality) -> result
-
 * interval.parse
 * interval.equals -> result
 * interval.equals (parse + equality) -> result
-
 * function.constant
 * function.random constant probability
 * function.random zero probability
-
 * variant image label

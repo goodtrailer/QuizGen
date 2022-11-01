@@ -82,6 +82,7 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
     protected Result checkInput(String string)
     {
         double input;
+        
         try
         {
             input = IMathUtils.parseFraction(string);
@@ -91,9 +92,6 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
             return Result.INVALID;
         }
 
-        boolean isCorrect = IMathUtils.areEqual(input, base)
-                || IMathUtils.areEqual(input, 1.0 / base);
-        
-        return Result.from(isCorrect);
+        return Result.from(IMathUtils.equals(input, base) || IMathUtils.equals(input, 1.0 / base));
     }
 }

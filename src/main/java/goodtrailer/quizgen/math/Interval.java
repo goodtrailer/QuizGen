@@ -33,8 +33,8 @@ public record Interval(double lower, double upper, boolean lInclusive, boolean u
 
     public boolean equals(Interval other, int places)
     {
-        return IMathUtils.areEqual(other.lower, lower, places)
-                && IMathUtils.areEqual(other.upper, upper, places)
+        return IMathUtils.equals(other.lower, lower, places)
+                && IMathUtils.equals(other.upper, upper, places)
                 && lInclusive == other.lInclusive
                 && uInclusive == other.uInclusive;
     }
@@ -53,10 +53,10 @@ public record Interval(double lower, double upper, boolean lInclusive, boolean u
         if (n > upper)
             return 1;
 
-        if (!lInclusive && IMathUtils.areEqual(n, lower, places))
+        if (!lInclusive && IMathUtils.equals(n, lower, places))
             return -1;
 
-        if (!uInclusive && IMathUtils.areEqual(n, upper, places))
+        if (!uInclusive && IMathUtils.equals(n, upper, places))
             return 1;
 
         return 0;

@@ -82,18 +82,6 @@ class TransversalAngleProblem extends AbstractFrqProblem
     @Override
     protected Result checkInput(String input)
     {
-        input = input.trim();
-
-        Point inPoint;
-        try
-        {
-            inPoint = Point.parse(input);
-        }
-        catch (NumberFormatException nfe)
-        {
-            return Result.INVALID;
-        }
-
-        return point.equals(inPoint);
+        return point.tryParseEquals(input);
     }
 }

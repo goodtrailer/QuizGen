@@ -87,11 +87,11 @@ public class Exponential extends AbstractFunction
         var point = new Point(x, evaluate(x));
 
         boolean constants = isConstant(places) && other.isConstant(places)
-                && IMathUtils.areEqual(evaluate(0), other.evaluate(0), places);
-        boolean identical = IMathUtils.areEqual(a, other.a, places)
-                && IMathUtils.areEqual(b, other.b, places)
-                && IMathUtils.areEqual(m, other.m, places)
-                && IMathUtils.areEqual(c, other.c, places);
+                && IMathUtils.equals(evaluate(0), other.evaluate(0), places);
+        boolean identical = IMathUtils.equals(a, other.a, places)
+                && IMathUtils.equals(b, other.b, places)
+                && IMathUtils.equals(m, other.m, places)
+                && IMathUtils.equals(c, other.c, places);
         if (constants || identical)
             type = SolutionType.TRUE;
 
@@ -107,13 +107,13 @@ public class Exponential extends AbstractFunction
     @Override
     public boolean isConstant(int places)
     {
-        return IMathUtils.areEqual(b, 1, places) || IMathUtils.areEqual(m, 0, places)
+        return IMathUtils.equals(b, 1, places) || IMathUtils.equals(m, 0, places)
                 || isZero(places);
     }
 
     @Override
     public boolean isZero(int places)
-    { return IMathUtils.areEqual(a, 0, places) || IMathUtils.areEqual(b, 0, places); }
+    { return IMathUtils.equals(a, 0, places) || IMathUtils.equals(b, 0, places); }
 
     @Override
     public List<Interval> domain(int places)

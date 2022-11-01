@@ -1,6 +1,9 @@
 package goodtrailer.quizgen.math;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import goodtrailer.quizgen.problem.Result;
+
 import java.text.DecimalFormat;
 
 public interface IMathUtils
@@ -28,6 +31,36 @@ public interface IMathUtils
             throw new NumberFormatException("multiple fraction bars");
         }
     }
+    
+    static Result tryParseFractionEquals(double a, String b)
+    { return tryParseFractionEquals(a, b, IMathConstants.DEFAULT_PLACES); }
+    
+    static Result tryParseFractionEquals(double a, String b, int places)
+    {
+        try
+        {
+            return Result.from(equals(a, parseFraction(b), places));
+        }
+        catch (NumberFormatException nfe)
+        {
+            return Result.INVALID;
+        }
+    }
+    
+    static Result tryParseFractionEquals(String a, String b)
+    { return tryParseFractionEquals(a, b, IMathConstants.DEFAULT_PLACES); }
+    
+    static Result tryParseFractionEquals(String a, String b, int places)
+    {
+        try
+        {
+            return tryParseFractionEquals(parseFraction(a), b, places);
+        }
+        catch (NumberFormatException nfe)
+        {
+            return Result.INVALID;
+        }
+    }
 
     static double parsePercentage(String string) throws NumberFormatException
     {
@@ -44,8 +77,38 @@ public interface IMathUtils
 
         return Double.parseDouble(string.substring(0, string.length() - 1)) / 100.;
     }
+    
+    static Result tryParsePercentageEquals(double a, String b)
+    { return tryParsePercentageEquals(a, b, IMathConstants.DEFAULT_PLACES); }
+    
+    static Result tryParsePercentageEquals(double a, String b, int places)
+    {
+        try
+        {
+            return Result.from(equals(a, parsePercentage(b), places));
+        }
+        catch (NumberFormatException nfe)
+        {
+            return Result.INVALID;
+        }
+    }
+    
+    static Result tryParsePercentageEquals(String a, String b)
+    { return tryParsePercentageEquals(a, b, IMathConstants.DEFAULT_PLACES); }
+    
+    static Result tryParsePercentageEquals(String a, String b, int places)
+    {
+        try
+        {
+            return tryParsePercentageEquals(parsePercentage(a), b, places);
+        }
+        catch (NumberFormatException nfe)
+        {
+            return Result.INVALID;
+        }
+    }
 
-    static boolean areEqual(double a, double b, double epsilon)
+    static boolean equals(double a, double b, double epsilon)
     {
         if (Double.isNaN(a))
             return false;
@@ -56,14 +119,14 @@ public interface IMathUtils
         return Math.abs(a - b) <= epsilon;
     }
 
-    static boolean areEqual(double a, double b, int places, double leeway)
-    { return areEqual(a, b, Math.pow(10.0, -places) / (2.0 - leeway)); }
+    static boolean equals(double a, double b, int places, double leeway)
+    { return equals(a, b, Math.pow(10.0, -places) / (2.0 - leeway)); }
 
-    static boolean areEqual(double a, double b, int places)
-    { return areEqual(a, b, places, IMathConstants.DEFAULT_LEEWAY); }
+    static boolean equals(double a, double b, int places)
+    { return equals(a, b, places, IMathConstants.DEFAULT_LEEWAY); }
 
-    static boolean areEqual(double a, double b)
-    { return areEqual(a, b, IMathConstants.DEFAULT_PLACES); }
+    static boolean equals(double a, double b)
+    { return equals(a, b, IMathConstants.DEFAULT_PLACES); }
 
     static String toString(double a, int places)
     {

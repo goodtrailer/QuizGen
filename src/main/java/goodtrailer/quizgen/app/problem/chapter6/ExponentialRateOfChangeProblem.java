@@ -31,16 +31,6 @@ class ExponentialRateOfChangeProblem extends AbstractFrqProblem
     @Override
     protected Result checkInput(String input)
     {
-        double inRate;
-        try
-        {
-            inRate = IMathUtils.parsePercentage(input);
-        }
-        catch (NumberFormatException nfe)
-        {
-            return Result.INVALID;
-        }
-        
-        return Result.from(IMathUtils.areEqual(inRate, exponential.b() - 1));
+        return IMathUtils.tryParsePercentageEquals(exponential.b() - 1, input);
     }
 }
