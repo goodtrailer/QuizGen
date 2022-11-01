@@ -14,8 +14,8 @@ import goodtrailer.quizgen.math.SolutionType;
 // y = ab^(mx + c)
 public class Exponential extends AbstractFunction
 {
-    public static final int DEFAULT_MAX_A = 8;
-    public static final int DEFAULT_MAX_B = 5;
+    public static final int DEFAULT_MAX_A = 10;
+    public static final int DEFAULT_MAX_B = 8;
     public static final int DEFAULT_MAX_M = 4;
     public static final int DEFAULT_MAX_C = 3;
 
@@ -145,10 +145,18 @@ public class Exponential extends AbstractFunction
         var line = new Linear(m, c);
         if (line.isZero())
             return coef;
+        
+        String operator = " \u22C5 ";
+        
+        if (coef.equals("1"))
+        {
+            coef = "";
+            operator = " ";
+        }
 
         String base = String.format(b < 0 ? "(%s)" : "%s", IMathUtils.toString(b, places));
 
-        return String.format("%s \u22C5 %s^(%s)", coef, base, line.toString(variable, places));
+        return String.format("%s%s%s^(%s)", coef, operator, base, line.toString(variable, places));
     }
 
     // ------------------------------------------------------------------------------------- statics

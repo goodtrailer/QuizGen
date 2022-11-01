@@ -98,9 +98,15 @@ public class Linear extends AbstractFunction
 
         if (IMathUtils.areEqual(b, 0, places))
             return IMathUtils.toString(m, places) + variable;
-
-        return (m == 1 ? "" : IMathUtils.toString(m, places)) + variable
-                + (b > 0 ? " + " : " \u2013 ") + IMathUtils.toString(Math.abs(b), places);
+        
+        String coef = IMathUtils.toString(m, places);
+        if (coef.equals("1"))
+            coef = "";
+        
+        String operator = b > 0 ? "+" : "\u2013";
+        String constant = IMathUtils.toString(Math.abs(b), places);
+        
+        return String.format("%s%s %s %s", coef, variable, operator, constant);
     }
 
     // ------------------------------------------------------------------------------------- statics

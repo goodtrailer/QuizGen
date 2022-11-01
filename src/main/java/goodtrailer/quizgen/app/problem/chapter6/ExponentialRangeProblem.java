@@ -18,7 +18,7 @@ class ExponentialRangeProblem extends AbstractMcqProblem
     @Override
     protected String getPrompt()
     {
-        String message = "Describe the range of the exponential equation:\n\n"
+        String message = "Describe the range of the equation:\n\n"
                 + "y = %s";
         
         return String.format(message, exponential.toString());

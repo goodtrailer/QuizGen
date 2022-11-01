@@ -18,6 +18,11 @@ import goodtrailer.quizgen.util.IBooleanUtils;
 class ExponentialTableBaseProblem extends AbstractFrqProblem
 {
     private static final int max_x = 2;
+    
+    private static final int max_a = 3;
+    private static final int max_b = 5;
+    private static final int max_m = 1;
+    private static final int max_c = 3;
 
     private IFunction function;
     private double base;
@@ -31,7 +36,7 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
         while (function.isConstant())
         {
             function = isExponential
-                    ? Exponential.random().withM(IMathUtils.randomInt(1))
+                    ? Exponential.random(max_a, max_b, max_m, max_c)
                     : Linear.random();
         }
         base = isExponential ? ((Exponential) function).b() : 0;

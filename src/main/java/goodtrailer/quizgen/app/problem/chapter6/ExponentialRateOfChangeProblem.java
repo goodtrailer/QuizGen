@@ -7,14 +7,16 @@ import goodtrailer.quizgen.problem.Result;
 
 class ExponentialRateOfChangeProblem extends AbstractFrqProblem
 {
+    private static final double max_a = 5.0;
+    private static final double max_b = 3.0;
+    
     private Exponential exponential;
 
     @Override
     protected void initialize()
     {
-        exponential = Exponential.random();
-        while (exponential.isConstant())
-            exponential = Exponential.random();
+        double b = IMathUtils.randomDouble(0, max_b);
+        exponential = new Exponential(max_a, b, 1, 0);
     }
 
     @Override
@@ -38,6 +40,7 @@ class ExponentialRateOfChangeProblem extends AbstractFrqProblem
         {
             return Result.INVALID;
         }
-        return Result.from(IMathUtils.areEqual(inRate, exponential.b(), 5));
+        
+        return Result.from(IMathUtils.areEqual(inRate, exponential.b() - 1));
     }
 }

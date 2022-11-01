@@ -17,7 +17,7 @@ class ExponentialGrowthTypeProblem extends AbstractMcqProblem
     @Override
     protected String getPrompt()
     {
-        String message = "Describe the growth type of the exponential equation:\n\n"
+        String message = "Describe the growth type of the equation:\n\n"
                 + "y = %s";
         
         return String.format(message, exponential.toString());
