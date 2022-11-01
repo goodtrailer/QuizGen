@@ -30,7 +30,7 @@ public class Main
     public static final float FONT_SIZE = 18.f;
     public static final FontUIResource UI_FONT;
 
-    public static final Dimension DEFAULT_SIZE = new Dimension(600, 400);
+    public static final Dimension DEFAULT_SIZE = new Dimension(600, 600);
     public static final int PADDING = 5;
     public static final int PROBLEM_COUNT = 30;
     public static final int SCROLL_INCREMENT = 32;
