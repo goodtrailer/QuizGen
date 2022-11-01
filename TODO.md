@@ -18,14 +18,10 @@
 * fix font vertical alignment—requires editing font
 
 ### API Improvements
-* result.toBoolean
-* point.equals -> result
-* solution.equals -> result
-* solution.parse
+* imathutils.areequal -> result
 
 * imathutils.areequal (parse + equality) -> result
 * point.equals (parse + equality) -> result
-* solution.equals (parse + equality) -> result
 
 * interval.parse
 * interval.equals -> result

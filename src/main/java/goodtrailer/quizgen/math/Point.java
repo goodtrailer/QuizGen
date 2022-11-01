@@ -11,7 +11,7 @@ public record Point(double[] components)
 
     public Result equals(Point other, int places)
     {
-        if (components.length != other.components.length)
+        if (other == null || components.length != other.components.length)
             return Result.INVALID;
 
         for (int i = 0; i < components.length; i++)

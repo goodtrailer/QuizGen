@@ -1,6 +1,5 @@
 package goodtrailer.quizgen.app.problem.chapter6;
 
-import goodtrailer.quizgen.math.Point;
 import goodtrailer.quizgen.math.Solution;
 import goodtrailer.quizgen.math.SolutionType;
 import goodtrailer.quizgen.math.function.Exponential;
@@ -36,37 +35,6 @@ class ExponentialIntersectionProblem extends AbstractFrqProblem
     @Override
     protected Result checkInput(String input)
     {
-        input = input.trim();
-
-        if (input.isBlank())
-            return Result.INVALID;
-
-        SolutionType inType = SolutionType.valueOf(input, SolutionType.EXISTS);
-        
-        if (inType != solution.type())
-            return Result.INCORRECT;
-        
-        switch (inType)
-        {
-        case DNE:
-        case TRUE:
-            return Result.CORRECT;
-            
-        case EXISTS:
-            Point inPoint;
-            try
-            {
-                inPoint = Point.parse(input);
-            }
-            catch (NumberFormatException nfe)
-            {
-                return Result.INVALID;
-            }
-
-            return solution.point().equals(inPoint);
-            
-        default:
-            throw new IllegalStateException("illegal solution type");
-        }
+        return solution.tryParseEquals(input);
     }
 }
