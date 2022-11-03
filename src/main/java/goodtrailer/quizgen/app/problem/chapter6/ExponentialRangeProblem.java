@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import goodtrailer.quizgen.math.Interval;
+import goodtrailer.quizgen.math.SolutionType;
 import goodtrailer.quizgen.math.function.Exponential;
-import goodtrailer.quizgen.problem.AbstractMcqProblem;
+import goodtrailer.quizgen.math.function.Linear;
+import goodtrailer.quizgen.problem.AbstractMcqPoolProblem;
 
-class ExponentialRangeProblem extends AbstractMcqProblem
+class ExponentialRangeProblem extends AbstractMcqPoolProblem<Interval>
 {
     private Exponential exponential;
 
@@ -23,26 +25,34 @@ class ExponentialRangeProblem extends AbstractMcqProblem
         
         return String.format(message, exponential.toString());
     }
-
+    
     @Override
-    protected Choices getChoices()
+    protected List<Interval> getChoicePool()
     {
-        int correctIndex = -1;
-        var intervals = new ArrayList<Interval>(List.of(
+        var choices = new ArrayList<Interval>(List.of(
                 Interval.real(),
                 Interval.real().withLower(0),
                 Interval.real().withUpper(0)));
-        intervals.add(Interval.point(exponential.evaluate(0)));
-
-        var range = exponential.range().get(0);
-        for (int i = 0; i < intervals.size(); i++)
-            if (range.equals(intervals.get(i)))
-                correctIndex = i;
-
-        var descriptions = new ArrayList<String>();
-        for (var i : intervals)
-            descriptions.add(i.toString());
-
-        return new Choices(descriptions, correctIndex);
+        choices.add(null);
+        
+        var exponent = new Linear(exponential.m(), exponential.c());
+        var solution = exponent.solution(Linear.constant(1));
+        if (solution.type() == SolutionType.EXISTS)
+            choices.add(Interval.point(exponential.evaluate(solution.point().x())));
+        
+        return choices;
+    }
+    
+    @Override
+    protected Interval getAnswer()
+    {
+        var range = exponential.range();
+        return range.isEmpty() ? null : range.get(0);
+    }
+    
+    @Override
+    protected String getDescription(Interval choice)
+    {
+        return choice == null ? SolutionType.DNE.toString() : choice.toString();
     }
 }

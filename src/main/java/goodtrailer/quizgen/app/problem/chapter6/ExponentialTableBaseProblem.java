@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import goodtrailer.quizgen.math.IFunction;
+import goodtrailer.quizgen.math.IMathConstants;
 import goodtrailer.quizgen.math.IMathUtils;
 import goodtrailer.quizgen.math.function.Exponential;
 import goodtrailer.quizgen.math.function.Linear;
@@ -49,7 +50,10 @@ class ExponentialTableBaseProblem extends AbstractFrqProblem
     {
         super.addComponents(components);
 
-        var headers = new String[] { "x", "f(x)" };
+        String input = IMathConstants.DEFAULT_VARIABLE;
+        String output = String.format("f(%s)", IMathConstants.DEFAULT_VARIABLE);
+        var headers = new String[] { input, output };
+        
         var data = new String[2 * max_x + 1][2];
         for (int i = 0, x = -max_x; x <= max_x; i++, x++)
         {

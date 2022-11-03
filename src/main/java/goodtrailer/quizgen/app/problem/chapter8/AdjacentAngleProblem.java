@@ -36,7 +36,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
         while (angleCBD.isConstant())
             angleCBD = Linear.random();
         
-        var angleSum = angleABD.add(angleCBD);
+        var angleSum = angleABD.plus(angleCBD);
         double x = angleSum.solution(Linear.constant(angleABC)).point().x();
         point = new Point(angleABD.evaluate(x), angleCBD.evaluate(x));
     }
@@ -50,7 +50,7 @@ public class AdjacentAngleProblem extends AbstractFrqProblem
                 + "m\u2220ABD = a\u00B0 = (%s)\u00B0\n"
                 + "m\u2220CBD = c\u00B0 = (%s)\u00B0\n\n"
                 + "Find the values of a and c. Give your solution in the form of a point (a, c).";
-        return String.format(message, angleABC, angleABD.toString("x"), angleCBD.toString("x"));
+        return String.format(message, angleABC, angleABD.toString(), angleCBD.toString());
     }
 
     @Override

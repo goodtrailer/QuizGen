@@ -1,7 +1,10 @@
 package goodtrailer.quizgen.math;
 
+import goodtrailer.quizgen.problem.Result;
+
 public record Interval(double lower, double upper, boolean lInclusive, boolean uInclusive)
 {
+
     public static final boolean DEFAULT_LOWER_INCLUSIVE = true;
     public static final boolean DEFAULT_UPPER_INCLUSIVE = false;
 
@@ -31,17 +34,30 @@ public record Interval(double lower, double upper, boolean lInclusive, boolean u
     public Interval withUInclusive(boolean uInclusive)
     { return new Interval(lower, upper, lInclusive, uInclusive); }
 
-    public boolean equals(Interval other, int places)
+    public Result equals(Interval other, int places)
     {
-        return IMathUtils.equals(other.lower, lower, places)
+        if (other == null)
+            return Result.INVALID;
+        
+        return Result.from(
+                IMathUtils.equals(other.lower, lower, places) 
                 && IMathUtils.equals(other.upper, upper, places)
                 && lInclusive == other.lInclusive
-                && uInclusive == other.uInclusive;
+                && uInclusive == other.uInclusive);
     }
 
-    public boolean equals(Interval other)
+    public Result equals(Interval other)
     { return equals(other, IMathConstants.DEFAULT_PLACES); }
 
+    @Override
+    public boolean equals(Object other)
+    {
+        if (!(other instanceof Interval iOther))
+            return false;
+        
+        return equals(iOther).toBoolean();
+    }
+    
     public int contains(double n, int places)
     {
         if (!Double.isFinite(n))
@@ -76,8 +92,11 @@ public record Interval(double lower, double upper, boolean lInclusive, boolean u
     { return toString(IMathConstants.DEFAULT_PLACES); }
 
     public static Interval real()
-    { return new Interval(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, false, false); }
+    { return real; }                    // valid because of immutability
 
     public static Interval point(double n)
     { return new Interval(n, n, true, true); }
+
+    private static final Interval real = new Interval(Double.NEGATIVE_INFINITY,
+            Double.POSITIVE_INFINITY, false, false);
 }

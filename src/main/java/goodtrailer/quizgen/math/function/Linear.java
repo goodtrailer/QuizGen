@@ -67,8 +67,14 @@ public class Linear extends AbstractFunction
         return new Solution(type, point);
     }
     
-    public Linear add(Linear other)
+    public Linear plus(Linear other)
     { return new Linear(m + other.m, b + other.b); }
+    
+    public Linear minus(Linear other)
+    { return new Linear(m - other.m, b - other.b); }
+    
+    public Linear times(double scalar)
+    { return new Linear(scalar * m, scalar * b); }
 
     // ----------------------------------------------------------------------------------- overrides
 

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import goodtrailer.quizgen.math.Interval;
+import goodtrailer.quizgen.math.SolutionType;
 import goodtrailer.quizgen.math.function.Exponential;
-import goodtrailer.quizgen.problem.AbstractMcqProblem;
+import goodtrailer.quizgen.math.function.Linear;
+import goodtrailer.quizgen.problem.AbstractMcqPoolProblem;
 
-class ExponentialDomainProblem extends AbstractMcqProblem
+class ExponentialDomainProblem extends AbstractMcqPoolProblem<Interval>
 {
     private Exponential exponential;
 
@@ -20,25 +22,42 @@ class ExponentialDomainProblem extends AbstractMcqProblem
     {
         String message = "Describe the domain of the exponential equation:\n\n"
                 + "y = %s";
-        
+
         return String.format(message, exponential.toString());
     }
 
     @Override
-    protected Choices getChoices()
+    protected List<Interval> getChoicePool()
     {
-        // domain of an exponential function is always (-inf, inf)
-        int correctIndex = 0;
-        var intervals = new ArrayList<Interval>(List.of(
+        var choices = new ArrayList<Interval>(List.of(
                 Interval.real(),
                 Interval.real().withLower(0),
                 Interval.real().withUpper(0)));
-        intervals.add(Interval.point(exponential.evaluate(0)));
+        choices.add(null);
 
-        var descriptions = new ArrayList<String>();
-        for (var i : intervals)
-            descriptions.add(i.toString());
+        var exponent = new Linear(exponential.m(), exponential.c());
+        var solution = exponent.solution(Linear.constant(0));
+        if (solution.type() == SolutionType.EXISTS)
+        {
+            double bound = solution.point().x();
+            choices.addAll(List.of(
+                    Interval.real().withLower(bound),
+                    Interval.real().withUpper(bound)));
+        }
+        
+        return choices;
+    }
 
-        return new Choices(descriptions, correctIndex);
+    @Override
+    protected Interval getAnswer()
+    {
+        var domain = exponential.domain();
+        return domain.isEmpty() ? null : domain.get(0);
+    }
+
+    @Override
+    protected String getDescription(Interval choice)
+    {
+        return choice == null ? SolutionType.DNE.toString() : choice.toString();
     }
 }

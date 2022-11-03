@@ -6,8 +6,8 @@ import java.util.List;
 public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 {
     private List<WeightedFactory> wFactories = getWeightedFactories();
-    private int[] thresholds = new int[wFactories.size()];
-    private int weightSum = 0;
+    private double[] thresholds = new double[wFactories.size()];
+    private double weightSum = 0;
 
     public AbstractWeightedProblemFactory()
     {
@@ -24,7 +24,7 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
         if (thresholds.length == 0)
             throw new IllegalStateException("no weighted problem factories");
 
-        int x = (int) (Math.random() * weightSum);
+        double x = Math.random() * weightSum;
         int i = Arrays.binarySearch(thresholds, x);
         if (i < 0)
             i = -i - 2;
@@ -33,14 +33,15 @@ public abstract class AbstractWeightedProblemFactory implements IProblemFactory
 
     protected abstract List<WeightedFactory> getWeightedFactories();
 
-    protected record WeightedFactory(IProblemFactory factory, int weight) implements IProblemFactory
+    protected record WeightedFactory(IProblemFactory factory, double weight)
+            implements IProblemFactory
     {
-        public WeightedFactory(IProblemFactory factory, int weight)
+        public WeightedFactory(IProblemFactory factory, double weight)
         {
             this.factory = factory;
             this.weight = weight;
         }
-
+        
         @Override
         public IProblem get()
         { return factory.get(); }

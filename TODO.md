@@ -21,10 +21,10 @@
 * interval.parse
 * interval.equals -> result
 * interval.equals (parse + equality) -> result
-* function.random constant probability
-* function.random zero probability
-* variant image label
+* interval union/intersection (always represented as unions)
+* function.random constant probability BUILDERSSSS
+* function.random zero probability BUILDERSSSS
 
 ### Bug Fixes
-* domain of 0^x
 * intersection of 0^x -> solution support for intervals?
+* growth type of 5 * 0^(-4x) is neither

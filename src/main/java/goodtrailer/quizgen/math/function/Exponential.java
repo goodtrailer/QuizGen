@@ -71,7 +71,7 @@ public class Exponential extends AbstractFunction
 
     public ExponentialGrowthType growthType()
     { return growthType(IMathConstants.DEFAULT_PLACES); }
-    
+
     public Solution solution(Exponential other)
     { return solution(other, IMathConstants.DEFAULT_PLACES); }
 
@@ -98,6 +98,9 @@ public class Exponential extends AbstractFunction
         return new Solution(type, point);
     }
 
+    public Exponential times(double scalar)
+    { return new Exponential(scalar * a, b, m, c); }
+
     // ----------------------------------------------------------------------------------- overrides
 
     @Override
@@ -106,10 +109,7 @@ public class Exponential extends AbstractFunction
 
     @Override
     public boolean isConstant(int places)
-    {
-        return IMathUtils.equals(b, 1, places) || IMathUtils.equals(m, 0, places)
-                || isZero(places);
-    }
+    { return IMathUtils.equals(b, 1, places) || IMathUtils.equals(m, 0, places) || isZero(places); }
 
     @Override
     public boolean isZero(int places)
@@ -118,15 +118,59 @@ public class Exponential extends AbstractFunction
     @Override
     public List<Interval> domain(int places)
     {
+        if (IMathUtils.equals(b, 0, places))
+        {
+            var exponent = new Linear(m, c);
+
+            if (exponent.isZero(places))
+                return List.of();
+
+            if (exponent.isConstant(places))
+                return exponent.evaluate(0) > 0 ? List.of(Interval.real()) : List.of();
+
+            var solution = exponent.solution(Linear.constant(0), places);
+
+            switch (solution.type())
+            {
+            case DNE:
+                return List.of();
+
+            case TRUE:
+                return List.of(Interval.real());
+
+            case EXISTS:
+                double bound = solution.point().x();
+                return List.of(m < 0
+                        ? Interval.real().withUpper(bound)
+                        : Interval.real().withLower(bound));
+            }
+
+            return List.of(Interval.real());
+        }
+
         return List.of(Interval.real());
     }
 
     @Override
     public List<Interval> range(int places)
     {
+        if (IMathUtils.equals(b, 0, places))
+        {
+            var exponent = new Linear(m, c);
+            if (exponent.isConstant())
+            {
+                if (exponent.evaluate(0) < 0 || exponent.isZero())
+                    return List.of();
+            }
+            else
+            {
+                return List.of(Interval.point(0));
+            }
+        }
+        
         if (isConstant())
             return List.of(Interval.point(evaluate(0)));
-        
+
         if (a > 0)
             return List.of(Interval.real().withLower(0));
         else
@@ -136,7 +180,7 @@ public class Exponential extends AbstractFunction
     @Override
     public String toString(String variable, int places)
     {
-        if (isZero(places))
+        if (isZero(places) && !IMathUtils.equals(b, 0, places))
             return "0";
 
         String coef = IMathUtils.toString(a, places);
@@ -144,9 +188,9 @@ public class Exponential extends AbstractFunction
         var line = new Linear(m, c);
         if (line.isZero())
             return coef;
-        
+
         String operator = " \u22C5 ";
-        
+
         if (coef.equals("1"))
         {
             coef = "";
@@ -171,7 +215,7 @@ public class Exponential extends AbstractFunction
 
     public static Exponential random()
     { return random(DEFAULT_MAX_A, DEFAULT_MAX_B, DEFAULT_MAX_M, DEFAULT_MAX_C); }
-    
+
     public static Exponential constant(double constant)
     { return new Exponential(constant, 1, 0, 0); }
 }

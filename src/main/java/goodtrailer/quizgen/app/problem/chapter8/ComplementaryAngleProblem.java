@@ -27,7 +27,7 @@ public class ComplementaryAngleProblem extends AbstractFrqProblem
         while (angleB.isConstant())
             angleB = Linear.random();
         
-        var angleSum = angleA.add(angleB);
+        var angleSum = angleA.plus(angleB);
         double x = angleSum.solution(Linear.constant(90)).point().x();
         point = new Point(angleA.evaluate(x), angleB.evaluate(x));
     }
@@ -40,7 +40,7 @@ public class ComplementaryAngleProblem extends AbstractFrqProblem
                 + "m\u2220A = a\u00B0 = (%s)\u00B0\n"
                 + "m\u2220B = b\u00B0 = (%s)\u00B0\n\n"
                 + "Find the values of a and b. Give your solution in the form of a point (a, b).";
-        return String.format(message, angleA.toString("x"), angleB.toString("x"));
+        return String.format(message, angleA.toString(), angleB.toString());
     }
 
     @Override

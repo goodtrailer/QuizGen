@@ -84,7 +84,12 @@ public interface IMathUtils
             return false;
 
         if (!Double.isFinite(a))
-            return a == b;
+        {
+            if (Double.isInfinite(a) && Double.isInfinite(b))
+                return (a < 0) == (b < 0);
+            else
+                return a == b;
+        }
 
         return Math.abs(a - b) <= epsilon;
     }
