@@ -59,7 +59,7 @@ public class Exponential extends AbstractFunction
 
     public ExponentialGrowthType growthType(int places)
     {
-        if (isConstant() || b < 0)
+        if (isConstant() || b < 0 || IMathUtils.equals(b, 0, places))
             return ExponentialGrowthType.NEITHER;
 
         boolean isGrowth = m > 0;

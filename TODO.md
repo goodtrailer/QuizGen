@@ -27,4 +27,3 @@
 
 ### Bug Fixes
 * intersection of 0^x -> solution support for intervals?
-* growth type of 5 * 0^(-4x) is neither
